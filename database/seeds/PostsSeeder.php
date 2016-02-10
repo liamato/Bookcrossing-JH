@@ -5,12 +5,6 @@ use App\Post;
 use App\School;
 use App\Category;
 
-function d()
-{
-    array_map(function ($x) {
-        (new Illuminate\Support\Debug\Dumper)->dump($x);
-    }, func_get_args());
-}
 
 class PostsSeeder extends Seeder
 {

@@ -41,6 +41,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
 $factory->define(App\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->sentence(2),
+        'slug' => $faker->lexify('????????????????????????'),
     ];
 });
 
@@ -62,5 +63,14 @@ $factory->define(App\School::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'slug' => $faker->word,
+    ];
+});
+
+$factory->define(App\Book::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->sentence(),
+        'author' => $faker->name,
+        'catched' => rand(0, 1),
+        'checked' => rand(0, 1),
     ];
 });
