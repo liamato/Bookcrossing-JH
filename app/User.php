@@ -35,11 +35,34 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token', 'super'];
+    protected $hidden = ['email', 'password', 'remember_token', 'super', 'created_at', 'updated_at'];
 
 
     public function school()
     {
         return $this->belongsTo(School::class);
+    }
+
+    public function isSuper()
+    {
+        return $this->super;
+    }
+
+    public function inSchool(School $school = null)
+    {
+        if (!$school) {
+            $school = \App::make(School::class);
+        }
+        return $school === $this->school();
+    }
+
+    public function scopebyMail($q, $mail)
+    {
+        return $q->where('email',$mail)->firstOrFail();
+    }
+
+    public function scopebySchool($q, $school)
+    {
+        return $q->where('school_id', School::where((is_numeric($school) ? 'id' : 'slug'), $school)->firstOrFail()->id);
     }
 }

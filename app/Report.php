@@ -14,4 +14,9 @@ class Report extends Model
     {
     	return $this->belongsTo(School::class);
     }
+
+    public function scopebySchool($q, $school)
+    {
+        return $q->where('school_id', School::where((is_numeric($school) ? 'id' : 'slug'), $school)->firstOrFail()->id);
+    }
 }

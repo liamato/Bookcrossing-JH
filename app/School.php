@@ -10,6 +10,11 @@ class School extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
+
     public function users()
     {
     	return $this->hasMany(User::class);
@@ -33,5 +38,10 @@ class School extends Model
     public function videos()
     {
     	return $this->hasMany(Video::class);
+    }
+
+    static public function bySlug($slug, $with = [])
+    {
+        return static::with($with)->where('slug', $slug)->firstOrFail();
     }
 }
