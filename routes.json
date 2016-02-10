@@ -1,0 +1,376 @@
+{
+	"GET": {
+		"/": "home",
+		"/loguin": "loguin-form",
+		"/logout": "logout-form",
+		"/@school-slug": {
+			"/": "home-school",
+			"/news": "news-school",
+			"/list": "books-school",
+			"/capture": "capture-book-school",
+			"/liberate": "liberate-book-school",
+			"/register": "register-book-school",
+			"/forum/@?category-slug": "forum-school",
+			"/book(tube|trailer)": {
+				"/": "list-video-school",
+				"/add": "add-video-school-form"
+			},
+			"/admin": {
+				"/": "home-admin-school",
+				"/add": "add-admin-school-form",
+				"/edit/@?id": "edit-admin-school-form",
+				"/remove/@?id": "remove-admin-school-form",
+
+				"/news": {
+					"/": "home-news",
+					"/add": "add-news-form",
+					"/edit/@?id": "edit-news-form",
+					"/remove/@?id": "remove-news-form"
+				},
+				"/forum": {
+					"/": "home-admin-forum",
+					"/add": "add-admin-forum-form",
+					"/edit/@?id": "edit-admin-forum-form",
+					"/remove/@?id": "remove-admin-forum-form"
+				},
+				"/book(tube|trailer)": {
+					"/": "home-admin-video",
+					"/add": "add-admin-video-form",
+					"/edit/@?id": "edit-admin-video-form",
+					"/remove/@?id": "remove-admin-video-form"
+				},
+				// Alias
+				"/logout": "/logout"
+			},
+			// Alias
+			"/loguin": "/loguin"
+		},
+		"/admin": {
+			"/": "admin-home",
+			"/add": "add-admin-form",
+			"/edit/@?id": "edit-admin-form",
+			"/remove/@?id": "remove-admin-form",
+			"/school": {
+				"/": "admin-school-home",
+				"/add": "admin-school-add-form",
+				"/edit/@?id": "admin-school-edit-form",
+				"/remove/@?id": "admin-school-remove-form"
+			},
+			// Alias
+			"/profile": {
+				"/": "/admin/edit/$self-id",
+				"/remove": "/admin/remove/$self-id"
+			},
+			// Alias
+			"/logout": "/logout"
+		},
+
+		"/api": {
+			"/v1": {
+				"/book": {
+					"/": "list-default",
+					"/@{#*}": "item-byId"
+				},
+				"/category": {
+					"/": "list-default",
+					"/@{#*}": "item-byId",
+					"/@slug": "item-bySlug"
+				},
+				"/post": {
+					"/": "list-default",
+					"/@{#*}": "item-byId"
+				},
+				"/news": {
+					"/": "list-default",
+					"/@{#*}": "item-byId"
+				},
+				"/school": {
+					"/": "list-default",
+					"/@{#*}": {
+						"/": "item-byId",
+						"/book": {
+							"/": "list-bySchoolId-default",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/category": {
+							"/": "list-bySchoolId-default",
+							"/@{#*}": "item-bySchoolId-byId",
+							"/@slug": "item-bySchoolId-bySlug"
+						},
+						"/post": {
+							"/": "list-bySchoolId-default",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/news": {
+							"/": "list-bySchoolId-default",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/user": {
+							"/": "list-bySchoolId-default",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/video": {
+							"/": "list-bySchoolId-default",
+							"/@{#*}": "item-bySchoolId-byId"
+						}
+					},
+					"/@slug": {
+						"/": "item-bySlug",
+						"/book": {
+							"/": "list-bySchoolSlug-default",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/category": {
+							"/": "list-bySchoolSlug-default",
+							"/@{#*}": "item-bySchoolSlug-byId",
+							"/@slug": "item-bySchoolSlug-bySlug"
+						},
+						"/post": {
+							"/": "list-bySchoolSlug-default",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/news": {
+							"/": "list-bySchoolSlug-default",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/user": {
+							"/": "list-bySchoolSlug-default",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/video": {
+							"/": "list-bySchoolSlug-default",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						}
+					}
+				},
+				"/user": {
+					"/": "list-default",
+					"/@{#*}": "item-byId"
+				},
+				"/video": {
+					"/": "list-default",
+					"/@{#*}": "item-byId"
+				}
+			}
+		}
+	},
+
+
+	"POST": {
+		"/loguin": "loguin-functionality",
+		"/api": {
+			"/v1": {
+				"/book": "create-book",
+				"/category": "create-category",
+				"/post": "create-post",
+				"/news": "create-new(report)",
+				"/school": {
+					"/": "create-school",
+					"/@{#*}": {
+						"/book": "create-bySchoolId-book",
+						"/category": "create-bySchoolId-category",
+						"/post": "create-bySchoolId-post",
+						"/news": "create-bySchoolId-new(report)",
+						"/user": "create-bySchoolId-user",
+						"/video": "create-bySchoolId-video"
+					},
+					"/@slug": {
+						"/book": "create-bySchoolSlug-book",
+						"/category": "create-bySchoolSlug-category",
+						"/post": "create-bySchoolSlug-post",
+						"/news": "create-bySchoolSlug-new(report)",
+						"/user": "create-bySchoolSlug-user",
+						"/video": "create-bySchoolSlug-video"
+					}
+				},
+				"/user": "create-user",
+				"/video": "create-video"
+			}
+		}
+	},
+
+
+	"PUT": {
+		"/api": {
+			"/v1": {
+				"/book": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				},
+				"/category": {
+					"/": "list-items",
+					"/@{#*}": "item-byId",
+					"/@slug": "item-bySlug"
+				},
+				"/post": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				},
+				"/news": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				},
+				"/school": {
+					"/": "list-items",
+					"/@{#*}": {
+						"/": "item-byId",
+						"/book": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/category": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId",
+							"/@slug": "item-bySchoolId-bySlug"
+						},
+						"/post": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/news": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/user": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/video": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						}
+					},
+					"/@slug": {
+						"/": "item-bySlug",
+						"/book": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/category": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId",
+							"/@slug": "item-bySchoolSlug-bySlug"
+						},
+						"/post": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/news": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/user": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/video": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						}
+					}
+				},
+				"/user": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				},
+				"/video": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				}
+			}
+		}
+	},
+
+
+	"DELETE": {
+		"/logout": "logout-functionality",
+		"/api": {
+			"/v1": {
+				"/book": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				},
+				"/category": {
+					"/": "list-items",
+					"/@{#*}": "item-byId",
+					"/@slug": "item-bySlug"
+				},
+				"/post": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				},
+				"/news": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				},
+				"/school": {
+					"/": "list-items",
+					"/@{#*}": {
+						"/": "item-byId",
+						"/book": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/category": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId",
+							"/@slug": "item-bySchoolId-bySlug"
+						},
+						"/post": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/news": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/user": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						},
+						"/video": {
+							"/": "list-bySchoolId-items",
+							"/@{#*}": "item-bySchoolId-byId"
+						}
+					},
+					"/@slug": {
+						"/": "item-bySlug",
+						"/book": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/category": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId",
+							"/@slug": "item-bySchoolSlug-bySlug"
+						},
+						"/post": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/news": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/user": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						},
+						"/video": {
+							"/": "list-bySchoolSlug-items",
+							"/@{#*}": "item-bySchoolSlug-byId"
+						}
+					}
+				},
+				"/user": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				},
+				"/video": {
+					"/": "list-items",
+					"/@{#*}": "item-byId"
+				}
+			}
+		}
+	},
+}
