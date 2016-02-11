@@ -10,197 +10,109 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::group(['prefix' => 'api/v1'], function(){
+
+	Route::get('/{a}/news', function($a) {
+		$news = \App\Report::where('school_id', \App\School::bySlug($a)->id)->get();
+		if (!$news instanceof \Illuminate\Support\Collection){
+			$news = collect($news);
+		}
+		return $news;
+	});
+
+	Route::get('/{a}/books', function($a) {
+		$news = \App\Book::where('school_id', \App\School::bySlug($a)->id)->get();
+		if (!$news instanceof \Illuminate\Support\Collection){
+			$news = collect($news);
+		}
+		return $news;
+	});
+
+	Route::get('/{a}/books/add', function($a) {
+		$news = \App\Book::where('school_id', \App\School::bySlug($a)->id)->get();
+		if (!$news instanceof \Illuminate\Support\Collection){
+			$news = collect($news);
+		}
+		return $news;
+	});
+
+	Route::get('/{a}/posts', function($a) {
+		$news = \App\Post::where('school_id', \App\School::bySlug($a)->id)->get();
+		if (!$news instanceof \Illuminate\Support\Collection){
+			$news = collect($news);
+		}
+		return $news;
+	});
+
+	Route::get('/school/', function () {
+		return \App\School::all();
+	});
+
+	Route::get('/school/{a}', function ($a) {
+		return \App\School::bySlug($a, ['books', 'categories', 'news', 'posts', 'videos']);
+	});
+});
+
+
+Route::get('/{school?}/{b?}/{c?}/{d?}/{e?}', function () {
+	return view('test.react', ['ola' => 'config = {ola: "ola"}']);
+});
 
 Route::get('/', [
-	'uses' => '',
+	'uses' => 'GuestViewsController@schools',
 	'as' => 'home',
 ]);
 
+/*
+Route::get('/', function () {
+	return view('welcome');
+});
+*/
 
-/*  --PerSchool routes--  */
-Route::group(['as' => 'school_', 'prefix' => '{school}'], function(){
+Route::group(['as' => 'school_', 'middleware' => 'school', 'prefix' => '{school}'], function(){
 
 	Route::get('/', [
-		'uses' => '',
+		'uses' => 'GuestViewsController@home',
 		'as' => 'home',
 	]);
 
 	Route::get('/news', [
-		'uses' => '',
+		'uses' => 'GuestViewsController@news',
 		'as' => 'news',
 	]);
 
 	Route::get('/list', [
-		'uses' => '',
+		'uses' => 'GuestViewsController@listing',
 		'as' => 'list',
 	]);
 
+	Route::get('/capture', [
+		'uses' => 'GuestViewsController@capture',
+		'as' => 'capture',
+	]);
+
 	Route::get('/liberate', [
-		'uses' => '',
+		'uses' => 'GuestViewsController@liberate',
 		'as' => 'liberate',
 	]);
 
 	Route::get('/register', [
-		'uses' => '',
+		'uses' => 'GuestViewsController@register',
 		'as' => 'register',
 	]);
 
-	Route::get('/forum', [
-		'uses' => '',
+	Route::get('/forum/{category?}', [
+		'uses' => 'GuestViewsController@forum',
 		'as' => 'forum',
 	]);
 
 	Route::get('/trailer', [
-		'uses' => '',
+		'uses' => 'GuestViewsController@trailer',
 		'as' => 'trailer',
 	]);
 
 	Route::get('/tube', [
-		'uses' => '',
+		'uses' => 'GuestViewsController@tube',
 		'as' => 'tube',
 	]);
-
-	/*  --Admin routes--  */
-	Route::group(['as' => '', 'middleware' => 'admin', 'prefix' => 'admin'], function(){
-		Route::get('/', [
-			'uses' => '',
-			'as' => 'home',
-		]);
-
-		Route::get('/add', [
-			'uses' => '',
-			'as' => 'add',
-		]);
-
-		Route::get('/edit/{id?}', [
-			'uses' => '',
-			'as' => 'edit',
-		]);
-
-		Route::get('/remove', [
-			'uses' => '',
-			'as' => 'remove/{id?}',
-		]);
-
-		/*  --Admin profile routes--  */
-		Route::group(['as' => 'profile_', 'prefix' => 'profile'], function(){
-			Route::get('/', [
-				'uses' => '',
-				'as' => 'home',
-			]);
-		});
-
-		/*  --Admin news routes--  */
-		Route::group(['as' => 'news_', 'prefix' => 'news'], function(){
-			Route::get('/', [
-				'uses' => '',
-				'as' => 'home',
-			]);
-
-			Route::get('/add', [
-				'uses' => '',
-				'as' => 'add',
-			]);
-
-			Route::get('/edit/{id?}', [
-				'uses' => '',
-				'as' => 'edit',
-			]);
-
-			Route::get('/remove/{id?}', [
-				'uses' => '',
-				'as' => 'remove',
-			]);
-		});
-
-		/*  --Admin forum routes--  */
-		Route::group(['as' => 'forum_', 'prefix' => 'forum'], function(){
-			Route::get('/', [
-				'uses' => '',
-				'as' => 'home',
-			]);
-
-			Route::get('/add', [
-				'uses' => '',
-				'as' => 'add',
-			]);
-
-			Route::get('/edit/{id?}', [
-				'uses' => '',
-				'as' => 'edit',
-			]);
-
-			Route::get('/remove/{id?}', [
-				'uses' => '',
-				'as' => 'remove',
-			]);
-		});
-
-		Route::get('/trailer', [
-			'uses' => '',
-			'as' => 'trailer',
-		]);
-
-		Route::get('/tube', [
-			'uses' => '',
-			'as' => 'tube',
-		]);
-	});
-
-});
-
-
-
-/*  --SuperAdmin routes--  */
-Route::group(['as' => 'admin_', 'middleware' => 'superadmin', 'prefix' => 'admin'], function(){
-	Route::get('/', [
-		'uses' => '',
-		'as' => 'home',
-	]);
-
-	Route::get('/add', [
-		'uses' => '',
-		'as' => 'add',
-	]);
-
-	Route::get('/edit/{id?}', [
-		'uses' => '',
-		'as' => 'edit',
-	]);
-
-	Route::get('/remove/{id?}', [
-		'uses' => '',
-		'as' => 'remove',
-	]);
-
-	/*  --SuperAdmin profile routes--  */
-	Route::group(['as' => 'profile_', 'prefix' => 'profile'], function(){
-		Route::get('/', [
-			'uses' => '',
-			'as' => 'home',
-		]);
-	});
-
-	/*  --SuperAdmin school routes--  */
-	Route::group(['as' => 'school_', 'prefix' => 'school'], function(){
-		Route::get('/', [
-			'uses' => '',
-			'as' => 'home',
-		]);
-
-		Route::get('/add', [
-			'uses' => '',
-			'as' => 'add',
-		]);
-
-		Route::get('/edit/{id?}', [
-			'uses' => '',
-			'as' => 'edit',
-		]);
-
-		Route::get('/remove/{id?}', [
-			'uses' => '',
-			'as' => 'remove',
-		]);
-	});
 });

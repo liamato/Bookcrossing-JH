@@ -26,6 +26,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
 
+        $router->pattern('id', '[0-9]+');
+        $router->pattern('scId', '[0-9]+');
+
         parent::boot($router);
     }
 
@@ -38,6 +41,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map(Router $router)
     {
         $router->group(['namespace' => $this->namespace], function ($router) {
+            require app_path('Http/routesApi.php');
             require app_path('Http/routes.php');
         });
     }
