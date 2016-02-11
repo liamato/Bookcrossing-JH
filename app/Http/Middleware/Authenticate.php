@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Route;
+use App;
+use App\School;
 
 class Authenticate
 {
@@ -34,12 +37,24 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
+        $school = App::make(School::class);
         if ($this->auth->guest()) {
             if ($request->ajax()) {
-                return response('Unauthorized.', 401);
+                return response(['response' => 'Unautorized', 'responseCode' => 401], 401);
             } else {
-                return redirect()->guest('auth/login');
+                return redirect()->guest(route('school_admin_login', $school->slug));
             }
+        }
+        if (!$this->auth->user()->inSchool($school)) {
+            $params = [];
+            foreach(Route::current()->parameterNames() as $order => $pm){
+                if ($pm == 'school') {
+                    $params[$order] = $school->slug;
+                } else {
+                    $params[$order] = Route::current()->getParameter($pm);
+                }
+            }
+            return redirect()->route(Route::current()->getName(), $params);
         }
 
         return $next($request);
