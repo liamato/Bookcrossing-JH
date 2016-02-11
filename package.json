@@ -11,6 +11,12 @@
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-router": "~1.0.0-rc3",
-    "history": "~1.12.5"
+    "history": "~1.12.5",
+    "superagent": "~1.4.0",
+    "immutable": "~3.7.5",
+    "uid": "0.0.2"
+  },
+  "scripts": {
+    "build": "browserify -t babelify resources/assets/react/app.js > public/js/app.js"
   }
 }
