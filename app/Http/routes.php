@@ -67,7 +67,7 @@ Route::get('/', [
 Route::get('/', function () {
 	return view('welcome');
 });
-*/
+
 
 Route::group(['as' => 'school_', 'middleware' => 'school', 'prefix' => '{school}'], function(){
 
@@ -116,3 +116,4 @@ Route::group(['as' => 'school_', 'middleware' => 'school', 'prefix' => '{school}
 		'as' => 'tube',
 	]);
 });
+*/
