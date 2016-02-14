@@ -25,7 +25,7 @@ class SchoolServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        \App::bindShared(School::class, function(){
+        $this->app->bindShared(School::class, function(){
             if (Route::current()->hasParameter('school')){
                 return School::bySlug(Route::current()->getParameter('school'));
             }
