@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Route;
 use RouteOptions as Options;
 
 class RouteOptions
@@ -19,6 +20,9 @@ class RouteOptions
         $options = Route::current()->getParameter('options');
         
         if ($options) {
+            
+            $options = substr($options, 1, -1);
+
             if (strpos($options, '=') === false) {
                 foreach (explode(',', $options) as $option) {
                     Options::push($option);                    
@@ -26,7 +30,7 @@ class RouteOptions
             } else {
                 foreach (explode(',', $options) as $key => $value) {
                     $option = explode('=', $option);
-                    Options::put($option[0],$option[1])
+                    Options::put($option[0],$option[1]);
                 }
             }
             Route::current()->forgetParameter('options');

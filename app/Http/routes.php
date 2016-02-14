@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+/*
 Route::group(['prefix' => 'api/v1'], function(){
 
 	Route::get('/{a}/news', function($a) {
@@ -52,7 +53,7 @@ Route::group(['prefix' => 'api/v1'], function(){
 		return \App\School::bySlug($a, ['books', 'categories', 'news', 'posts', 'videos']);
 	});
 });
-
+*/
 
 Route::get('/{school?}/{b?}/{c?}/{d?}/{e?}', function () {
 	return view('test.react', ['ola' => 'config = {ola: "ola"}']);

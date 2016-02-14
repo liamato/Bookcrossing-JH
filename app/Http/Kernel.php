@@ -32,5 +32,6 @@ class Kernel extends HttpKernel
 
         'superadmin' => \App\Http\Middleware\RedirectIfNotSuperUser::class,
         'school' => \App\Http\Middleware\EraseSchoolFromUri::class,
+        'options' => \App\Http\Middleware\RouteOptions::class,
     ];
 }

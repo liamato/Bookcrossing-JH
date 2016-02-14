@@ -11,10 +11,95 @@
 |
 */
 
-Route::group(['prefix' => '/api', 'as' => 'api_'], function(){
+Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 
 	// @GET
 
+	Route::get('/book{options?}', [
+		'uses' => 'ApiBookController@index',
+		'as' => 'api.book.index'
+	]);
+
+	Route::get('/book{options?}/{book}', [
+		'uses' => 'ApiBookController@show',
+		'as' => 'api.book.show'
+	]);
+
+	Route::resource('/book', 'ApiBookController', ['except' => ['create', 'edit']]);
+
+
+
+	Route::get('/catrgory{options?}', [
+		'uses' => 'ApiCategoryController@index',
+		'as' => 'api.catrgory.index'
+	]);
+
+	Route::get('/catrgory{options?}/{catrgory}', [
+		'uses' => 'ApiCategoryController@show',
+		'as' => 'api.catrgory.show'
+	]);
+	
+	Route::resource('/category', 'ApiCategoryController', ['except' => ['create', 'edit']]);
+
+
+
+	Route::get('/post{options?}', [
+		'uses' => 'ApiPostController@index',
+		'as' => 'api.post.index'
+	]);
+
+	Route::get('/post{options?}/{post}', [
+		'uses' => 'ApiPostController@show',
+		'as' => 'api.post.show'
+	]);
+
+	Route::resource('/post', 'ApiPostController', ['except' => ['create', 'edit']]);
+
+
+
+	Route::get('/news{options?}', [
+		'uses' => 'ApiReportController@index',
+		'as' => 'api.news.index'
+	]);
+
+	Route::get('/news{options?}/{news}', [
+		'uses' => 'ApiReportController@show',
+		'as' => 'api.news.show'
+	]);
+
+	Route::resource('/news', 'ApiReportController', ['except' => ['create', 'edit']]);
+
+
+	Route::group(['middleware' => 'auth'], function(){
+
+		Route::get('/user{options?}', [
+			'uses' => 'ApiUserController@index',
+			'as' => 'api.user.index'
+		]);
+
+		Route::get('/user{options?}/{user}', [
+			'uses' => 'ApiUserController@show',
+			'as' => 'api.user.show'
+		]);
+
+		Route::resource('/user', 'ApiUserController', ['except' => ['create', 'edit']]);
+
+	});
+
+
+	Route::get('/video{options?}', [
+		'uses' => 'ApiVideoController@index',
+		'as' => 'api.video.index'
+	]);
+
+	Route::get('/video{options?}/{video}', [
+		'uses' => 'ApiVideoController@show',
+		'as' => 'api.video.show'
+	]);
+
+	Route::resource('/video', 'ApiVideoController', ['except' => ['create', 'edit']]);
+
+/*
 	Route::get('/book/{id?}', [
 		'uses' => function($id=null) {
 			if (!is_null($id)) {
@@ -253,6 +338,7 @@ Route::group(['prefix' => '/api', 'as' => 'api_'], function(){
 				},
 				'as' => 'video'
 			]);
+
 		});
 	});
 
@@ -292,10 +378,10 @@ Route::group(['prefix' => '/api', 'as' => 'api_'], function(){
 		},
 		'as' => 'video'
 	]);
-
+*/
 
 	// @POST
-
+/*
 	Route::post('/book', [
 		'uses' => function($id=null) {
 			if (!is_null($id)) {
@@ -498,7 +584,7 @@ Route::group(['prefix' => '/api', 'as' => 'api_'], function(){
 			});
 		});
 	});
-
+*/
 
 	// @PUT
 /*
