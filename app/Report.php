@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
 	protected $table = 'news';
 
     protected $fillable = ['title', 'body', 'author'];
+
+    protected $relationship = ['school' => 'school_id'];
 
     public function school()
     {

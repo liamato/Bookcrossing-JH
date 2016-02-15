@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     protected $fillable = ['title', 'body', 'author'];
 
     protected $hidden = ['school_id', 'checked'];
+
+    protected $relationship = ['school' => 'school_id', 'category' => 'category_id', 'childs' => '', 'parent' => 'parent'];
 
     public function category()
     {

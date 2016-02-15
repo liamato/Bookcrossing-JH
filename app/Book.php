@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
     protected $fillable = ['title', 'author'];
 
     protected $hidden = ['created_at', 'updated_at', 'checked'];
+
+    protected $relationship = ['school' => 'school_id'];
 
     public function school()
     {

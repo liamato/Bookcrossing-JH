@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
     protected $fillable = ['code'];
 
     protected $hidden = ['updated_at'];
+
+    protected $relationship = ['school' => 'school_id'];
 
     public function school()
     {
