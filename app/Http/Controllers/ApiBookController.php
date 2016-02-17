@@ -5,19 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use RouteOptions as Options;
 use App\Book;
+use App\School;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class ApiBookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return Book::all()->each(function($book){$book->loads(Options::all());});
+        if ($school->isEmpty()) {
+            $book = Book::all();
+        } else {
+            $book = Book::bySchool($school->id)->get();
+        }
+        return $book->each(function($book){$book->loads(Options::all());});
     }
 
     /**
@@ -47,9 +58,14 @@ class ApiBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(School $school, $id)
     {
-        return Book::findOrFail($id)->loads(Options::all());
+        if ($school->isEmpty()) {
+            $book = Book::findOrFail($id);
+        } else {
+            $book = Book::bySchool($school->id)->findOrFail($id);
+        }
+        return $book->loads(Options::all());
     }
 
     /**

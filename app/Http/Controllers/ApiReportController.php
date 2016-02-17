@@ -10,14 +10,24 @@ use App\Http\Controllers\Controller;
 
 class ApiReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return Report::all()->each(function($report){$report->loads(Options::all());});
+        if ($school->isEmpty()) {
+            $report = Report::all();
+        } else {
+            $report = Report::bySchool($school->id)->get();
+        }
+        return $report->each(function($report){$report->loads(Options::all());});
     }
 
     /**
@@ -47,9 +57,14 @@ class ApiReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(School $school, $id)
     {
-        return Report::findOrFail($id)->loads(Options::all());
+        if ($school->isEmpty()) {
+            $report = Report::findOrFail($id);
+        } else {
+            $report = Report::bySchool($school->id)->findOrFail($id);
+        }
+        return $report->loads(Options::all());
     }
 
     /**

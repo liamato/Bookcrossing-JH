@@ -34,5 +34,10 @@ abstract class Model extends Eloquent {
 		return $this->load($with);
 	}
 
+	public function isEmpty()
+	{
+		return empty($this->original) && !$this->isDirty();
+	}
+
 
 }

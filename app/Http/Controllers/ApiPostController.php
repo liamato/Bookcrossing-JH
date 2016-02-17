@@ -10,14 +10,23 @@ use App\Http\Controllers\Controller;
 
 class ApiPostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show', 'store']]);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return Post::all()->each(function($post){$post->loads(Options::all());});
+        if ($school->isEmpty()) {
+            $post = Post::all();
+        } else {
+            $post = Post::bySchool($school->id)->get();
+        }
+        return $post->each(function($post){$post->loads(Options::all());});
     }
 
     /**
@@ -47,9 +56,14 @@ class ApiPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(School $school, $id)
     {
-        return Post::findOrFail($id)->loads(Options::all());
+        if ($school->isEmpty()) {
+            $post = Post::findOrFail($id);
+        } else {
+            $post = Post::bySchool($school->id)->findOrFail($id);
+        }
+        return $post->loads(Options::all());
     }
 
     /**

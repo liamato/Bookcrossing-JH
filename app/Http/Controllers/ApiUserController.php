@@ -10,14 +10,24 @@ use App\Http\Controllers\Controller;
 
 class ApiUserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return User::all()->each(function($user){$user->loads(Options::all());});
+        if ($school->isEmpty()) {
+            $user = User::all();
+        } else {
+            $user = User::bySchool($school->id)->get();
+        }
+        return $user->each(function($user){$user->loads(Options::all());});
     }
 
     /**
@@ -47,9 +57,14 @@ class ApiUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(School $school, $id)
     {
-        return User::findOrFail($id)->loads(Options::all());
+        if ($school->isEmpty()) {
+            $user = User::findOrFail($id);
+        } else {
+            $user = User::bySchool($school->id)->findOrFail($id);
+        }
+        return $user->loads(Options::all());
     }
 
     /**
