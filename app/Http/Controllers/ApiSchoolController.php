@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use RouteOptions as Options;
+use App\School;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +17,7 @@ class ApiSchoolController extends Controller
      */
     public function index()
     {
-        //
+        return School::all()->each(function($school){$school->loads(Options::all());});
     }
 
     /**
@@ -47,7 +49,10 @@ class ApiSchoolController extends Controller
      */
     public function show($id)
     {
-        //
+        if (is_numeric($id)) {
+            return School::findOrFail($id)->loads(Options::all());
+        }
+        return School::bySlug($id)->loads(Options::all());
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use RouteOptions as Options;
 use App\Report;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,7 @@ class ApiReportController extends Controller
      */
     public function index()
     {
-        return Report::all();
+        return Report::all()->each(function($report){$report->loads(Options::all());});
     }
 
     /**
@@ -48,7 +49,7 @@ class ApiReportController extends Controller
      */
     public function show($id)
     {
-        return Report::findOrFail($id);
+        return Report::findOrFail($id)->loads(Options::all());
     }
 
     /**

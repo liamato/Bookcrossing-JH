@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use RouteOptions as Options;
 use App\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,7 @@ class ApiPostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return Post::all()->each(function($post){$post->loads(Options::all());});
     }
 
     /**
@@ -48,7 +49,7 @@ class ApiPostController extends Controller
      */
     public function show($id)
     {
-        return Post::findOrFail($id);
+        return Post::findOrFail($id)->loads(Options::all());
     }
 
     /**

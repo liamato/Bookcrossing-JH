@@ -18,7 +18,7 @@ class ApiVideoController extends Controller
     public function index()
     {
         //dd(Options::all());
-        return Video::all();
+        return Video::all()->each(function($video){$video->loads(Options::all());});
     }
 
     /**
@@ -50,7 +50,7 @@ class ApiVideoController extends Controller
      */
     public function show($id)
     {
-        return Video::findOrFail($id);
+        return Video::findOrFail($id)->loads(Options::all());
     }
 
     /**

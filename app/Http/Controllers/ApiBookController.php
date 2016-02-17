@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use RouteOptions as Options;
 use App\Book;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,7 @@ class ApiBookController extends Controller
      */
     public function index()
     {
-        return Book::all();
+        return Book::all()->each(function($book){$book->loads(Options::all());});
     }
 
     /**
@@ -37,7 +38,6 @@ class ApiBookController extends Controller
      */
     public function store(Request $request)
     {
-        return Book::all();
         //
     }
 
@@ -49,7 +49,7 @@ class ApiBookController extends Controller
      */
     public function show($id)
     {
-        return Book::findOrFail($id);
+        return Book::findOrFail($id)->loads(Options::all());
     }
 
     /**

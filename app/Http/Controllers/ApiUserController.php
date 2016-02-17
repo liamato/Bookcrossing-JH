@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use RouteOptions as Options;
 use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,7 @@ class ApiUserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return User::all()->each(function($user){$user->loads(Options::all());});
     }
 
     /**
@@ -48,7 +49,7 @@ class ApiUserController extends Controller
      */
     public function show($id)
     {
-        return User::findOrFail($id);
+        return User::findOrFail($id)->loads(Options::all());
     }
 
     /**

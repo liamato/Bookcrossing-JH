@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use RouteOptions as Options;
 use App\Category;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,7 @@ class ApiCategoryController extends Controller
      */
     public function index()
     {
-        return Category::all();
+        return Category::all()->each(function($category){$category->loads(Options::all());});
     }
 
     /**
@@ -48,7 +49,7 @@ class ApiCategoryController extends Controller
      */
     public function show($id)
     {
-        return Category::findOrFail($id);
+        return Category::findOrFail($id)->loads(Options::all());
     }
 
     /**

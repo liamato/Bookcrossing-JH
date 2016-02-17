@@ -15,12 +15,12 @@ Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 
 	// @GET
 
-	Route::get('/book{options?}', [
+	Route::get('/book{options}', [
 		'uses' => 'ApiBookController@index',
 		'as' => 'api.book.index'
 	]);
 
-	Route::get('/book{options?}/{book}', [
+	Route::get('/book{options}/{book}', [
 		'uses' => 'ApiBookController@show',
 		'as' => 'api.book.show'
 	]);
@@ -29,12 +29,12 @@ Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 
 
 
-	Route::get('/catrgory{options?}', [
+	Route::get('/category{options}', [
 		'uses' => 'ApiCategoryController@index',
 		'as' => 'api.catrgory.index'
 	]);
 
-	Route::get('/catrgory{options?}/{catrgory}', [
+	Route::get('/category{options}/{category}', [
 		'uses' => 'ApiCategoryController@show',
 		'as' => 'api.catrgory.show'
 	]);
@@ -43,12 +43,12 @@ Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 
 
 
-	Route::get('/post{options?}', [
+	Route::get('/post{options}', [
 		'uses' => 'ApiPostController@index',
 		'as' => 'api.post.index'
 	]);
 
-	Route::get('/post{options?}/{post}', [
+	Route::get('/post{options}/{post}', [
 		'uses' => 'ApiPostController@show',
 		'as' => 'api.post.show'
 	]);
@@ -57,12 +57,12 @@ Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 
 
 
-	Route::get('/news{options?}', [
+	Route::get('/news{options}', [
 		'uses' => 'ApiReportController@index',
 		'as' => 'api.news.index'
 	]);
 
-	Route::get('/news{options?}/{news}', [
+	Route::get('/news{options}/{news}', [
 		'uses' => 'ApiReportController@show',
 		'as' => 'api.news.show'
 	]);
@@ -70,14 +70,28 @@ Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 	Route::resource('/news', 'ApiReportController', ['except' => ['create', 'edit']]);
 
 
+	Route::get('/school{options}', [
+		'uses' => 'ApiSchoolController@index',
+		'as' => 'api.school.index'
+	]);
+
+	Route::get('/school{options}/{school}', [
+		'uses' => 'ApiSchoolController@show',
+		'as' => 'api.school.show'
+	]);
+
+	Route::resource('/school', 'ApiSchoolController', ['except' => ['create', 'edit']]);
+
+
+
 	Route::group(['middleware' => 'auth'], function(){
 
-		Route::get('/user{options?}', [
+		Route::get('/user{options}', [
 			'uses' => 'ApiUserController@index',
 			'as' => 'api.user.index'
 		]);
 
-		Route::get('/user{options?}/{user}', [
+		Route::get('/user{options}/{user}', [
 			'uses' => 'ApiUserController@show',
 			'as' => 'api.user.show'
 		]);
@@ -87,12 +101,12 @@ Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 	});
 
 
-	Route::get('/video{options?}', [
+	Route::get('/video{options}', [
 		'uses' => 'ApiVideoController@index',
 		'as' => 'api.video.index'
 	]);
 
-	Route::get('/video{options?}/{video}', [
+	Route::get('/video{options}/{video}', [
 		'uses' => 'ApiVideoController@show',
 		'as' => 'api.video.show'
 	]);

@@ -28,6 +28,13 @@ class RouteServiceProvider extends ServiceProvider
 
         $router->pattern('id', '[0-9]+');
         $router->pattern('scId', '[0-9]+');
+        $router->pattern('book', '[0-9]+');
+        $router->pattern('category', '[0-9]+');
+        $router->pattern('news', '[0-9]+');
+        $router->pattern('post', '[0-9]+');
+        $router->pattern('school', '[0-9]+|[A-Za-z\-]+');
+        $router->pattern('user', '[0-9]+');
+        $router->pattern('video', '[0-9]+');
 
         parent::boot($router);
     }
