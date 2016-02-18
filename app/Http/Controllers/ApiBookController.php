@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use RouteOptions as Options;
 use App\Book;
 use App\School;
-use App\Http\Requests;
+use App\Http\Requests\ApiBook;
 use App\Http\Controllers\Controller;
 
 class ApiBookController extends Controller
@@ -47,9 +47,10 @@ class ApiBookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApiBook $request)
     {
-        //
+        //$this->validate($re)
+        dd($request);
     }
 
     /**
