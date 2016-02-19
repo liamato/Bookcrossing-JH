@@ -6,7 +6,7 @@ namespace App;
 
 class Book extends Model
 {
-    protected $fillable = ['title', 'author'];
+    protected $fillable = ['title', 'author', 'school_id'];
 
     protected $hidden = ['created_at', 'updated_at', 'checked'];
 

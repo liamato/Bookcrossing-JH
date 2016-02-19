@@ -2,7 +2,11 @@
 
 namespace App;
 
+use App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Http\Exception\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\JsonResponse;
 
 abstract class Model extends Eloquent {
 
@@ -39,5 +43,18 @@ abstract class Model extends Eloquent {
 		return empty($this->original) && !$this->isDirty();
 	}
 
+	public function filledOrFail()
+	{
+
+		$msg = sprintf('The "%s" Model must be filled.', static::class);
+
+		if ($this->isEmpty()) {
+			if (App::make('request')->ajax() || App::make('request')->wantsJson()) {
+				throw new HttpResponseException(new JsonResponse([$msg],422));
+			}
+			throw new HttpResponseException(new Response($msg,422));
+		}
+		return true;
+	}
 
 }

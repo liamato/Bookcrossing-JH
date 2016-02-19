@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use RouteOptions as Options;
-use App\School;
 use App\Category;
-use App\Http\Requests;
+use App\School;
+use App\Http\Requests\ApiCategory;
 use App\Http\Controllers\Controller;
 
 class ApiCategoryController extends Controller
@@ -47,9 +47,13 @@ class ApiCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApiCategory $request, School $school)
     {
-        //
+        $insert = $request->json()->all();
+        if (!isset($insert['school_id']) && $school->filledOrFail()) {
+            $insert['school_id'] = $school->id;
+        }
+        return Category::create($insert);
     }
 
     /**
@@ -97,8 +101,13 @@ class ApiCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(School $school, $id)
     {
-        //
+        if ($school->isEmpty()) {
+            $category = Category::findOrFail($id);
+        } else {
+            $category = Category::bySchool($school->id)->findOrFail($id);
+        }
+        $category->delete();
     }
 }

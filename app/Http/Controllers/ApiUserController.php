@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use RouteOptions as Options;
 use App\User;
-use App\Http\Requests;
+use App\School;
+use App\Http\Requests\ApiUser;
 use App\Http\Controllers\Controller;
 
 class ApiUserController extends Controller
@@ -46,9 +47,13 @@ class ApiUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApiUser $request, School $school)
     {
-        //
+        $insert = $request->json()->all();
+        if (!isset($insert['school_id']) && $school->filledOrFail()) {
+            $insert['school_id'] = $school->id;
+        }
+        return User::create($insert);
     }
 
     /**
@@ -96,8 +101,13 @@ class ApiUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(School $school, $id)
     {
-        //
+        if ($school->isEmpty()) {
+            $user = User::findOrFail($id);
+        } else {
+            $user = User::bySchool($school->id)->findOrFail($id);
+        }
+        $user->delete();
     }
 }

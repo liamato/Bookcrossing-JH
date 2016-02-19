@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use RouteOptions as Options;
 use App\Report;
-use App\Http\Requests;
+use App\School;
+use App\Http\Requests\ApiReport;
 use App\Http\Controllers\Controller;
 
 class ApiReportController extends Controller
@@ -46,9 +47,13 @@ class ApiReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApiReport $request, School $school)
     {
-        //
+        $insert = $request->json()->all();
+        if (!isset($insert['school_id']) && $school->filledOrFail()) {
+            $insert['school_id'] = $school->id;
+        }
+        return Report::create($insert);
     }
 
     /**
@@ -96,8 +101,13 @@ class ApiReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(School $school, $id)
     {
-        //
+        if ($school->isEmpty()) {
+            $report = Report::findOrFail($id);
+        } else {
+            $report = Report::bySchool($school->id)->findOrFail($id);
+        }
+        $report->delete();
     }
 }

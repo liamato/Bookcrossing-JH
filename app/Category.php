@@ -6,7 +6,7 @@ namespace App;
 
 class Category extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'slug', 'school_id'];
 
     protected $relationship = ['school' => 'school_id', 'posts' => ''];
 

@@ -47,10 +47,13 @@ class ApiBookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApiBook $request)
+    public function store(ApiBook $request, School $school)
     {
-        //$this->validate($re)
-        dd($request);
+        $insert = $request->json()->all();
+        if (!isset($insert['school_id']) && $school->filledOrFail()) {
+            $insert['school_id'] = $school->id;
+        }
+        return Book::create($insert);
     }
 
     /**
@@ -98,8 +101,13 @@ class ApiBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(School $school, $id)
     {
-        //
+        if ($school->isEmpty()) {
+            $book = Book::findOrFail($id);
+        } else {
+            $book = Book::bySchool($school->id)->findOrFail($id);
+        }
+        $book->delete();
     }
 }

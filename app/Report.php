@@ -8,7 +8,7 @@ class Report extends Model
 {
 	protected $table = 'news';
 
-    protected $fillable = ['title', 'body', 'author'];
+    protected $fillable = ['title', 'body', 'author', 'school_id'];
 
     protected $relationship = ['school' => 'school_id'];
 

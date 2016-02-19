@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use RouteOptions as Options;
 use App\School;
-use App\Http\Requests;
+use App\Http\Requests\ApiSchool;
 use App\Http\Controllers\Controller;
 
 class ApiSchoolController extends Controller
@@ -36,9 +36,9 @@ class ApiSchoolController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApiSchool $request)
     {
-        //
+        return School::create($request->json()->all());
     }
 
     /**
@@ -86,6 +86,6 @@ class ApiSchoolController extends Controller
      */
     public function destroy($id)
     {
-        //
+        School::findOrFail($id)->delete();
     }
 }
