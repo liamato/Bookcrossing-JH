@@ -7,6 +7,7 @@ use RouteOptions as Options;
 use App\Post;
 use App\School;
 use App\Http\Requests\ApiPost;
+use App\Http\Requests\ApiPostUpdate;
 use App\Http\Controllers\Controller;
 
 class ApiPostController extends Controller
@@ -89,9 +90,34 @@ class ApiPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApiPostUpdate $request, School $school, $id)
     {
-        //
+        if (!$school->isEmpty()) {
+            $item = Post::bySchool($school->id)->findOrFail($id);
+        } else {
+            $item = Post::findOrFail($id);
+        }
+
+        $all = $request->json()->all();
+        $attrs = $item->filterColumns(array_keys($all));
+
+        if (isset($all['id'])) {
+            unset($all['id']);
+        }
+
+        if (isset($all['school_id'])) {
+            unset($all['school_id']);
+        }
+
+        foreach ($all as $key => $value) {
+            if (in_array($key, $attrs)) {
+                $item->$key = $value;
+            }
+        }
+
+        $item->save();
+
+        return $item;
     }
 
     /**

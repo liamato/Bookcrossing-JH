@@ -7,6 +7,7 @@ use RouteOptions as Options;
 use App\Video;
 use App\School;
 use App\Http\Requests\ApiVideo;
+use App\Http\Requests\ApiVideoUpdate;
 use App\Http\Controllers\Controller;
 
 class ApiVideoController extends Controller
@@ -90,9 +91,34 @@ class ApiVideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApiVideoUpdate $request, School $school, $id)
     {
-        //
+        if (!$school->isEmpty()) {
+            $item = Video::bySchool($school->id)->findOrFail($id);
+        } else {
+            $item = Video::findOrFail($id);
+        }
+
+        $all = $request->json()->all();
+        $attrs = $item->filterColumns(array_keys($all));
+
+        if (isset($all['id'])) {
+            unset($all['id']);
+        }
+
+        if (isset($all['school_id'])) {
+            unset($all['school_id']);
+        }
+
+        foreach ($all as $key => $value) {
+            if (in_array($key, $attrs)) {
+                $item->$key = $value;
+            }
+        }
+
+        $item->save();
+
+        return $item;
     }
 
     /**

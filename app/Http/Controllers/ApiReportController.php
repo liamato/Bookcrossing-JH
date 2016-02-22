@@ -7,6 +7,7 @@ use RouteOptions as Options;
 use App\Report;
 use App\School;
 use App\Http\Requests\ApiReport;
+use App\Http\Requests\ApiReportUpdate;
 use App\Http\Controllers\Controller;
 
 class ApiReportController extends Controller
@@ -90,9 +91,34 @@ class ApiReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApiReportUpdate $request, School $school, $id)
     {
-        //
+        if (!$school->isEmpty()) {
+            $item = Report::bySchool($school->id)->findOrFail($id);
+        } else {
+            $item = Report::findOrFail($id);
+        }
+
+        $all = $request->json()->all();
+        $attrs = $item->filterColumns(array_keys($all));
+
+        if (isset($all['id'])) {
+            unset($all['id']);
+        }
+
+        if (isset($all['school_id'])) {
+            unset($all['school_id']);
+        }
+
+        foreach ($all as $key => $value) {
+            if (in_array($key, $attrs)) {
+                $item->$key = $value;
+            }
+        }
+
+        $item->save();
+
+        return $item;
     }
 
     /**

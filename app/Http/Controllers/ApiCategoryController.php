@@ -7,6 +7,7 @@ use RouteOptions as Options;
 use App\Category;
 use App\School;
 use App\Http\Requests\ApiCategory;
+use App\Http\Requests\ApiCategoryUpdate;
 use App\Http\Controllers\Controller;
 
 class ApiCategoryController extends Controller
@@ -90,9 +91,34 @@ class ApiCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApiCategoryUpdate $request, School $school, $id)
     {
-        //
+        if (!$school->isEmpty()) {
+            $item = Category::bySchool($school->id)->findOrFail($id);
+        } else {
+            $item = Category::findOrFail($id);
+        }
+
+        $all = $request->json()->all();
+        $attrs = $item->filterColumns(array_keys($all));
+
+        if (isset($all['id'])) {
+            unset($all['id']);
+        }
+
+        if (isset($all['school_id'])) {
+            unset($all['school_id']);
+        }
+
+        foreach ($all as $key => $value) {
+            if (in_array($key, $attrs)) {
+                $item->$key = $value;
+            }
+        }
+
+        $item->save();
+
+        return $item;
     }
 
     /**

@@ -7,6 +7,7 @@ use RouteOptions as Options;
 use App\User;
 use App\School;
 use App\Http\Requests\ApiUser;
+use App\Http\Requests\ApiUserUpdate;
 use App\Http\Controllers\Controller;
 
 class ApiUserController extends Controller
@@ -90,9 +91,34 @@ class ApiUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApiUserUpdate $request, School $school, $id)
     {
-        //
+        if (!$school->isEmpty()) {
+            $item = User::bySchool($school->id)->findOrFail($id);
+        } else {
+            $item = User::findOrFail($id);
+        }
+
+        $all = $request->json()->all();
+        $attrs = $item->filterColumns(array_keys($all));
+
+        if (isset($all['id'])) {
+            unset($all['id']);
+        }
+
+        if (isset($all['school_id'])) {
+            unset($all['school_id']);
+        }
+
+        foreach ($all as $key => $value) {
+            if (in_array($key, $attrs)) {
+                $item->$key = $value;
+            }
+        }
+
+        $item->save();
+
+        return $item;
     }
 
     /**

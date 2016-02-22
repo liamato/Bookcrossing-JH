@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use RouteOptions as Options;
 use App\School;
 use App\Http\Requests\ApiSchool;
+use App\Http\Requests\ApiSchoolUpdate;
 use App\Http\Controllers\Controller;
 
 class ApiSchoolController extends Controller
@@ -73,9 +74,25 @@ class ApiSchoolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApiSchoolUpdate $request, $id)
     {
-        //
+        $item = School::findOrFail($id);
+        $all = $request->json()->all();
+        $attrs = $item->filterColumns(array_keys($all));
+
+        if (isset($all['id'])) {
+            unset($all['id']);
+        }
+
+        foreach ($all as $key => $value) {
+            if (in_array($key, $attrs)) {
+                $item->$key = $value;
+            }
+        }
+
+        $item->save();
+
+        return $item;
     }
 
     /**
