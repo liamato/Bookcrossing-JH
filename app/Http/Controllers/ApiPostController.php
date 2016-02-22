@@ -15,6 +15,7 @@ class ApiPostController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show', 'store']]);
+        $this->middleware('csrf', ['except' => ['index', 'show', 'store']]);
     }
     /**
      * Display a listing of the resource.

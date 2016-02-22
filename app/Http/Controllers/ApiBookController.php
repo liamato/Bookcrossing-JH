@@ -15,6 +15,7 @@ class ApiBookController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['only' => ['destroy']]);
+        $this->middleware('csrf', ['only' => ['destroy']]);
     }
 
     /**

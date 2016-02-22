@@ -11,6 +11,12 @@ use App\Http\Controllers\Controller;
 
 class ApiSchoolController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index','show']]);
+        $this->middleware('csrf', ['except' => ['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

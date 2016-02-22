@@ -30,6 +30,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
 
+        'csrf' => \App\Http\Middleware\VerifyCsrf::class,
         'superadmin' => \App\Http\Middleware\RedirectIfNotSuperUser::class,
         'school' => \App\Http\Middleware\EraseSchoolFromUri::class,
         'options' => \App\Http\Middleware\RouteOptions::class,
