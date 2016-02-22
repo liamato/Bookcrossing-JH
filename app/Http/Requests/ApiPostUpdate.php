@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class ApiUser extends JsonRequest
+class ApiPostUpdate extends JsonRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,12 @@ class ApiUser extends JsonRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string',
-            'school_id' => 'sometimes|required|integer|exists:schools,id',
-            'super' => 'sometimes|required|boolean'
+            'title' => 'string|max:255',
+            'body' => 'string',
+            'author' => 'sometimes|string|max:255',
+            'category_id' => 'integer|exists:categories,id',
+            'parent' => 'sometimes|integer|exists:posts,id',
+            'school_id' => 'sometimes|required|integer|exists:schools,id'
         ];
     }
 }
