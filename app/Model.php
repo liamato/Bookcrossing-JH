@@ -29,7 +29,16 @@ abstract class Model extends Eloquent {
             $with = func_get_args();
         }
 
-		$with = array_diff($this->relations(), array_diff($this->relations(), $with));
+        if (!in_array('all', $with)) {
+            $with = array_diff($this->relations(), array_diff($this->relations(), $with));
+        } else {
+            $with = $this->relations();
+        }
+
+        if (in_array('users', $with)) {
+            unset($with[array_search('users', $with)]);
+        }
+
 		foreach ($with as $relation) {
 			$relation = $this->getRelationship()[$relation];
 			if (!in_array($relation, $this->getHidden()) && !empty($relation)) {
