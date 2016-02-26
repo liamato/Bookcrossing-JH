@@ -55,6 +55,10 @@ Route::group(['prefix' => 'api/v1'], function(){
 });
 */
 
+Route::get('login', 'Auth\AuthController@getLogin');
+Route::post('login', 'Auth\AuthController@postLogin');
+Route::get('logout', 'Auth\AuthController@getLogout');
+
 Route::get('/{school?}/{b?}/{c?}/{d?}/{e?}', function () {
 	return view('test.react', ['ola' => 'config = {ola: "ola"}']);
 });

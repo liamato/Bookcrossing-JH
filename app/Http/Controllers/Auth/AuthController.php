@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\School;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {
@@ -21,14 +22,26 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesUsers, ThrottlesLogins;
+
+    //protected $redirectAfterLogout = '/admin';
+
+    public function redirectPath()
+    {
+        $school = \App::make(School::class);
+        if ($school->isEmpty()) {
+            return '/admin';
+        }
+        return $school->slug.'/admin';
+    }
+
 
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(School $school)
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
