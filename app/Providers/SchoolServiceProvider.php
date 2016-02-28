@@ -26,12 +26,14 @@ class SchoolServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bindShared(School::class, function(){
-            if (Route::current()->hasParameter('school')){
-                $school = Route::current()->getParameter('school');
-                if (is_numeric($school)) {
-                    return School::find($school);
+            if (Route::current()){
+                if (Route::current()->hasParameter('school')){
+                    $school = Route::current()->getParameter('school');
+                    if (is_numeric($school)) {
+                        return School::find($school);
+                    }
+                    return School::bySlug($school);
                 }
-                return School::bySlug($school);
             }
             return new School;
         });
