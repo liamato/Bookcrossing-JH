@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
-use Illuminate\Support\ServiceProvider;
+use App\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteOptionsServiceProvider extends ServiceProvider
 {
