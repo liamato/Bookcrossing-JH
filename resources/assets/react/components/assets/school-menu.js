@@ -1,11 +1,9 @@
 import React from 'react'
-//import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
 import request from 'superagent'
 import { default as Im } from 'immutable'
 import config from '../../config'
 import Collection from '../../data/collection'
-window.Collection = Collection;
 
 export default class Menu extends React.Component {
 
@@ -17,8 +15,9 @@ export default class Menu extends React.Component {
 	setSchool(school, callback) {
 		if (!school) {
 			request
-			.get(`${config.api.baseUrl}/school/${this.props.params.school}`)
+			.get(`${config.api.baseUrl}/school(all)/${this.props.params.school}`)
 			.accept('json')
+			.set('X-Requested-With', 'XMLHttpRequest')
 			.end((err, req)=> {
 				if (req.ok) {
 					var school = JSON.parse(req.text);

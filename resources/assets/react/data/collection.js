@@ -157,7 +157,7 @@ var Collection = class Collection {
 			if (Object.keys(results).indexOf(groupKey) === -1) {
 				results[groupKey] =  new Collection;
 			}
-			if (preserveKeys) {				
+			if (preserveKeys) {
 				results[groupKey].push(value, this[value])
 			} else {
 				results[groupKey].push(this[value])
@@ -226,7 +226,7 @@ var Collection = class Collection {
 		if (typeof(callback) === "function") {
 			return callback(val);
 		}
-		return val; 
+		return val;
 	}
 
 	nextKey() {
@@ -442,7 +442,7 @@ var Collection = class Collection {
 		let cp = this;
 		this.clear();
 		while (cp.length) {
-			this.push(cp.pull(cp.random()));			
+			this.push(cp.pull(cp.random()));
 		}
 	}
 

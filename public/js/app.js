@@ -30079,90 +30079,7 @@ _reactDom2['default'].render(_react2['default'].createElement(
 	_routesMain2['default']
 ), document.getElementById('container'));
 
-},{"./routes/main":244,"history/lib/createBrowserHistory":7,"react":221,"react-dom":20,"react-router":40}],227:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var App = (function (_React$Component) {
-	_inherits(App, _React$Component);
-
-	function App() {
-		_classCallCheck(this, App);
-
-		_get(Object.getPrototypeOf(App.prototype), 'constructor', this).apply(this, arguments);
-	}
-
-	_createClass(App, [{
-		key: 'render',
-		value: function render() {
-			return _react2['default'].createElement(
-				'div',
-				null,
-				_react2['default'].createElement(
-					'nav',
-					null,
-					_react2['default'].createElement(
-						_reactRouter.Link,
-						{ to: '/' },
-						'Inicio'
-					),
-					_react2['default'].createElement(
-						_reactRouter.Link,
-						{ to: '/news' },
-						'Novedades'
-					),
-					_react2['default'].createElement(
-						_reactRouter.Link,
-						{ to: '/list' },
-						'Llista de libros'
-					),
-					_react2['default'].createElement(
-						_reactRouter.Link,
-						{ to: '/list' },
-						'Llista de libros'
-					),
-					_react2['default'].createElement(
-						_reactRouter.Link,
-						{ to: '/list' },
-						'Llista de libros'
-					),
-					_react2['default'].createElement(
-						_reactRouter.Link,
-						{ to: '/list' },
-						'Llista de libros'
-					)
-				),
-				this.props.children
-			);
-		}
-	}]);
-
-	return App;
-})(_react2['default'].Component);
-
-exports['default'] = App;
-module.exports = exports['default'];
-
-},{"react":221,"react-router":40}],228:[function(require,module,exports){
+},{"./routes/main":247,"history/lib/createBrowserHistory":7,"react":221,"react-dom":20,"react-router":40}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30259,7 +30176,7 @@ exports['default'] = Book;
 Book.propTypes = {
 	// Book description
 	author: _react2['default'].PropTypes.string.isRequired,
-	id: _react2['default'].PropTypes.string.isRequired,
+	id: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]).isRequired,
 	title: _react2['default'].PropTypes.string.isRequired,
 
 	selectable: _react2['default'].PropTypes.bool.isRequired,
@@ -30275,7 +30192,7 @@ Book.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"react":221}],229:[function(require,module,exports){
+},{"react":221}],228:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30483,7 +30400,7 @@ BookSearch.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":241,"./bookshelf":230,"react":221,"uid":225}],230:[function(require,module,exports){
+},{"../../data/collection":246,"./bookshelf":229,"react":221,"uid":225}],229:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30683,7 +30600,54 @@ BookShelf.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":241,"./book":228,"react":221}],231:[function(require,module,exports){
+},{"../../data/collection":246,"./book":227,"react":221}],230:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var Loading = (function (_React$Component) {
+	_inherits(Loading, _React$Component);
+
+	function Loading() {
+		_classCallCheck(this, Loading);
+
+		_get(Object.getPrototypeOf(Loading.prototype), 'constructor', this).apply(this, arguments);
+	}
+
+	_createClass(Loading, [{
+		key: 'render',
+		value: function render() {
+			return _react2['default'].createElement(
+				'p',
+				null,
+				'Carregant...'
+			);
+		}
+	}]);
+
+	return Loading;
+})(_react2['default'].Component);
+
+exports['default'] = Loading;
+module.exports = exports['default'];
+
+},{"react":221}],231:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30841,7 +30805,7 @@ Post.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":241,"react":221}],233:[function(require,module,exports){
+},{"../../data/collection":246,"react":221}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30862,8 +30826,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-//import ReactDOM from 'react-dom'
-
 var _reactRouter = require('react-router');
 
 var _superagent = require('superagent');
@@ -30881,8 +30843,6 @@ var _config2 = _interopRequireDefault(_config);
 var _dataCollection = require('../../data/collection');
 
 var _dataCollection2 = _interopRequireDefault(_dataCollection);
-
-window.Collection = _dataCollection2['default'];
 
 var Menu = (function (_React$Component) {
 	_inherits(Menu, _React$Component);
@@ -30905,7 +30865,7 @@ var Menu = (function (_React$Component) {
 			var _this = this;
 
 			if (!school) {
-				_superagent2['default'].get(_config2['default'].api.baseUrl + '/school/' + this.props.params.school).accept('json').end(function (err, req) {
+				_superagent2['default'].get(_config2['default'].api.baseUrl + '/school(all)/' + this.props.params.school).accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
 					if (req.ok) {
 						var school = JSON.parse(req.text);
 						Object.keys(school).map(function (key) {
@@ -31003,7 +30963,131 @@ var Menu = (function (_React$Component) {
 exports['default'] = Menu;
 module.exports = exports['default'];
 
-},{"../../config":240,"../../data/collection":241,"immutable":19,"react":221,"react-router":40,"superagent":222}],234:[function(require,module,exports){
+},{"../../config":245,"../../data/collection":246,"immutable":19,"react":221,"react-router":40,"superagent":222}],234:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var Video = (function (_React$Component) {
+	_inherits(Video, _React$Component);
+
+	function Video() {
+		_classCallCheck(this, Video);
+
+		_get(Object.getPrototypeOf(Video.prototype), "constructor", this).apply(this, arguments);
+	}
+
+	_createClass(Video, [{
+		key: "render",
+		value: function render() {
+			return _react2["default"].createElement(
+				"div",
+				{ className: "video" },
+				_react2["default"].createElement("iframe", { src: "//www.youtube.com/embed/" + this.props.code + "?autohide=1&rel=0", frameborde: "0", allowFullScreen: true })
+			);
+		}
+	}]);
+
+	return Video;
+})(_react2["default"].Component);
+
+exports["default"] = Video;
+
+Video.propTypes = {
+	id: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.number]).isRequired,
+	code: _react2["default"].PropTypes.string.isRequired,
+	trailer: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.bool, _react2["default"].PropTypes.string, _react2["default"].PropTypes.number]).isRequired,
+	created_at: _react2["default"].PropTypes.string.isRequired,
+	school_id: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.number])
+};
+module.exports = exports["default"];
+
+},{"react":221}],235:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _video = require('./video');
+
+var _video2 = _interopRequireDefault(_video);
+
+var _dataCollection = require('../../data/collection');
+
+var _dataCollection2 = _interopRequireDefault(_dataCollection);
+
+var VideoShelf = (function (_React$Component) {
+	_inherits(VideoShelf, _React$Component);
+
+	function VideoShelf() {
+		_classCallCheck(this, VideoShelf);
+
+		_get(Object.getPrototypeOf(VideoShelf.prototype), 'constructor', this).apply(this, arguments);
+	}
+
+	_createClass(VideoShelf, [{
+		key: 'render',
+		value: function render() {
+			return _react2['default'].createElement(
+				'div',
+				{ className: 'videoshelf' },
+				_react2['default'].createElement(
+					'ul',
+					{ className: 'videoshelf__videos' },
+					this.props.videos.map(function (video) {
+						return _react2['default'].createElement(
+							'li',
+							{ key: video.id, className: 'videoshelf__video' },
+							_react2['default'].createElement(_video2['default'], video)
+						);
+					})
+				)
+			);
+		}
+	}]);
+
+	return VideoShelf;
+})(_react2['default'].Component);
+
+exports['default'] = VideoShelf;
+
+VideoShelf.propTypes = {
+	videos: _react2['default'].PropTypes.instanceOf(_dataCollection2['default']).isRequired
+};
+module.exports = exports['default'];
+
+},{"../../data/collection":246,"./video":234,"react":221}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31059,7 +31143,7 @@ var Home = (function (_React$Component) {
 	}, {
 		key: 'setSchools',
 		value: function setSchools() {
-			_superagent2['default'].get(_config2['default'].api.baseUrl + '/school/').accept('json').end((function (err, res) {
+			_superagent2['default'].get(_config2['default'].api.baseUrl + '/school').accept('json').set('X-Requested-With', 'XMLHttpRequest').end((function (err, res) {
 				if (res.ok) {
 					var schools = JSON.parse(res.text);
 				} else if (err) {
@@ -31091,7 +31175,7 @@ var Home = (function (_React$Component) {
 exports['default'] = Home;
 module.exports = exports['default'];
 
-},{"../../config":240,"react":221,"react-router":40,"superagent":222,"uid":225}],235:[function(require,module,exports){
+},{"../../config":245,"react":221,"react-router":40,"superagent":222,"uid":225}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31128,6 +31212,10 @@ var _assetsBooksearch = require('../../assets/booksearch');
 
 var _assetsBooksearch2 = _interopRequireDefault(_assetsBooksearch);
 
+var _assetsLoading = require('../../assets/loading');
+
+var _assetsLoading2 = _interopRequireDefault(_assetsLoading);
+
 var Capture = (function (_React$Component) {
 	_inherits(Capture, _React$Component);
 
@@ -31138,16 +31226,50 @@ var Capture = (function (_React$Component) {
 	}
 
 	_createClass(Capture, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.setState({ request: 0 });
+		}
+	}, {
 		key: 'selectBook',
 		value: function selectBook(ev, id, active) {
-			console.log(ev);
-			console.log(id);
-			console.log(active);
+			var _this = this;
+
+			this.setState({ request: 1 });
+			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + id).send({ catched: true }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
+
+				_this.setState({ request: 2, res: [err, res] });
+			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.selectBook.bind(this), by: 'name', books: this.props.school.books, selectable: true });
+
+			if (this.state.request === 0) {
+				if (this.props.school.books) {
+					return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.selectBook.bind(this), by: 'name', books: this.props.school.books.whereLoose('catched', false), selectable: true });
+				}
+				return _react2['default'].createElement(_assetsLoading2['default'], null);
+			} else if (this.state.request === 1) {
+				return _react2['default'].createElement(
+					'div',
+					null,
+					'Capturant llibre...'
+				);
+			} else if (this.state.request === 2) {
+				if (this.state.res[1].ok) {
+					return _react2['default'].createElement(
+						'div',
+						null,
+						'Llibre alliberat'
+					);
+				}
+				return _react2['default'].createElement(
+					'div',
+					null,
+					'Hi ha hagut un error'
+				);
+			}
 		}
 	}]);
 
@@ -31157,7 +31279,7 @@ var Capture = (function (_React$Component) {
 exports['default'] = Capture;
 module.exports = exports['default'];
 
-},{"../../../config":240,"../../assets/booksearch":229,"immutable":19,"react":221,"superagent":222}],236:[function(require,module,exports){
+},{"../../../config":245,"../../assets/booksearch":228,"../../assets/loading":230,"immutable":19,"react":221,"superagent":222}],238:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31225,7 +31347,7 @@ var Forum = (function (_React$Component) {
 		value: function setPosts() {
 			var _this = this;
 
-			_superagent2['default'].get(_config2['default'].api.baseUrl + '/' + this.props.params.school + '/posts').accept('json').end((function (err, res) {
+			_superagent2['default'].get(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/post').accept('json').set('X-Requested-With', 'XMLHttpRequest').end((function (err, res) {
 				if (res.ok) {
 					var json = JSON.parse(res.text);
 					var posts = {};
@@ -31302,7 +31424,7 @@ var Forum = (function (_React$Component) {
 exports['default'] = Forum;
 module.exports = exports['default'];
 
-},{"../../../config":240,"../../assets/post":232,"immutable":19,"react":221,"superagent":222}],237:[function(require,module,exports){
+},{"../../../config":245,"../../assets/post":232,"immutable":19,"react":221,"superagent":222}],239:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31349,7 +31471,106 @@ var SchoolHome = (function (_React$Component) {
 exports['default'] = SchoolHome;
 module.exports = exports['default'];
 
-},{"react":221}],238:[function(require,module,exports){
+},{"react":221}],240:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _superagent = require('superagent');
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _config = require('../../../config');
+
+var _config2 = _interopRequireDefault(_config);
+
+var _assetsBooksearch = require('../../assets/booksearch');
+
+var _assetsBooksearch2 = _interopRequireDefault(_assetsBooksearch);
+
+var _assetsLoading = require('../../assets/loading');
+
+var _assetsLoading2 = _interopRequireDefault(_assetsLoading);
+
+var Liberate = (function (_React$Component) {
+	_inherits(Liberate, _React$Component);
+
+	function Liberate() {
+		_classCallCheck(this, Liberate);
+
+		_get(Object.getPrototypeOf(Liberate.prototype), 'constructor', this).apply(this, arguments);
+	}
+
+	_createClass(Liberate, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.setState({ request: 0 });
+		}
+	}, {
+		key: 'selectBook',
+		value: function selectBook(ev, id, active) {
+			var _this = this;
+
+			this.setState({ request: 1 });
+			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + id).send({ catched: false }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
+				_this.setState({ request: 2, res: [err, res] });
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			if (this.state.request === 0) {
+				if (this.props.school.books) {
+					return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.selectBook.bind(this), by: 'name', books: this.props.school.books.whereLoose('catched', true), selectable: true });
+				}
+				return _react2['default'].createElement(_assetsLoading2['default'], null);
+			} else if (this.state.request === 1) {
+				return _react2['default'].createElement(
+					'div',
+					null,
+					'Alliberant llibre...'
+				);
+			} else if (this.state.request === 2) {
+				if (this.state.res[1].ok) {
+					return _react2['default'].createElement(
+						'div',
+						null,
+						'Llibre alliberat'
+					);
+				}
+				return _react2['default'].createElement(
+					'div',
+					null,
+					'Hi ha hagut un error'
+				);
+			}
+		}
+	}]);
+
+	return Liberate;
+})(_react2['default'].Component);
+
+exports['default'] = Liberate;
+module.exports = exports['default'];
+
+},{"../../../config":245,"../../assets/booksearch":228,"../../assets/loading":230,"react":221,"superagent":222}],241:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31390,6 +31611,10 @@ var _assetsBooksearch = require('../../assets/booksearch');
 
 var _assetsBooksearch2 = _interopRequireDefault(_assetsBooksearch);
 
+var _assetsLoading = require('../../assets/loading');
+
+var _assetsLoading2 = _interopRequireDefault(_assetsLoading);
+
 var List = (function (_React$Component) {
 	_inherits(List, _React$Component);
 
@@ -31416,7 +31641,7 @@ var List = (function (_React$Component) {
 		value: function setBooks() {
 			var _this = this;
 
-			_superagent2['default'].get(_config2['default'].api.baseUrl + '/' + this.props.params.school + '/books').accept('json').end(function (err, res) {
+			_superagent2['default'].get(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, res) {
 				if (res.ok) {
 					var json = JSON.parse(res.text);
 					var a = _immutable2['default'].fromJS(_this.props.school.books);
@@ -31436,13 +31661,6 @@ var List = (function (_React$Component) {
 				if (this.props.school.books[0]) {
 					var uncatched = this.props.school.books.whereLoose('catched', 0);
 					var catched = this.props.school.books.whereLoose('catched', 1);
-					/*this.props.school.books.map((book) => {
-     	if(book.catched == 0){
-     		uncatched.push(book);
-     		return;
-     	}
-     	catched.push(book);
-     })*/
 					return _react2['default'].createElement(
 						'div',
 						null,
@@ -31457,7 +31675,7 @@ var List = (function (_React$Component) {
 							null,
 							'Per Agafar'
 						),
-						_react2['default'].createElement(_assetsBooksearch2['default'], { books: uncatched, controls: "all" }),
+						_react2['default'].createElement(_assetsBookshelf2['default'], { books: uncatched, controls: true }),
 						_react2['default'].createElement(
 							'h2',
 							null,
@@ -31472,21 +31690,17 @@ var List = (function (_React$Component) {
 					_react2['default'].createElement(
 						'h1',
 						null,
-						'Novedades'
+						'Llibres'
 					),
 					_react2['default'].createElement('hr', null),
 					_react2['default'].createElement(
 						'p',
 						null,
-						'No hi ha noticies'
+						'No hi ha llibres'
 					)
 				);
 			}
-			return _react2['default'].createElement(
-				'p',
-				null,
-				'Carregant...'
-			);
+			return _react2['default'].createElement(_assetsLoading2['default'], null);
 		}
 	}]);
 
@@ -31496,7 +31710,7 @@ var List = (function (_React$Component) {
 exports['default'] = List;
 module.exports = exports['default'];
 
-},{"../../../config":240,"../../assets/booksearch":229,"../../assets/bookshelf":230,"immutable":19,"react":221,"superagent":222}],239:[function(require,module,exports){
+},{"../../../config":245,"../../assets/booksearch":228,"../../assets/bookshelf":229,"../../assets/loading":230,"immutable":19,"react":221,"superagent":222}],242:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31535,6 +31749,10 @@ var _assetsNotice = require('../../assets/notice');
 
 var _assetsNotice2 = _interopRequireDefault(_assetsNotice);
 
+var _assetsLoading = require('../../assets/loading');
+
+var _assetsLoading2 = _interopRequireDefault(_assetsLoading);
+
 var News = (function (_React$Component) {
 	_inherits(News, _React$Component);
 
@@ -31561,7 +31779,7 @@ var News = (function (_React$Component) {
 		value: function setNews() {
 			var _this = this;
 
-			_superagent2['default'].get(_config2['default'].api.baseUrl + '/' + this.props.params.school + '/news').accept('json').end(function (err, res) {
+			_superagent2['default'].get(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/news').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, res) {
 				if (res.ok) {
 					var json = JSON.parse(res.text);
 					var a = _immutable2['default'].fromJS(_this.props.school.news);
@@ -31611,11 +31829,7 @@ var News = (function (_React$Component) {
 					)
 				);
 			}
-			return _react2['default'].createElement(
-				'p',
-				null,
-				'Carregant...'
-			);
+			return _react2['default'].createElement(_assetsLoading2['default'], null);
 		}
 	}]);
 
@@ -31625,7 +31839,302 @@ var News = (function (_React$Component) {
 exports['default'] = News;
 module.exports = exports['default'];
 
-},{"../../../config":240,"../../assets/notice":231,"immutable":19,"react":221,"superagent":222}],240:[function(require,module,exports){
+},{"../../../config":245,"../../assets/loading":230,"../../assets/notice":231,"immutable":19,"react":221,"superagent":222}],243:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _superagent = require('superagent');
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _config = require('../../../config');
+
+var _config2 = _interopRequireDefault(_config);
+
+var _uid = require('uid');
+
+var _uid2 = _interopRequireDefault(_uid);
+
+var Register = (function (_React$Component) {
+	_inherits(Register, _React$Component);
+
+	function Register() {
+		_classCallCheck(this, Register);
+
+		_get(Object.getPrototypeOf(Register.prototype), 'constructor', this).apply(this, arguments);
+	}
+
+	_createClass(Register, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.setState({ request: 0 });
+		}
+	}, {
+		key: 'createBook',
+		value: function createBook(ev, id) {
+			var _this = this;
+
+			this.setState({ request: 1 });
+			_superagent2['default'].post(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book').send({ title: document.getElementById('title-' + id).value, author: document.getElementById('author-' + id).value }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
+				_this.setState({ request: 2, res: [err, res] });
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			if (this.state.request === 0) {
+				var id = (0, _uid2['default'])();
+				return _react2['default'].createElement(
+					'div',
+					{ className: 'register' },
+					_react2['default'].createElement('input', { type: 'text', id: 'title-' + id, placeholder: 'Títol' }),
+					_react2['default'].createElement('input', { type: 'text', id: 'author-' + id, placeholder: 'Autor' }),
+					_react2['default'].createElement(
+						'button',
+						{ onClick: this.createBook.bind(this, id) },
+						'Registrar'
+					)
+				);
+			} else if (this.state.request === 1) {
+				return _react2['default'].createElement(
+					'div',
+					null,
+					'Alliberant llibre...'
+				);
+			} else if (this.state.request === 2) {
+				if (this.state.res[1].ok) {
+					return _react2['default'].createElement(
+						'div',
+						null,
+						'Llibre registrat, codi: ',
+						this.state.res[1].body.id
+					);
+				}
+				return _react2['default'].createElement(
+					'div',
+					null,
+					'Hi ha hagut un error'
+				);
+			}
+		}
+	}]);
+
+	return Register;
+})(_react2['default'].Component);
+
+exports['default'] = Register;
+module.exports = exports['default'];
+
+},{"../../../config":245,"react":221,"superagent":222,"uid":225}],244:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _superagent = require('superagent');
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _config = require('../../../config');
+
+var _config2 = _interopRequireDefault(_config);
+
+var _assetsVideoshelf = require('../../assets/videoshelf');
+
+var _assetsVideoshelf2 = _interopRequireDefault(_assetsVideoshelf);
+
+var _assetsLoading = require('../../assets/loading');
+
+var _assetsLoading2 = _interopRequireDefault(_assetsLoading);
+
+var _uid = require('uid');
+
+var _uid2 = _interopRequireDefault(_uid);
+
+var Tube = (function (_React$Component) {
+	_inherits(Tube, _React$Component);
+
+	function Tube() {
+		_classCallCheck(this, Tube);
+
+		_get(Object.getPrototypeOf(Tube.prototype), 'constructor', this).apply(this, arguments);
+	}
+
+	_createClass(Tube, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.setState({ nv: false, request: 0 });
+			this.trailer();
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this = this;
+
+			this.mounted = true;
+			this.props.history.listen((function () {
+				if (_this.mounted) {
+					_this.setState({});
+				}
+			}).bind(this));
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(props, state) {
+			if (this.props.route.path !== props.route.path) {
+				this.trailer();
+			}
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			this.mounted = false;
+		}
+	}, {
+		key: 'trailer',
+		value: function trailer() {
+			if (this.props.route.trailer) {
+				this.setState({ type: 'trailer', trailer: 1 });
+			} else {
+				this.setState({ type: 'tube', trailer: 0 });
+			}
+		}
+	}, {
+		key: 'nv',
+		value: function nv() {
+			this.setState({ nv: true });
+		}
+	}, {
+		key: 'nvc',
+		value: function nvc() {
+			this.setState({ nv: false });
+		}
+	}, {
+		key: 'addVideo',
+		value: function addVideo(ev, id) {
+			var _this2 = this;
+
+			this.setState({ request: 1 });
+			_superagent2['default'].post(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/video').send({ code: document.getElementById('code-' + id).value, name: document.getElementById('name-' + id).value, trailer: this.state.trailer }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
+				_this2.setState({ request: 2, res: [err, res] });
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this3 = this;
+
+			return _react2['default'].createElement(
+				'div',
+				null,
+				_react2['default'].createElement(
+					'h1',
+					null,
+					'Book' + this.state.type
+				),
+				_react2['default'].createElement('hr', null),
+				_react2['default'].createElement(
+					'button',
+					{ onClick: this.nv.bind(this) },
+					'Puja un video'
+				),
+				(function () {
+					if (_this3.props.school && _this3.props.school.videos) {
+						return _react2['default'].createElement(_assetsVideoshelf2['default'], { videos: _this3.props.school.videos.whereLoose('trailer', _this3.state.trailer) });
+					}
+					return _react2['default'].createElement(_assetsLoading2['default'], null);
+				})(),
+				(function () {
+					if (_this3.state.nv) {
+						if (_this3.state.request === 0) {
+							var id = (0, _uid2['default'])();
+							return _react2['default'].createElement(
+								'div',
+								{ className: 'new-video' },
+								_react2['default'].createElement('input', { type: 'text', id: 'code-' + id, placeholder: 'https://www.youtube.com/watch?v=xxxxxxxxxxx' }),
+								_react2['default'].createElement('input', { type: 'text', id: 'name-' + id, placeholder: 'Nom' }),
+								_react2['default'].createElement(
+									'button',
+									{ onClick: _this3.addVideo.bind(_this3, id) },
+									'Pujar'
+								)
+							);
+						} else if (_this3.state.request === 1) {
+							return _react2['default'].createElement(
+								'div',
+								{ className: 'new-video' },
+								'Pujant el video'
+							);
+						} else if (_this3.state.request === 2) {
+							return _react2['default'].createElement(
+								'div',
+								{ className: 'new-video' },
+								(function () {
+									if (_this3.state.res[1].ok) {
+										return _react2['default'].createElement(
+											'div',
+											null,
+											'Video pujat'
+										);
+									}
+									return _react2['default'].createElement(
+										'div',
+										null,
+										'Hi ha hagut un error'
+									);
+								})(),
+								_react2['default'].createElement(
+									'button',
+									{ onClick: _this3.nbc.bind(_this3) },
+									'Tancar'
+								)
+							);
+						}
+					}
+				})()
+			);
+		}
+	}]);
+
+	return Tube;
+})(_react2['default'].Component);
+
+exports['default'] = Tube;
+module.exports = exports['default'];
+
+},{"../../../config":245,"../../assets/loading":230,"../../assets/videoshelf":235,"react":221,"superagent":222,"uid":225}],245:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31633,13 +32142,12 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports['default'] = {
 	api: {
-		baseUrl: '/api/v1'
+		baseUrl: '/api'
 	}
-
 };
 module.exports = exports['default'];
 
-},{}],241:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31657,15 +32165,10 @@ var Collection = (function () {
 		_classCallCheck(this, Collection);
 
 		Object.defineProperty(this, 'length', {
-
 			value: 0,
-
 			enumerable: false,
-
 			writable: true
-
 		});
-
 		this.massInsert(items);
 	}
 
@@ -31677,64 +32180,46 @@ var Collection = (function () {
 			var keyed = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
 			var ret = [];
-
 			if (keyed) {
-
 				this.keys().map(function (key) {
 					ret[key] = _this[key];
 				});
 			} else {
-
 				this.keys().map(function (key) {
 					ret.push(_this[key]);
 				});
 			}
-
 			return ret;
 		}
 	}, {
 		key: "collapse",
 		value: function collapse() {
-
 			var res = [];
-
 			this.map(function (value) {
-
 				if (value instanceof Collection) {
-
 					value = value.all(true);
 				}
-
 				res.concat(value);
 			});
-
 			return res;
 		}
 	}, {
 		key: "contains",
 		value: function contains(key, value) {
-
 			if (this.has(key)) {
-
 				if (value !== undefined) {
-
 					if (this[key] === value) {
-
 						return true;
 					}
-
 					return false;
 				}
-
 				return true;
 			}
-
 			return false;
 		}
 	}, {
 		key: "diff",
 		value: function diff(items) {
-
 			return this.filter(function (i) {
 				return items.indexOf(i) < 0;
 			});
@@ -31745,27 +32230,21 @@ var Collection = (function () {
 			var _this2 = this;
 
 			this.all(true).forEach(function (value, index) {
-
 				_this2[index] = callback(value, index) || value;
 			}, scoope || this);
-
 			return this;
 		}
 	}, {
 		key: "filter",
 		value: function filter(callback) {
-
 			if (typeof callback !== "function") {
-
 				callback = function (i) {
 					return i ? true : false;
 				};
 			}
-
 			var ret = this.all().filter(function (value, index) {
 				return callback(value, index);
 			});
-
 			return new Collection(ret);
 		}
 	}, {
@@ -31774,14 +32253,12 @@ var Collection = (function () {
 			var strict = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
 
 			return this.filter(function (item) {
-
 				return strict ? item[key] === value : item[key] == value;
 			});
 		}
 	}, {
 		key: "whereLoose",
 		value: function whereLoose(key, value) {
-
 			return this.where(key, value, false);
 		}
 	}, {
@@ -31791,63 +32268,42 @@ var Collection = (function () {
 			var def = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
 			if (callback === null) {
-
 				return !this.isEmpty() ? this[this.keys()[0]] : null;
 			}
-
 			if (typeof callback === "function") {
-
 				var _key = this.keys()[0];
-
 				var ret = callback(_key, this[_key]);
-
 				if (ret === undefined ? true : ret) {
-
 					return this[_key];
 				}
 			}
-
 			return typeof def === "function" ? def() : def;
 		}
 	}, {
 		key: "flip",
 		value: function flip() {
-
 			var trans = this.all(true);
-
 			var ret = new Collection();
-
 			var temp = [];
-
 			for (key in trans) {
-
 				if (!trans.hasOwnProperty(key)) {
-
 					continue;
 				}
-
 				if (isNaN(trans[key])) {
-
 					temp.push(key);
 				} else {
-
 					ret.put(trans[key], key);
 				}
 			}
-
 			ret.massInsert(temp);
-
 			return ret;
 		}
 	}, {
 		key: "forget",
 		value: function forget(key) {
-
 			if (this.has(key)) {
-
 				delete this[key];
 			}
-
 			return this;
 		}
 	}, {
@@ -31856,7 +32312,6 @@ var Collection = (function () {
 			var _this3 = this;
 
 			this.keys().map(function (v, key) {
-
 				_this3.forget(key);
 			});
 		}
@@ -31880,10 +32335,8 @@ var Collection = (function () {
 
 				if (typeof _ret === "object") return _ret.v;
 			} else if (this.has(key)) {
-
 				return this[key];
 			}
-
 			return def;
 		}
 	}, {
@@ -31894,21 +32347,14 @@ var Collection = (function () {
 			var preserveKeys = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
 			if (typeof _groupBy !== "function") {
-
 				_groupBy = function (target) {
-
 					var key = _groupBy;
-
 					if (key === undefined) {
-
 						return target;
 					}
-
 					if (target[key] !== undefined) {
-
 						target = target[key];
 					}
-
 					return target;
 				};
 			}
@@ -31916,19 +32362,14 @@ var Collection = (function () {
 			var results = {};
 
 			this.keys().map(function (key, value) {
-
 				var groupKey = _groupBy(_this5[value], value);
 
 				if (Object.keys(results).indexOf(groupKey) === -1) {
-
 					results[groupKey] = new Collection();
 				}
-
 				if (preserveKeys) {
-
 					results[groupKey].push(value, _this5[value]);
 				} else {
-
 					results[groupKey].push(_this5[value]);
 				}
 			});
@@ -31941,21 +32382,14 @@ var Collection = (function () {
 			var _this6 = this;
 
 			if (typeof _keyBy !== "function") {
-
 				_keyBy = function (target) {
-
 					var key = _keyBy;
-
 					if (key === undefined) {
-
 						return target;
 					}
-
 					if (target[key] !== undefined) {
-
 						target = target[key];
 					}
-
 					return target;
 				};
 			}
@@ -31963,7 +32397,6 @@ var Collection = (function () {
 			var results = {};
 
 			this.keys().map(function (key, value) {
-
 				results[_keyBy(_this6[value])] = _this6[value];
 			});
 
@@ -31972,7 +32405,6 @@ var Collection = (function () {
 	}, {
 		key: "has",
 		value: function has(key) {
-
 			return this.keys().indexOf(key.toString()) > -1;
 		}
 	}, {
@@ -31981,25 +32413,20 @@ var Collection = (function () {
 			var glue = arguments.length <= 1 || arguments[1] === undefined ? undefined : arguments[1];
 
 			if (this.first() instanceof Array || typeof this.first() === "object") {
-
 				return this.pluck(value).all(true).join(glue);
 			}
-
 			return this.all(true).join(value);
 		}
 	}, {
 		key: "intersect",
 		value: function intersect(items) {
-
 			return this.filter(function (i) {
-
 				return items.indexOf(i) != -1;
 			});
 		}
 	}, {
 		key: "isEmpty",
 		value: function isEmpty() {
-
 			return this.length < 1;
 		}
 	}, {
@@ -32015,7 +32442,6 @@ var Collection = (function () {
 			var def = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
 			var key = this.keys()[this.keys().length - 1];
-
 			return key === undefined || key < 0 ? def : parseInt(key, 10);
 		}
 	}, {
@@ -32024,20 +32450,15 @@ var Collection = (function () {
 			var callback = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
 			var val = this[this.lastKey()];
-
 			if (typeof callback === "function") {
-
 				return callback(val);
 			}
-
 			return val;
 		}
 	}, {
 		key: "nextKey",
 		value: function nextKey() {
-
 			var last = this.lastKey();
-
 			return last === null ? 0 : last + 1;
 		}
 	}, {
@@ -32048,14 +32469,10 @@ var Collection = (function () {
 			var results = new Collection();
 
 			this.all(true).map(function (i, item) {
-
 				var itemValue = item[value];
-
 				if (key === null) {
-
 					results.push(itemValue);
 				} else {
-
 					results.put(key, itemValue);
 				}
 			});
@@ -32077,62 +32494,47 @@ var Collection = (function () {
 			var collection = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
 			//return collection ? new Collection(this.all(true)).each(callback) : new Collection(this.all(true)).each(callback).all(true);
-
 			var ret = [];
-
 			this.keys().map(function (index) {
-
 				ret.push(callback(_this7[index], index) || _this7[index]);
 			}, this);
-
 			return collection ? new Collection(ret) : ret;
 		}
 	}, {
 		key: "max",
 		value: function max(key) {
-
 			return this.reduce(function (result, item) {
-
 				var value = key === undefined ? item : item[key];
-
 				return result === null || value > result ? value : result;
 			});
 		}
 	}, {
 		key: "merge",
 		value: function merge(items) {
-
 			return new Collection(this.all(true).concat(items));
 		}
 	}, {
 		key: "min",
 		value: function min(key) {
-
 			return this.reduce(function (result, item) {
-
 				var value = key === undefined ? item : item[key];
-
 				return result === null || value < result ? value : result;
 			});
 		}
 	}, {
 		key: "forPage",
 		value: function forPage(page, perPage) {
-
 			page = perPage === undefined ? page - 1 : (page - 1) * perPage;
-
 			return this.slice(page, perPage);
 		}
 	}, {
 		key: "pop",
 		value: function pop() {
-
 			return this.pull(this.lastKey());
 		}
 	}, {
 		key: "prepend",
 		value: function prepend(value) {
-
 			return new Collection(value).massInsert(this.all(true));
 		}
 	}, {
@@ -32143,28 +32545,21 @@ var Collection = (function () {
 			var items = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 
 			if (items instanceof Array) {
-
 				items.map(function (value) {
-
 					_this8.push(value);
 				});
 			} else if (items instanceof Object) {
-
 				Object.keys(items).map(function (value, index) {
-
 					_this8.put(value, items[value]);
 				});
 			} else {
-
 				this.push(items);
 			}
-
 			return this;
 		}
 	}, {
 		key: "push",
 		value: function push(value) {
-
 			this.put(value);
 		}
 	}, {
@@ -32173,37 +32568,25 @@ var Collection = (function () {
 			var def = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
 			var ret = this.get(key, def);
-
 			this.forget(key);
-
 			return ret;
 		}
 	}, {
 		key: "put",
 		value: function put(index, value) {
-
 			if (index !== undefined) {
-
 				if (value === undefined) {
-
 					value = index;
-
 					index = this.nextKey();
 				}
-
 				if (isNaN(index)) {
 					index = this.nextKey();
 				}
-
 				if (!this.has(index)) {
-
 					this.length++;
-
 					var has = this.keys();
 				}
-
 				this[index] = value;
-
 				return this;
 			}
 		}
@@ -32213,19 +32596,13 @@ var Collection = (function () {
 			var amount = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
 
 			if (!amount > this.length) {
-
 				var keys = new Collection();
-
 				for (var x = 0; x > amount; x++) {
-
 					keys.push(this.keys()[Math.floor(Math.random() * this.keys().length)]);
 				}
-
 				if (amount == 1) {
-
 					return keys.first();
 				}
-
 				return keys;
 			}
 		}
@@ -32239,24 +32616,19 @@ var Collection = (function () {
 	}, {
 		key: "reject",
 		value: function reject(callback) {
-
 			if (typeof callback === "function") {
-
 				return this.filter(function (item) {
-
 					return !callback(item);
 				});
 			}
 
 			return this.filter(function (item) {
-
 				return item != callback;
 			});
 		}
 	}, {
 		key: "reverse",
 		value: function reverse() {
-
 			return new Collection(this.all(true).reverse());
 		}
 	}, {
@@ -32267,9 +32639,7 @@ var Collection = (function () {
 			var strict = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
 
 			var ret = [];
-
 			if (typeof value !== "function") {
-
 				this.keys().map(function (key) {
 					if (!strict) {
 						if (step) {
@@ -32283,27 +32653,22 @@ var Collection = (function () {
 							}
 						}
 					} else {
-
 						if (step) {
 							if (_this9[key][step] === value) {
 								ret.push(key);
 							}
 						} else {
 							if (_this9[key] === value) {
-
 								ret.push(key);
 							}
 						}
 					}
 				});
-
 				return ret;
 			}
 
 			this.keys().map(function (key) {
-
 				if (value(_this9[key], key)) {
-
 					ret.push(key);
 				}
 			});
@@ -32318,7 +32683,6 @@ var Collection = (function () {
 			var strict = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
 
 			var ret = [];
-
 			this.keys().map(function (key) {
 				if (!strict) {
 					if (step) {
@@ -32331,47 +32695,37 @@ var Collection = (function () {
 						}
 					}
 				} else {
-
 					if (step) {
 						if (_this10[key][step].indexOf(value) > -1) {
 							ret.push(key);
 						}
 					} else {
 						if (_this10[key].indexOf(value) > -1) {
-
 							ret.push(key);
 						}
 					}
 				}
 			});
-
 			return ret;
 		}
 	}, {
 		key: "shift",
 		value: function shift() {
-
 			return this.pull(this.keys()[0]);
 		}
 	}, {
 		key: "shuffle",
 		value: function shuffle() {
-
 			var cp = this;
-
 			this.clear();
-
 			while (cp.length) {
-
 				this.push(cp.pull(cp.random()));
 			}
 		}
 	}, {
 		key: "slice",
 		value: function slice(offset, length) {
-
 			var end = length !== undefined ? offset + length : undefined;
-
 			return new Collection(this.all(true).slice(offset, end));
 		}
 	}, {
@@ -32382,30 +32736,22 @@ var Collection = (function () {
 			var preserveKeys = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
 			var ret = new Collection();
-
 			var k = this.keys();
 
 			var _loop = function () {
-
 				var chunk = new Collection();
-
 				k.splice(0, size).map(function (value, index) {
-
 					if (preserveKeys) {
-
 						index = value;
 					}
-
 					chunk.push(index, _this11[value]);
 				});
-
 				ret.push(chunk);
 			};
 
 			while (k.length > 0) {
 				_loop();
 			}
-
 			return ret;
 		}
 	}, {
@@ -32414,23 +32760,16 @@ var Collection = (function () {
 			if (callback === undefined) callback = null;
 
 			if (callback == null) {
-
 				callback = function (a, b) {
-
 					if (a > b) {
-
 						return 1;
 					}
-
 					if (a < b) {
-
 						return -1;
 					}
-
 					return 0;
 				};
 			}
-
 			return new Collection(this.all().sort(callback));
 		}
 	}, {
@@ -32439,43 +32778,30 @@ var Collection = (function () {
 			var descending = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
 			if (typeof callback !== 'function') {
-
 				if (typeof callback === undefined) {
-
 					callback = null;
 				}
-
 				if (typeof callback === 'string') {
-
 					var key = callback;
-
 					callback = function (a, b) {
-
 						a = a[key];
-
 						b = b[key];
 
 						if (a > b) {
-
 							return 1;
 						}
-
 						if (a < b) {
-
 							return -1;
 						}
-
 						return 0;
 					};
 				}
 			}
-
 			return descending ? this.sort(callback, key).reverse() : this.sort(callback, key);
 		}
 	}, {
 		key: "sortByDesc",
 		value: function sortByDesc(callback) {
-
 			return this.sortBy(callback, true);
 		}
 	}, {
@@ -32485,15 +32811,12 @@ var Collection = (function () {
 
 			if (typeof callback !== 'function' && typeof callback !== undefined) {
 				(function () {
-
 					var key = callback;
-
 					callback = function (a, b) {
 						return a[key] - b[key];
 					};
 				})();
 			}
-
 			return this.sortBy(callback, descending);
 		}
 	}, {
@@ -32503,47 +32826,34 @@ var Collection = (function () {
 			var replacement = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
 
 			if (replacement instanceof Array) {
-
 				if (replacement.length) {
-
 					replacement = [replacement];
 				}
 			} else {
-
 				replacement = [replacement];
 			}
-
 			var all = this.all(true);
-
 			replacement.unshift(offset, length);
-
 			return new Collection(all.splice.apply(all, replacement));
 		}
 	}, {
 		key: "sum",
 		value: function sum(callback) {
-
 			if (typeof callback !== 'function') {
-
 				callback = function (a) {
 					return a;
 				};
 			}
-
 			return this.reduce(function (r, i) {
-
 				return r === null ? r : r + callback(i);
 			});
 		}
 	}, {
 		key: "take",
 		value: function take(limit) {
-
 			if (limit < 0) {
-
 				return this.slice(limit, Math.abs(limit));
 			}
-
 			return this.slice(0, limit);
 		}
 	}, {
@@ -32552,36 +32862,24 @@ var Collection = (function () {
 			var _this12 = this;
 
 			this.clear();
-
 			cp = this;
-
 			cp.map(function (v, k) {
-
 				_this12.push(callback(v, k));
 			});
-
 			return this;
 		}
 	}, {
 		key: "unique",
 		value: function unique(key) {
-
 			var exists = [];
-
 			this.reject(function (i) {
-
 				if (typeof key === 'function') {
-
 					i = key(i);
 				}
-
 				if (exists.indexOf(i) > -1) {
-
 					return true;
 				}
-
 				exists.push(i);
-
 				return false;
 			});
 			return exists;
@@ -32589,14 +32887,10 @@ var Collection = (function () {
 	}, {
 		key: "values",
 		value: function values(collection) {
-
 			var ret = collection ? new Collection() : [];
-
 			this.map(function (v) {
-
 				ret.push(v);
 			});
-
 			return ret;
 		}
 	}, {
@@ -32621,137 +32915,7 @@ var Collection = (function () {
 exports["default"] = Collection;
 module.exports = exports["default"];
 
-},{}],242:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _componentsRouteMapedHome = require('../components/routeMaped/home');
-
-var _componentsRouteMapedHome2 = _interopRequireDefault(_componentsRouteMapedHome);
-
-//Route: /admin/school/
-
-var _adminSchool = require('./adminSchool');
-
-var _adminSchool2 = _interopRequireDefault(_adminSchool);
-
-/**
- * @route /admin/
- * 
- * @uses ../components/routeMaped/home
- */
-
-exports['default'] = _react2['default'].createElement(
-	_reactRouter.Route,
-	{ path: '/admin' },
-	_react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/admin/add', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/admin/edit(/:id)', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/admin/remove(/:id)', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/admin/profile', component: _componentsRouteMapedHome2['default'] }),
-	_adminSchool2['default']
-);
-module.exports = exports['default'];
-
-},{"../components/routeMaped/home":234,"./adminSchool":243,"react":221,"react-router":40}],243:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _componentsRouteMapedHome = require('../components/routeMaped/home');
-
-var _componentsRouteMapedHome2 = _interopRequireDefault(_componentsRouteMapedHome);
-
-/**
- * @route /admin/school
- * 
- * @uses ../components/routeMaped/home
- */
-
-exports['default'] = _react2['default'].createElement(
-  _reactRouter.Route,
-  { path: '/admin/school' },
-  _react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/admin/school/add', component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/admin/school/edit(/:id)', component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/admin/school/remove(/:id)', component: _componentsRouteMapedHome2['default'] })
-);
-module.exports = exports['default'];
-
-},{"../components/routeMaped/home":234,"react":221,"react-router":40}],244:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _componentsRouteMapedHome = require('../components/routeMaped/home');
-
-var _componentsRouteMapedHome2 = _interopRequireDefault(_componentsRouteMapedHome);
-
-var _componentsApp = require('../components/app');
-
-var _componentsApp2 = _interopRequireDefault(_componentsApp);
-
-//Route: /:school
-
-var _school = require('./school');
-
-var _school2 = _interopRequireDefault(_school);
-
-//Route: /admin
-
-var _admin = require('./admin');
-
-var _admin2 = _interopRequireDefault(_admin);
-
-/**
- * @route /
- * 
- * @uses ../components/app
- * @uses ../components/routeMaped/home
- */
-
-exports['default'] = _react2['default'].createElement(
-  _reactRouter.Route,
-  { path: '/' },
-  _react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsRouteMapedHome2['default'] }),
-  _admin2['default'],
-  _react2['default'].createElement(_reactRouter.Route, { path: '/login', component: _componentsRouteMapedHome2['default'] }),
-  _school2['default']
-);
-module.exports = exports['default'];
-
-},{"../components/app":227,"../components/routeMaped/home":234,"./admin":242,"./school":245,"react":221,"react-router":40}],245:[function(require,module,exports){
+},{}],247:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32790,160 +32954,47 @@ var _componentsRouteMapedSchoolCapture = require('../components/routeMaped/schoo
 
 var _componentsRouteMapedSchoolCapture2 = _interopRequireDefault(_componentsRouteMapedSchoolCapture);
 
+var _componentsRouteMapedSchoolLiberate = require('../components/routeMaped/school/liberate');
+
+var _componentsRouteMapedSchoolLiberate2 = _interopRequireDefault(_componentsRouteMapedSchoolLiberate);
+
+var _componentsRouteMapedSchoolRegister = require('../components/routeMaped/school/register');
+
+var _componentsRouteMapedSchoolRegister2 = _interopRequireDefault(_componentsRouteMapedSchoolRegister);
+
+var _componentsRouteMapedSchoolTube = require('../components/routeMaped/school/tube');
+
+var _componentsRouteMapedSchoolTube2 = _interopRequireDefault(_componentsRouteMapedSchoolTube);
+
 var _componentsAssetsSchoolMenu = require('../components/assets/school-menu');
 
 var _componentsAssetsSchoolMenu2 = _interopRequireDefault(_componentsAssetsSchoolMenu);
 
-//Route: /:school/admin/
-
-var _schoolAdmin = require('./schoolAdmin');
-
-var _schoolAdmin2 = _interopRequireDefault(_schoolAdmin);
-
 /**
- * @route /:school/
- * 
- * @uses ../components/routeMaped/home
- * @uses ../components/routeMaped/school/home
- */
-
-exports['default'] = _react2['default'].createElement(
-	_reactRouter.Route,
-	{ path: '/:school', component: _componentsAssetsSchoolMenu2['default'] },
-	_react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsRouteMapedSchoolHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/news', component: _componentsRouteMapedSchoolNews2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/list', component: _componentsRouteMapedSchoolList2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/capture', component: _componentsRouteMapedSchoolCapture2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/liberate', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/register', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/forum(/:category)', component: _componentsRouteMapedSchoolForum2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/booktrailer', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/booktube', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/login', component: _componentsRouteMapedHome2['default'] }),
-	_schoolAdmin2['default']
-);
-module.exports = exports['default'];
-
-},{"../components/assets/school-menu":233,"../components/routeMaped/home":234,"../components/routeMaped/school/capture":235,"../components/routeMaped/school/forum":236,"../components/routeMaped/school/home":237,"../components/routeMaped/school/list":238,"../components/routeMaped/school/news":239,"./schoolAdmin":246,"react":221,"react-router":40}],246:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _componentsRouteMapedHome = require('../components/routeMaped/home');
-
-var _componentsRouteMapedHome2 = _interopRequireDefault(_componentsRouteMapedHome);
-
-//Route: /:school/admin/news/
-
-var _schoolAdminNews = require('./schoolAdminNews');
-
-var _schoolAdminNews2 = _interopRequireDefault(_schoolAdminNews);
-
-//Route: /:school/admin/forum/
-
-var _schoolAdminForum = require('./schoolAdminForum');
-
-var _schoolAdminForum2 = _interopRequireDefault(_schoolAdminForum);
-
-/**
- * @route /:school/admin/
+ * @route /
  * 
  * @uses ../components/routeMaped/home
  */
-
 exports['default'] = _react2['default'].createElement(
 	_reactRouter.Route,
-	{ path: '/:school/admin' },
+	{ path: '/' },
 	_react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/add', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/edit(/:id)', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/remove(/:id)', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/profile', component: _componentsRouteMapedHome2['default'] }),
-	_schoolAdminNews2['default'],
-	_schoolAdminForum2['default'],
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/trailer', component: _componentsRouteMapedHome2['default'] }),
-	_react2['default'].createElement(_reactRouter.Route, { path: '/:school/tube', component: _componentsRouteMapedHome2['default'] })
+	'/** * @route /:school/ * * @uses ../components/routeMaped/home * @uses ../components/routeMaped/school/home * @uses ../components/routeMaped/school/news * @uses ../components/routeMaped/school/list * @uses ../components/routeMaped/school/capture * @uses ../components/routeMaped/school/liberate * @uses ../components/routeMaped/school/register * @uses ../components/routeMaped/school/forum */',
+	_react2['default'].createElement(
+		_reactRouter.Route,
+		{ path: '/:school', component: _componentsAssetsSchoolMenu2['default'] },
+		_react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsRouteMapedSchoolHome2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/news', component: _componentsRouteMapedSchoolNews2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/list', component: _componentsRouteMapedSchoolList2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/capture', component: _componentsRouteMapedSchoolCapture2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/liberate', component: _componentsRouteMapedSchoolLiberate2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/register', component: _componentsRouteMapedSchoolRegister2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/forum(/:category)', component: _componentsRouteMapedSchoolForum2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/booktrailer', trailer: true, component: _componentsRouteMapedSchoolTube2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/booktube', component: _componentsRouteMapedSchoolTube2['default'] }),
+		_react2['default'].createElement(_reactRouter.Route, { path: '/:school/login', component: _componentsRouteMapedHome2['default'] })
+	)
 );
 module.exports = exports['default'];
 
-},{"../components/routeMaped/home":234,"./schoolAdminForum":247,"./schoolAdminNews":248,"react":221,"react-router":40}],247:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _componentsRouteMapedHome = require('../components/routeMaped/home');
-
-var _componentsRouteMapedHome2 = _interopRequireDefault(_componentsRouteMapedHome);
-
-/**
- * @route /:school/admin/forum
- * 
- * @uses ../components/routeMaped/home
- */
-
-exports['default'] = _react2['default'].createElement(
-  _reactRouter.Route,
-  { path: '/:school/admin/forum' },
-  _react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/forum/add', component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/forum/edit(/:id)', component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/forum/remove(/:id)', component: _componentsRouteMapedHome2['default'] })
-);
-module.exports = exports['default'];
-
-},{"../components/routeMaped/home":234,"react":221,"react-router":40}],248:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _componentsRouteMapedHome = require('../components/routeMaped/home');
-
-var _componentsRouteMapedHome2 = _interopRequireDefault(_componentsRouteMapedHome);
-
-/**
- * @route /:school/admin/news
- * 
- * @uses ../components/routeMaped/home
- */
-
-exports['default'] = _react2['default'].createElement(
-  _reactRouter.Route,
-  { path: '/:school/admin/news' },
-  _react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/news/add', component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/news/edit(/:id)', component: _componentsRouteMapedHome2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/:school/admin/news/remove(/:id)', component: _componentsRouteMapedHome2['default'] })
-);
-module.exports = exports['default'];
-
-},{"../components/routeMaped/home":234,"react":221,"react-router":40}]},{},[226]);
+},{"../components/assets/school-menu":233,"../components/routeMaped/home":236,"../components/routeMaped/school/capture":237,"../components/routeMaped/school/forum":238,"../components/routeMaped/school/home":239,"../components/routeMaped/school/liberate":240,"../components/routeMaped/school/list":241,"../components/routeMaped/school/news":242,"../components/routeMaped/school/register":243,"../components/routeMaped/school/tube":244,"react":221,"react-router":40}]},{},[226]);

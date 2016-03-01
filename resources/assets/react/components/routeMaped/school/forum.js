@@ -24,8 +24,9 @@ export default class Forum extends React.Component {
 
 	setPosts() {
 		request
-		.get(`${config.api.baseUrl}/${this.props.params.school}/posts`)
+		.get(`${config.api.baseUrl}/school/${this.props.params.school}/post`)
 		.accept('json')
+		.set('X-Requested-With', 'XMLHttpRequest')
 		.end((err, res) => {
 			if (res.ok) {
 				let json = JSON.parse(res.text);

@@ -4,6 +4,7 @@ import config from '../../../config'
 //import uid from 'uid'
 import { default as Im } from 'immutable'
 import Notice from '../../assets/notice'
+import Loading from '../../assets/loading'
 
 
 export default class News extends React.Component {
@@ -20,8 +21,9 @@ export default class News extends React.Component {
 
 	setNews() {
 		request
-		.get(`${config.api.baseUrl}/${this.props.params.school}/news`)
+		.get(`${config.api.baseUrl}/school/${this.props.params.school}/news`)
 		.accept('json')
+		.set('X-Requested-With', 'XMLHttpRequest')
 		.end((err, res) => {
 			if (res.ok) {
 				var json = JSON.parse(res.text);
@@ -63,6 +65,6 @@ export default class News extends React.Component {
 				</div>
 			)
 		}
-		return (<p>Carregant...</p>)
+		return <Loading/>
 	}
 }

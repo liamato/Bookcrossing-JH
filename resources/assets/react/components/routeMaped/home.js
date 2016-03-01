@@ -22,8 +22,9 @@ export default class Home extends React.Component {
 
 	setSchools() {
 		request
-		.get(`${config.api.baseUrl}/school/`)
+		.get(`${config.api.baseUrl}/school`)
 		.accept('json')
+		.set('X-Requested-With', 'XMLHttpRequest')
 		.end(function(err, res) {
 			if (res.ok) {
 				var schools = JSON.parse(res.text);

@@ -42,7 +42,10 @@ export default class Book extends React.Component {
 Book.propTypes = {
 	// Book description
 	author: React.PropTypes.string.isRequired,
-	id: React.PropTypes.string.isRequired,
+	id: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number
+	]).isRequired,
 	title: React.PropTypes.string.isRequired,
 
 

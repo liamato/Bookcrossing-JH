@@ -1,6 +1,5 @@
 export default  {
 	api: {
-		baseUrl: '/api/v1',
+		baseUrl: '/api',
 	}
-
 };
