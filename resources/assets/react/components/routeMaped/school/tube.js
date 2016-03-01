@@ -46,10 +46,18 @@ export default class Tube extends React.Component {
 
 	addVideo(ev, id) {
 		this.setState({request: 1});
-		if (document.getElementById(`code-${id}`).value..match(/\w*:\/\/[\w\.]*\/watch\?v\=(.{11}).*|\w*:\/\/[\w\.]*\/(.{11}).*|<iframe.*src\=.*\/\/[\w\.]*\/embed\/(.{11}).*|([A-Za-z0-9\_\-]{11})/)) {
+		if (document.getElementById(`code-${id}`).value.match(/\w*:\/\/[\w\.]*\/watch\?v\=([A-Za-z0-9\_\-]{11}).*|\w*:\/\/[\w\.]*\/([A-Za-z0-9\_\-]{11}).*|<iframe.*src\=.*\/\/[\w\.]*\/embed\/([A-Za-z0-9\_\-]{11}).*|([A-Za-z0-9\_\-]{11})/)) {
+			let match = document.getElementById(`code-${id}`).value.match(/\w*:\/\/[\w\.]*\/watch\?v\=([A-Za-z0-9\_\-]{11}).*|\w*:\/\/[\w\.]*\/([A-Za-z0-9\_\-]{11}).*|<iframe.*src\=.*\/\/[\w\.]*\/embed\/([A-Za-z0-9\_\-]{11}).*|([A-Za-z0-9\_\-]{11})/);
+			match.shift();
+			for (let x=0; x<match.length; x++) {
+				if (match[x]) {
+					match = match[x];
+					break;
+				}
+			}
 			request
 			.post(`${config.api.baseUrl}/school/${this.props.params.school}/video`)
-			.send({code: document.getElementById(`code-${id}`).value, author: document.getElementById(`name-${id}`).value, trailer: this.state.trailer})
+			.send({code: match, author: document.getElementById(`name-${id}`).value, trailer: this.state.trailer})
 			.type('json')
 			.accept('json')
 			.set('X-Requested-With', 'XMLHttpRequest')

@@ -53,13 +53,6 @@ $factory->define(App\Video::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Video::class, function (Faker\Generator $faker) {
-    return [
-        'code' => $faker->sentence(),
-        'trailer' => rand(0, 1),
-    ];
-});
-
 $factory->define(App\School::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,

@@ -22,7 +22,7 @@ class ApiVideo extends JsonRequest
     public function rules()
     {
         return [
-            'code' => 'bail|required|string|unique:videos,code|size:11',
+            'code' => ['required','string','unique:videos,code','size:11','regex:/^[A-Za-z0-9\_\-]{11}$/'],
             'author' => 'required|string',
             'trailer' => 'required|boolean',
             'school_id' => 'sometimes|required|integer|exists:schools,id'
