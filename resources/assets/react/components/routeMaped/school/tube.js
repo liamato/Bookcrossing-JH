@@ -49,7 +49,7 @@ export default class Tube extends React.Component {
 		if (document.getElementById(`code-${id}`).value..match(/\w*:\/\/[\w\.]*\/watch\?v\=(.{11}).*|\w*:\/\/[\w\.]*\/(.{11}).*|<iframe.*src\=.*\/\/[\w\.]*\/embed\/(.{11}).*|([A-Za-z0-9\_\-]{11})/)) {
 			request
 			.post(`${config.api.baseUrl}/school/${this.props.params.school}/video`)
-			.send({code: document.getElementById(`code-${id}`).value, trailer: this.state.trailer})
+			.send({code: document.getElementById(`code-${id}`).value, author: document.getElementById(`name-${id}`).value, trailer: this.state.trailer})
 			.type('json')
 			.accept('json')
 			.set('X-Requested-With', 'XMLHttpRequest')
@@ -83,6 +83,7 @@ export default class Tube extends React.Component {
 								return (
 									<div className="new-video">
 										<input type="text" id={`code-${id}`} placeholder="https://www.youtube.com/watch?v=xxxxxxxxxxx"/>
+										<input type="text" id={`name-${id}`} placeholder="Nom"/>
 										<button onClick={this.addVideo.bind(this, id)}>Pujar</button>
 									</div>
 								)

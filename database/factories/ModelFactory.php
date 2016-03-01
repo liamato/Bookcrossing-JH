@@ -49,6 +49,7 @@ $factory->define(App\Video::class, function (Faker\Generator $faker) {
     return [
         'code' => $faker->randomElement(['lxB3qXMX9IA', 'ZOk-L0LTKRw', 'WEwvFABA8rA', 'KYlQuwGGxJ0']),
         'trailer' => rand(0, 1),
+        'author' => rand(0, 1) ? $faker->name : '',
     ];
 });
 

@@ -23,6 +23,7 @@ class ApiVideo extends JsonRequest
     {
         return [
             'code' => 'bail|required|string|unique:videos,code|size:11',
+            'author' => 'required|string',
             'trailer' => 'required|boolean',
             'school_id' => 'sometimes|required|integer|exists:schools,id'
         ];

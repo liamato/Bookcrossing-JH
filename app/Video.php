@@ -6,7 +6,7 @@ namespace App;
 
 class Video extends Model
 {
-    protected $fillable = ['code', 'trailer', 'school_id'];
+    protected $fillable = ['code', 'trailer', 'author', 'school_id'];
 
     protected $hidden = ['updated_at'];
 
