@@ -30996,10 +30996,21 @@ var Video = (function (_React$Component) {
 	_createClass(Video, [{
 		key: "render",
 		value: function render() {
+			var _this = this;
+
 			return _react2["default"].createElement(
 				"div",
 				{ className: "video" },
-				_react2["default"].createElement("iframe", { src: "//www.youtube.com/embed/" + this.props.code + "?autohide=1&rel=0", frameborde: "0", allowFullScreen: true })
+				_react2["default"].createElement("iframe", { src: "//www.youtube.com/embed/" + this.props.code + "?autohide=1&rel=0", frameborde: "0", allowFullScreen: true }),
+				(function () {
+					if (_this.props.author) {
+						return _react2["default"].createElement(
+							"p",
+							null,
+							_this.props.author
+						);
+					}
+				})()
 			);
 		}
 	}]);
@@ -31012,6 +31023,7 @@ exports["default"] = Video;
 Video.propTypes = {
 	id: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.number]).isRequired,
 	code: _react2["default"].PropTypes.string.isRequired,
+	author: _react2["default"].PropTypes.string,
 	trailer: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.bool, _react2["default"].PropTypes.string, _react2["default"].PropTypes.number]).isRequired,
 	created_at: _react2["default"].PropTypes.string.isRequired,
 	school_id: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.number])
@@ -31238,7 +31250,7 @@ var Capture = (function (_React$Component) {
 			this.setState({ request: 1 });
 			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + id).send({ catched: true }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
 
-				_this.setState({ request: 2, res: [err, res] });
+				_this.setState({ request: 2, res: [err, req] });
 			});
 		}
 	}, {
@@ -31529,7 +31541,7 @@ var Liberate = (function (_React$Component) {
 
 			this.setState({ request: 1 });
 			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + id).send({ catched: false }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
-				_this.setState({ request: 2, res: [err, res] });
+				_this.setState({ request: 2, res: [err, req] });
 			});
 		}
 	}, {
@@ -31893,7 +31905,7 @@ var Register = (function (_React$Component) {
 
 			this.setState({ request: 1 });
 			_superagent2['default'].post(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book').send({ title: document.getElementById('title-' + id).value, author: document.getElementById('author-' + id).value }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
-				_this.setState({ request: 2, res: [err, res] });
+				_this.setState({ request: 2, res: [err, req] });
 			});
 		}
 	}, {
@@ -32047,9 +32059,21 @@ var Tube = (function (_React$Component) {
 			var _this2 = this;
 
 			this.setState({ request: 1 });
-			_superagent2['default'].post(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/video').send({ code: document.getElementById('code-' + id).value, name: document.getElementById('name-' + id).value, trailer: this.state.trailer }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
-				_this2.setState({ request: 2, res: [err, res] });
-			});
+			if (document.getElementById('code-' + id).value.match(/\w*:\/\/[\w\.]*\/watch\?v\=([A-Za-z0-9\_\-]{11}).*|\w*:\/\/[\w\.]*\/([A-Za-z0-9\_\-]{11}).*|<iframe.*src\=.*\/\/[\w\.]*\/embed\/([A-Za-z0-9\_\-]{11}).*|([A-Za-z0-9\_\-]{11})/)) {
+				var match = document.getElementById('code-' + id).value.match(/\w*:\/\/[\w\.]*\/watch\?v\=([A-Za-z0-9\_\-]{11}).*|\w*:\/\/[\w\.]*\/([A-Za-z0-9\_\-]{11}).*|<iframe.*src\=.*\/\/[\w\.]*\/embed\/([A-Za-z0-9\_\-]{11}).*|([A-Za-z0-9\_\-]{11})/);
+				match.shift();
+				for (var x = 0; x < match.length; x++) {
+					if (match[x]) {
+						match = match[x];
+						break;
+					}
+				}
+				_superagent2['default'].post(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/video').send({ code: match, author: document.getElementById('name-' + id).value, trailer: this.state.trailer }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
+					_this2.setState({ request: 2, res: [err, res] });
+				});
+			} else {
+				this.setState({ request: 2, res: [{ status: 406, text: "Code field hasn't correct format" }, { error: 4, status: 406, text: "Code field hasn't correct format", notAcceptable: 406 }] });
+			}
 		}
 	}, {
 		key: 'render',

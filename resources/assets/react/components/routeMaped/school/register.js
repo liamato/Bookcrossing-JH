@@ -18,7 +18,7 @@ export default class Register extends React.Component {
 		.accept('json')
 		.set('X-Requested-With', 'XMLHttpRequest')
 		.end((err, req) => {
-			this.setState({request: 2, res: [err, res]});
+			this.setState({request: 2, res: [err, req]});
 		});
 	}
 
