@@ -30079,7 +30079,7 @@ _reactDom2['default'].render(_react2['default'].createElement(
 	_routesMain2['default']
 ), document.getElementById('container'));
 
-},{"./routes/main":247,"history/lib/createBrowserHistory":7,"react":221,"react-dom":20,"react-router":40}],227:[function(require,module,exports){
+},{"./routes/main":248,"history/lib/createBrowserHistory":7,"react":221,"react-dom":20,"react-router":40}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30400,7 +30400,7 @@ BookSearch.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":246,"./bookshelf":229,"react":221,"uid":225}],229:[function(require,module,exports){
+},{"../../data/collection":247,"./bookshelf":229,"react":221,"uid":225}],229:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30600,7 +30600,7 @@ BookShelf.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":246,"./book":227,"react":221}],230:[function(require,module,exports){
+},{"../../data/collection":247,"./book":227,"react":221}],230:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30805,7 +30805,105 @@ Post.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":246,"react":221}],233:[function(require,module,exports){
+},{"../../data/collection":247,"react":221}],233:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var Question = (function (_React$Component) {
+	_inherits(Question, _React$Component);
+
+	function Question() {
+		_classCallCheck(this, Question);
+
+		_get(Object.getPrototypeOf(Question.prototype), "constructor", this).apply(this, arguments);
+	}
+
+	_createClass(Question, [{
+		key: "render",
+		value: function render() {
+			var _this = this;
+
+			return _react2["default"].createElement(
+				"div",
+				{ className: "question" },
+				(function () {
+					if (_this.props.title) {
+						return _react2["default"].createElement(
+							"h3",
+							{ className: "question__title" },
+							_this.props.title
+						);
+					}
+				})(),
+				_react2["default"].createElement(
+					"div",
+					{ className: "question__msg" },
+					this.props.msg
+				),
+				_react2["default"].createElement(
+					"div",
+					{ className: (function () {
+							var x = "question__controls";return _this.props.optional ? x + " question--optional" : x;
+						})() },
+					_react2["default"].createElement(
+						"button",
+						{ onClick: this.props.onAccept.bind(this), className: "question__accept" },
+						this.props.acceptMsg
+					),
+					(function () {
+						if (_this.props.optional) {
+							return _react2["default"].createElement(
+								"button",
+								{ onClick: _this.props.onDecline.bind(_this), className: "question__decline" },
+								_this.props.declineMsg
+							);
+						}
+					})()
+				)
+			);
+		}
+	}]);
+
+	return Question;
+})(_react2["default"].Component);
+
+exports["default"] = Question;
+
+Question.propTypes = {
+	title: _react2["default"].PropTypes.node,
+	msg: _react2["default"].PropTypes.node.isRequired,
+	onAccept: _react2["default"].PropTypes.func.isRequired,
+	acceptMsg: _react2["default"].PropTypes.string,
+	onDecline: _react2["default"].PropTypes.func,
+	declineMsg: _react2["default"].PropTypes.string,
+	optional: _react2["default"].PropTypes.bool.isRequired
+};
+
+Question.defaultProps = {
+	optional: false,
+	acceptMsg: "Accept",
+	declineMsg: "Decline"
+};
+module.exports = exports["default"];
+
+},{"react":221}],234:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30963,7 +31061,7 @@ var Menu = (function (_React$Component) {
 exports['default'] = Menu;
 module.exports = exports['default'];
 
-},{"../../config":245,"../../data/collection":246,"immutable":19,"react":221,"react-router":40,"superagent":222}],234:[function(require,module,exports){
+},{"../../config":246,"../../data/collection":247,"immutable":19,"react":221,"react-router":40,"superagent":222}],235:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31030,7 +31128,7 @@ Video.propTypes = {
 };
 module.exports = exports["default"];
 
-},{"react":221}],235:[function(require,module,exports){
+},{"react":221}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31099,7 +31197,7 @@ VideoShelf.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":246,"./video":234,"react":221}],236:[function(require,module,exports){
+},{"../../data/collection":247,"./video":235,"react":221}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31187,7 +31285,7 @@ var Home = (function (_React$Component) {
 exports['default'] = Home;
 module.exports = exports['default'];
 
-},{"../../config":245,"react":221,"react-router":40,"superagent":222,"uid":225}],237:[function(require,module,exports){
+},{"../../config":246,"react":221,"react-router":40,"superagent":222,"uid":225}],238:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31228,6 +31326,10 @@ var _assetsLoading = require('../../assets/loading');
 
 var _assetsLoading2 = _interopRequireDefault(_assetsLoading);
 
+var _assetsQuestion = require('../../assets/question');
+
+var _assetsQuestion2 = _interopRequireDefault(_assetsQuestion);
+
 var Capture = (function (_React$Component) {
 	_inherits(Capture, _React$Component);
 
@@ -31244,14 +31346,26 @@ var Capture = (function (_React$Component) {
 		}
 	}, {
 		key: 'selectBook',
-		value: function selectBook(ev, id, active) {
+		value: function selectBook() {
 			var _this = this;
 
-			this.setState({ request: 1 });
-			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + id).send({ catched: true }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
-
-				_this.setState({ request: 2, res: [err, req] });
+			this.setState({ request: 2 });
+			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + this.state.id).send({ catched: true }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
+				_this.setState({ request: 3, res: [err, req] });
+				var cp = _this.props.books;
+				cp[cp.search(_this.state.id, 'id')].catched = "1";
+				_this.props.updateSchool({ books: cp });
 			});
+		}
+	}, {
+		key: 'askBook',
+		value: function askBook(ev, id, active) {
+			this.setState({ request: 1, id: id });
+		}
+	}, {
+		key: 'cancelSelection',
+		value: function cancelSelection() {
+			this.setState({ request: 0 });
 		}
 	}, {
 		key: 'render',
@@ -31259,21 +31373,23 @@ var Capture = (function (_React$Component) {
 
 			if (this.state.request === 0) {
 				if (this.props.school.books) {
-					return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.selectBook.bind(this), by: 'name', books: this.props.school.books.whereLoose('catched', false), selectable: true });
+					return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.askBook.bind(this), by: 'name', books: this.props.school.books.whereLoose('catched', false), selectable: true });
 				}
 				return _react2['default'].createElement(_assetsLoading2['default'], null);
 			} else if (this.state.request === 1) {
+				return _react2['default'].createElement(_assetsQuestion2['default'], { msg: 'Segur que vols quest llibre?', onAccept: this.selectBook.bind(this), onDecline: this.cancelSelection.bind(this), optional: true });
+			} else if (this.state.request === 2) {
 				return _react2['default'].createElement(
 					'div',
 					null,
 					'Capturant llibre...'
 				);
-			} else if (this.state.request === 2) {
+			} else if (this.state.request === 3) {
 				if (this.state.res[1].ok) {
 					return _react2['default'].createElement(
 						'div',
 						null,
-						'Llibre alliberat'
+						'Llibre capturat'
 					);
 				}
 				return _react2['default'].createElement(
@@ -31291,7 +31407,7 @@ var Capture = (function (_React$Component) {
 exports['default'] = Capture;
 module.exports = exports['default'];
 
-},{"../../../config":245,"../../assets/booksearch":228,"../../assets/loading":230,"immutable":19,"react":221,"superagent":222}],238:[function(require,module,exports){
+},{"../../../config":246,"../../assets/booksearch":228,"../../assets/loading":230,"../../assets/question":233,"immutable":19,"react":221,"superagent":222}],239:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31436,7 +31552,7 @@ var Forum = (function (_React$Component) {
 exports['default'] = Forum;
 module.exports = exports['default'];
 
-},{"../../../config":245,"../../assets/post":232,"immutable":19,"react":221,"superagent":222}],239:[function(require,module,exports){
+},{"../../../config":246,"../../assets/post":232,"immutable":19,"react":221,"superagent":222}],240:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31483,7 +31599,7 @@ var SchoolHome = (function (_React$Component) {
 exports['default'] = SchoolHome;
 module.exports = exports['default'];
 
-},{"react":221}],240:[function(require,module,exports){
+},{"react":221}],241:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31582,7 +31698,7 @@ var Liberate = (function (_React$Component) {
 exports['default'] = Liberate;
 module.exports = exports['default'];
 
-},{"../../../config":245,"../../assets/booksearch":228,"../../assets/loading":230,"react":221,"superagent":222}],241:[function(require,module,exports){
+},{"../../../config":246,"../../assets/booksearch":228,"../../assets/loading":230,"react":221,"superagent":222}],242:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31722,7 +31838,7 @@ var List = (function (_React$Component) {
 exports['default'] = List;
 module.exports = exports['default'];
 
-},{"../../../config":245,"../../assets/booksearch":228,"../../assets/bookshelf":229,"../../assets/loading":230,"immutable":19,"react":221,"superagent":222}],242:[function(require,module,exports){
+},{"../../../config":246,"../../assets/booksearch":228,"../../assets/bookshelf":229,"../../assets/loading":230,"immutable":19,"react":221,"superagent":222}],243:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31851,7 +31967,7 @@ var News = (function (_React$Component) {
 exports['default'] = News;
 module.exports = exports['default'];
 
-},{"../../../config":245,"../../assets/loading":230,"../../assets/notice":231,"immutable":19,"react":221,"superagent":222}],243:[function(require,module,exports){
+},{"../../../config":246,"../../assets/loading":230,"../../assets/notice":231,"immutable":19,"react":221,"superagent":222}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31954,7 +32070,7 @@ var Register = (function (_React$Component) {
 exports['default'] = Register;
 module.exports = exports['default'];
 
-},{"../../../config":245,"react":221,"superagent":222,"uid":225}],244:[function(require,module,exports){
+},{"../../../config":246,"react":221,"superagent":222,"uid":225}],245:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32158,7 +32274,7 @@ var Tube = (function (_React$Component) {
 exports['default'] = Tube;
 module.exports = exports['default'];
 
-},{"../../../config":245,"../../assets/loading":230,"../../assets/videoshelf":235,"react":221,"superagent":222,"uid":225}],245:[function(require,module,exports){
+},{"../../../config":246,"../../assets/loading":230,"../../assets/videoshelf":236,"react":221,"superagent":222,"uid":225}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32171,7 +32287,7 @@ exports['default'] = {
 };
 module.exports = exports['default'];
 
-},{}],246:[function(require,module,exports){
+},{}],247:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32939,7 +33055,7 @@ var Collection = (function () {
 exports["default"] = Collection;
 module.exports = exports["default"];
 
-},{}],247:[function(require,module,exports){
+},{}],248:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -33021,4 +33137,4 @@ exports['default'] = _react2['default'].createElement(
 );
 module.exports = exports['default'];
 
-},{"../components/assets/school-menu":233,"../components/routeMaped/home":236,"../components/routeMaped/school/capture":237,"../components/routeMaped/school/forum":238,"../components/routeMaped/school/home":239,"../components/routeMaped/school/liberate":240,"../components/routeMaped/school/list":241,"../components/routeMaped/school/news":242,"../components/routeMaped/school/register":243,"../components/routeMaped/school/tube":244,"react":221,"react-router":40}]},{},[226]);
+},{"../components/assets/school-menu":234,"../components/routeMaped/home":237,"../components/routeMaped/school/capture":238,"../components/routeMaped/school/forum":239,"../components/routeMaped/school/home":240,"../components/routeMaped/school/liberate":241,"../components/routeMaped/school/list":242,"../components/routeMaped/school/news":243,"../components/routeMaped/school/register":244,"../components/routeMaped/school/tube":245,"react":221,"react-router":40}]},{},[226]);
