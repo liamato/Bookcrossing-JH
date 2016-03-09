@@ -16,12 +16,12 @@ export default class Question extends React.Component {
 				<div className="question__msg">
 					{this.props.msg}
 				</div>
-				<div className={()=>{let x="question__controls";return this.props.optional?`${x} question--optional`:x}}>
+				<div className={ ()=>{let x="question__controls";return this.props.optional?`${x} question--optional`:x}()}>
 					<button onClick={this.props.onAccept.bind(this)} className="question__accept">{this.props.acceptMsg}</button>
 					{
 						() => {
 							if (this.props.optional) {
-								<button onClick={this.props.onDecline.bind(this)} className="question__decline">{this.declineMsg}</button>
+								return <button onClick={this.props.onDecline.bind(this)} className="question__decline">{this.props.declineMsg}</button>
 							}
 						}()
 					}
