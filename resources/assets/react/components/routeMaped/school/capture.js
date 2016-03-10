@@ -24,7 +24,7 @@ export default class Capture extends React.Component {
 		.set('X-Requested-With', 'XMLHttpRequest')
 		.end((err, req) => {
 			this.setState({request: 3, res: [err, req]});
-			let cp = this.props.books;
+			let cp = this.props.school.books;
 			cp[cp.search(this.state.id,'id')].catched = "1";
 			this.props.updateSchool({books: cp});
 		});

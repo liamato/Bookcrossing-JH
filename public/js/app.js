@@ -31352,7 +31352,7 @@ var Capture = (function (_React$Component) {
 			this.setState({ request: 2 });
 			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + this.state.id).send({ catched: true }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
 				_this.setState({ request: 3, res: [err, req] });
-				var cp = _this.props.books;
+				var cp = _this.props.school.books;
 				cp[cp.search(_this.state.id, 'id')].catched = "1";
 				_this.props.updateSchool({ books: cp });
 			});
