@@ -31636,6 +31636,10 @@ var _assetsLoading = require('../../assets/loading');
 
 var _assetsLoading2 = _interopRequireDefault(_assetsLoading);
 
+var _assetsQuestion = require('../../assets/question');
+
+var _assetsQuestion2 = _interopRequireDefault(_assetsQuestion);
+
 var Liberate = (function (_React$Component) {
 	_inherits(Liberate, _React$Component);
 
@@ -31652,13 +31656,26 @@ var Liberate = (function (_React$Component) {
 		}
 	}, {
 		key: 'selectBook',
-		value: function selectBook(ev, id, active) {
+		value: function selectBook() {
 			var _this = this;
 
-			this.setState({ request: 1 });
-			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + id).send({ catched: false }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
-				_this.setState({ request: 2, res: [err, req] });
+			this.setState({ request: 2 });
+			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/book/' + this.state.id).send({ catched: false }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
+				_this.setState({ request: 3, res: [err, req] });
+				var cp = _this.props.school.books;
+				cp[cp.search(_this.state.id, 'id')].catched = "0";
+				_this.props.updateSchool({ books: cp });
 			});
+		}
+	}, {
+		key: 'askBook',
+		value: function askBook(ev, id, active) {
+			this.setState({ request: 1, id: id });
+		}
+	}, {
+		key: 'cancelSelection',
+		value: function cancelSelection() {
+			this.setState({ request: 0 });
 		}
 	}, {
 		key: 'render',
@@ -31666,16 +31683,18 @@ var Liberate = (function (_React$Component) {
 
 			if (this.state.request === 0) {
 				if (this.props.school.books) {
-					return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.selectBook.bind(this), by: 'name', books: this.props.school.books.whereLoose('catched', true), selectable: true });
+					return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.askBook.bind(this), by: 'name', books: this.props.school.books.whereLoose('catched', true), selectable: true });
 				}
 				return _react2['default'].createElement(_assetsLoading2['default'], null);
 			} else if (this.state.request === 1) {
+				return _react2['default'].createElement(_assetsQuestion2['default'], { msg: 'Segur que vols alliberar quest llibre?', onAccept: this.selectBook.bind(this), onDecline: this.cancelSelection.bind(this), optional: true });
+			} else if (this.state.request === 2) {
 				return _react2['default'].createElement(
 					'div',
 					null,
 					'Alliberant llibre...'
 				);
-			} else if (this.state.request === 2) {
+			} else if (this.state.request === 3) {
 				if (this.state.res[1].ok) {
 					return _react2['default'].createElement(
 						'div',
@@ -31698,7 +31717,7 @@ var Liberate = (function (_React$Component) {
 exports['default'] = Liberate;
 module.exports = exports['default'];
 
-},{"../../../config":246,"../../assets/booksearch":228,"../../assets/loading":230,"react":221,"superagent":222}],242:[function(require,module,exports){
+},{"../../../config":246,"../../assets/booksearch":228,"../../assets/loading":230,"../../assets/question":233,"react":221,"superagent":222}],242:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
