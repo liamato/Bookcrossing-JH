@@ -8,8 +8,33 @@ import Collection from '../../data/collection'
 export default class Menu extends React.Component {
 
 	componentWillMount() {
-		this.setState({school: {name: '', slug: this.props.params.school}});
+		this.setState({school: {name: '', slug: this.props.params.school}, schools: []});
 		this.setSchool();
+		this.getSchools();
+	}
+
+	componentDidUpdate(props, state) {
+		if (this.props.params.school !== props.params.school) {
+			this.setSchool()
+		}
+	}
+
+	getSchools() {
+		request
+		.get(`${config.api.baseUrl}/school`)
+		.accept('json')
+		.set('X-Requested-With', 'XMLHttpRequest')
+		.end((err, req)=> {
+			if (req.ok) {
+				var schools = JSON.parse(req.text);
+				if (schools instanceof Array) {
+					schools = new Collection(schools);
+				}
+			} else if (err) {
+				console.log(err);
+			}
+			this.setState({schools: schools||this.state.schools});
+		});
 	}
 
 	setSchool(school, callback) {
@@ -46,6 +71,13 @@ export default class Menu extends React.Component {
 		}
 	}
 
+	changeSchool(ev) {
+		let target = ev.target
+		this.props.history.pushState(this.props.location.key, '/'+target.value+this.props.location.pathname.substr(this.props.location.pathname.indexOf('/',1)))
+		this.setState({school: {name: target.selectedOptions[0].text, slug: target.value}})
+		this.setSchool()
+	}
+
 	render() {
 		return (
 		<div>
@@ -59,6 +91,13 @@ export default class Menu extends React.Component {
 				<Link to={`/${this.state.school.slug}/forum`}>Foro</Link>				
 				<Link to={`/${this.state.school.slug}/booktrailer`}>Booktrailer</Link>				
 				<Link to={`/${this.state.school.slug}/booktube`}>Booktube</Link>				
+				<select onChange={this.changeSchool.bind(this)}>
+					{
+						this.state.schools.map((school) => {
+							return <option key={school.id} value={school.slug}>{school.name}</option>
+						})
+					}
+				</select>
 			</nav>
 			{React.cloneElement(this.props.children, {school: this.state.school, updateSchool: this.setSchool.bind(this)})}
 			<footer>{this.state.school.name}</footer>

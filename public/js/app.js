@@ -30954,13 +30954,38 @@ var Menu = (function (_React$Component) {
 	_createClass(Menu, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
-			this.setState({ school: { name: '', slug: this.props.params.school } });
+			this.setState({ school: { name: '', slug: this.props.params.school }, schools: [] });
 			this.setSchool();
+			this.getSchools();
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(props, state) {
+			if (this.props.params.school !== props.params.school) {
+				this.setSchool();
+			}
+		}
+	}, {
+		key: 'getSchools',
+		value: function getSchools() {
+			var _this = this;
+
+			_superagent2['default'].get(_config2['default'].api.baseUrl + '/school').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
+				if (req.ok) {
+					var schools = JSON.parse(req.text);
+					if (schools instanceof Array) {
+						schools = new _dataCollection2['default'](schools);
+					}
+				} else if (err) {
+					console.log(err);
+				}
+				_this.setState({ schools: schools || _this.state.schools });
+			});
 		}
 	}, {
 		key: 'setSchool',
 		value: function setSchool(school, callback) {
-			var _this = this;
+			var _this2 = this;
 
 			if (!school) {
 				_superagent2['default'].get(_config2['default'].api.baseUrl + '/school(all)/' + this.props.params.school).accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
@@ -30974,7 +30999,7 @@ var Menu = (function (_React$Component) {
 					} else if (err) {
 						console.log(err);
 					}
-					_this.setState({ school: school || _this.state.school }, callback);
+					_this2.setState({ school: school || _this2.state.school }, callback);
 				});
 			} else {
 				if (school.school) {
@@ -30989,6 +31014,14 @@ var Menu = (function (_React$Component) {
 					school: Object.assign(this.state.school, school)
 				}, callback);
 			}
+		}
+	}, {
+		key: 'changeSchool',
+		value: function changeSchool(ev) {
+			var target = ev.target;
+			this.props.history.pushState(this.props.location.key, '/' + target.value + this.props.location.pathname.substr(this.props.location.pathname.indexOf('/', 1)));
+			this.setState({ school: { name: target.selectedOptions[0].text, slug: target.value } });
+			this.setSchool();
 		}
 	}, {
 		key: 'render',
@@ -31043,6 +31076,17 @@ var Menu = (function (_React$Component) {
 						_reactRouter.Link,
 						{ to: '/' + this.state.school.slug + '/booktube' },
 						'Booktube'
+					),
+					_react2['default'].createElement(
+						'select',
+						{ onChange: this.changeSchool.bind(this) },
+						this.state.schools.map(function (school) {
+							return _react2['default'].createElement(
+								'option',
+								{ key: school.id, value: school.slug },
+								school.name
+							);
+						})
 					)
 				),
 				_react2['default'].cloneElement(this.props.children, { school: this.state.school, updateSchool: this.setSchool.bind(this) }),
