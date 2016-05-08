@@ -3,23 +3,31 @@ import request from 'superagent'
 import config from '../../../config'
 import { default as Im } from 'immutable'
 import Post from '../../assets/post'
+import AddPost from '../../assets/addpost'
 
 export default class Forum extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
- 	}
 
- 	componentWillMount() {
+	componentWillMount() {
+		this.setState({category: undefined});
 		this.updateCategory();
+	}
+
+	componentDidMount() {
 		if (!this.props.school.posts) {
 			this.setPosts();
 		}
+
 	}
 
-	componentReciveProps(props) {
+	componentWillReciveProps(props) {
 		this.setPosts();
 		this.updateCategory();
+		
+	}
+
+	componentDidUpdate(props) {
+		//this.setPosts();
+		//this.updateCategory();
 	}
 
 	setPosts() {
@@ -43,6 +51,7 @@ export default class Forum extends React.Component {
 				}
 				this.updateCategory(c)
 			} else if(err) {
+				this.updateCategory()
 				console.log(err);
 			}
 		}.bind(this));
@@ -61,27 +70,33 @@ export default class Forum extends React.Component {
 			this.setState({category: category}, callback);
 		} else if(this.props.school.categories && category === undefined) {
 			this.setState({category: this.props.school.categories[0].id}, callback);
+		} else if(category === undefined) {
+			this.setPosts();
 		}
 	}
 
 	changeHandler(e) {
-		this.updateCategory(e.nativeEvent.target.value);
+		this.updateCategory(e.target.value);
 	}
 
+	writeMsg(msg) {
+		console.log(msg);
+	}
 
 	render() {
-		if(this.props.school.posts && this.props.school.categories){
+		if(this.props.school.posts && this.props.school.categories && this.state.category !== undefined){
 			return <div>
 			<select onChange={this.changeHandler.bind(this)}>
 				{
 					this.props.school.categories.map((category) => {
-						return <option key={category.id} value={category.id}>{category.name}</option>
+						return <option key={category.id} value={category.id} >{category.name}</option>
 					})
 				}
 			</select>
+			<AddPost parent={0} schoolSlug={this.props.school.slug} writeMsg={this.writeMsg.bind(this)} category={this.state.category} />
 			{
 				this.props.school.posts.where('category_id',this.state.category,false).where('parent', 0, false).map((post) => {
-					return	<Post key={post.id} {...post} posts={this.props.school.posts} />
+					return	<Post key={post.id} {...post} posts={this.props.school.posts} schoolSlug={this.props.school.slug} writeMsg={this.writeMsg.bind(this)} category={this.state.category} />
 				})
 			}
 			</div>
