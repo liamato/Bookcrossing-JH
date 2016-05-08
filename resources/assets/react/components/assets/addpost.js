@@ -5,9 +5,14 @@ import Uid from 'uid'
 
 export default class AddPost extends React.Component {
 
+	componentWillMount()
+	{
+		this.setState({btn: true});
+	}
+
 	send(ev, id)
 	{
-		var path = `${config.api.baseUrl}/school/${this.props.school}/post`;
+		var path = `${config.api.baseUrl}/school/${this.props.schoolSlug}/post`;
 		var snd  = {
 			title: document.getElementById(`title-${id}`).value,
 			body: document.getElementById(`body-${id}`).value,
@@ -34,18 +39,32 @@ export default class AddPost extends React.Component {
 
 	close()
 	{
-		this.props.close();
+		this.setState({btn: true});
+	}
+
+	open()
+	{
+		this.setState({btn: false});
 	}
 
 	render()
 	{
 		var uid = Uid();
 		return <div className="addPost">
-			<button onClick={this.close.bind(this)}>X</button>
-			<input type="text" id={`title-${uid}`} placeholder="Titulo*" required/>
-			<textarea placeholder="Comentario*" id={`body-${uid}`} required></textarea>
-			<input type="text" id={`author-${uid}`} placeholder="Nombre o pseudonimo"/>
-			<button onClick={this.send.bind(this, uid)}>Enviar</button>
+			{
+				() => {
+					if (this.state.btn) {
+						return <button className="addPost__btn" onClick={this.open.bind(this)}>Afegir comentari</button>
+					}
+					return <div className="addPost__controls">
+						<button onClick={this.close.bind(this)}>X</button>
+						<input type="text" id={`title-${uid}`} placeholder="Titulo*" required/>
+						<textarea placeholder="Comentario*" id={`body-${uid}`} required></textarea>
+						<input type="text" id={`author-${uid}`} placeholder="Nombre o pseudonimo"/>
+						<button onClick={this.send.bind(this, uid)}>Enviar</button>
+					</div>
+				}()
+			}
 		</div>
 	}
 
@@ -56,14 +75,10 @@ AddPost.propTypes = {
 		React.PropTypes.string,
 		React.PropTypes.number,
 	]).isRequired,
-	school: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.number,
-	]).isRequired,
+	schoolSlug: React.PropTypes.string.isRequired,
 	category: React.PropTypes.oneOfType([
 		React.PropTypes.string,
 		React.PropTypes.number,
 	]).isRequired,
 	writeMsg: React.PropTypes.func.isRequired,
-	close: React.PropTypes.func.isRequired,
 };
