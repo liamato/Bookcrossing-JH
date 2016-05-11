@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
+Route::group(['prefix' => '/api', 'middleware' => 'options', 'namespace' => 'Api'], function(){
 
 	// @GET
 
@@ -38,7 +38,7 @@ Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 		'uses' => 'ApiCategoryController@show',
 		'as' => 'api.catrgory.show'
 	]);
-	
+
 	Route::resource('/category', 'ApiCategoryController', ['except' => ['create', 'edit']]);
 
 
@@ -108,7 +108,7 @@ Route::group(['prefix' => '/api', 'middleware' => 'options'], function(){
 			'uses' => 'ApiCategoryController@show',
 			'as' => 'api.catrgory.show'
 		]);
-		
+
 		Route::resource('/category', 'ApiCategoryController', ['except' => ['create', 'edit']]);
 
 
