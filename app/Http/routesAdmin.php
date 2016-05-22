@@ -75,10 +75,10 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'index'
             ]);
 
-            Route::get('add', [
+            /*Route::get('add', [
                 'uses' => 'AdminBook@add',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::post('add', [
                 'uses' => 'AdminBook@store',
@@ -86,10 +86,10 @@ Route::group(['namespace' => 'Admin'], function() {
             ]);
 
             Route::group(['prefix' => '{book}'], function() {
-                Route::get('/', [
+                /*Route::get('/', [
                     'uses' => 'AdminBook@dump',
                     'as' => 'dump'
-                ]);
+                ]);*/
 
                 Route::get('edit', [
                     'uses' => 'AdminBook@edit',
@@ -129,10 +129,10 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'index'
             ]);
 
-            Route::get('add', [
+            /*Route::get('add', [
                 'uses' => 'AdminCategory@add',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::post('add', [
                 'uses' => 'AdminCategory@store',
@@ -150,10 +150,10 @@ Route::group(['namespace' => 'Admin'], function() {
             ]);
 
             Route::group(['prefix' => '{category}'], function() {
-                Route::get('/', [
+                /*Route::get('/', [
                     'uses' => 'AdminCategory@dump',
                     'as' => 'dump'
-                ]);
+                ]);*/
 
                 Route::get('edit', [
                     'uses' => 'AdminCategory@edit',
@@ -178,10 +178,10 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'index'
             ]);
 
-            Route::get('add', [
+            /*Route::get('add', [
                 'uses' => 'AdminPost@add',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::post('add', [
                 'uses' => 'AdminPost@store',
@@ -189,10 +189,10 @@ Route::group(['namespace' => 'Admin'], function() {
             ]);
 
             Route::group(['prefix' => '{post}'], function() {
-                Route::get('/', [
+                /*Route::get('/', [
                     'uses' => 'AdminPost@dump',
                     'as' => 'dump'
-                ]);
+                ]);*/
 
                 Route::get('edit', [
                     'uses' => 'AdminPost@edit',
@@ -222,10 +222,10 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'index'
             ]);
 
-            Route::get('add', [
+            /*Route::get('add', [
                 'uses' => 'AdminReport@add',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::post('add', [
                 'uses' => 'AdminReport@store',
@@ -233,10 +233,10 @@ Route::group(['namespace' => 'Admin'], function() {
             ]);
 
             Route::group(['prefix' => '{news}'], function() {
-                Route::get('/', [
+                /*Route::get('/', [
                     'uses' => 'AdminReport@dump',
                     'as' => 'dump'
-                ]);
+                ]);*/
 
                 Route::get('edit', [
                     'uses' => 'AdminReport@edit',
@@ -256,10 +256,10 @@ Route::group(['namespace' => 'Admin'], function() {
         });
 
         Route::group(['prefix' => 'school', 'as' => 'school.'], function() {
-            Route::get('/', [
-                'uses' => 'AdminSchool@dump',
-                'as' => 'dump'
-            ]);
+            /*Route::get('/', [
+                'uses' => 'AdminSchool@index',
+                'as' => 'index'
+            ]);*/
 
             Route::get('edit', [
                 'uses' => 'AdminSchool@edit',
@@ -278,10 +278,10 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'index'
             ]);
 
-            Route::get('add', [
+            /*Route::get('add', [
                 'uses' => 'AdminUser@add',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::post('add', [
                 'uses' => 'AdminUser@store',
@@ -289,10 +289,10 @@ Route::group(['namespace' => 'Admin'], function() {
             ]);
 
             Route::group(['prefix' => '{user}'], function() {
-                Route::get('/', [
+                /*Route::get('/', [
                     'uses' => 'AdminUser@dump',
                     'as' => 'dump'
-                ]);
+                ]);*/
 
                 Route::get('edit', [
                     'uses' => 'AdminUser@edit',
@@ -313,14 +313,14 @@ Route::group(['namespace' => 'Admin'], function() {
 
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function() {
             Route::get('/', [
-                'uses' => 'AdminUser@dump',
-                'as' => 'dump'
+                'uses' => 'AdminUser@index',
+                'as' => 'index'
             ]);
 
-            Route::get('edit', [
+            /*Route::get('edit', [
                 'uses' => 'AdminUser@edit',
                 'as' => 'edit'
-            ]);
+            ]);*/
 
             Route::post('edit', [
                 'uses' => 'AdminUser@update',
@@ -339,10 +339,10 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'index'
             ]);
 
-            Route::get('add', [
+            /*Route::get('add', [
                 'uses' => 'AdminVideo@add',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::post('add', [
                 'uses' => 'AdminVideo@store',
@@ -360,10 +360,10 @@ Route::group(['namespace' => 'Admin'], function() {
             ]);
 
             Route::group(['prefix' => '{video}'], function() {
-                Route::get('/', [
+                /*Route::get('/', [
                     'uses' => 'AdminVideo@dump',
                     'as' => 'dump'
-                ]);
+                ]);*/
 
                 Route::get('edit', [
                     'uses' => 'AdminVideo@edit',
@@ -394,10 +394,10 @@ Route::group(['namespace' => 'Admin'], function() {
             'as' => 'index'
         ]);
 
-        Route::get('add', [
+        /*Route::get('add', [
             'uses' => 'SuperAdmin@add',
             'as' => 'add'
-        ]);
+        ]);*/
 
         Route::post('add', [
             'uses' => 'SuperAdmin@add',
@@ -405,10 +405,10 @@ Route::group(['namespace' => 'Admin'], function() {
         ]);
 
         Route::group(['prefix' => '{id}'], function() {
-            Route::get('/', [
+            /*Route::get('/', [
                 'uses' => 'SuperAdmin@dump',
                 'as' => 'dump'
-            ]);
+            ]);*/
 
             Route::get('edit', [
                 'uses' => 'SuperAdmin@edit',
@@ -432,10 +432,10 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'index'
             ]);
 
-            Route::get('add', [
+            /*Route::get('add', [
                 'uses' => 'SuperAdminSchool@add',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::post('add', [
                 'uses' => 'SuperAdminSchool@store',
@@ -444,10 +444,10 @@ Route::group(['namespace' => 'Admin'], function() {
 
             Route::group(['prefix' => '{school}'], function() {
 
-                Route::get('/', [
+                /*Route::get('/', [
                     'uses' => 'SuperAdminSchool@dump',
                     'as' => 'dump'
-                ]);
+                ]);*/
 
                 Route::get('edit', [
                     'uses' => 'SuperAdminSchool@edit',
@@ -471,10 +471,10 @@ Route::group(['namespace' => 'Admin'], function() {
                         'as' => 'index'
                     ]);
 
-                    Route::get('add', [
+                    /*Route::get('add', [
                         'uses' => 'SuperAdminUser@add',
                         'as' => 'add'
-                    ]);
+                    ]);*/
 
                     Route::post('add', [
                         'uses' => 'SuperAdminUser@store',
@@ -483,10 +483,10 @@ Route::group(['namespace' => 'Admin'], function() {
 
                     Route::group(['prefix' => '{user}'], function() {
 
-                        Route::get('/', [
+                        /*Route::get('/', [
                             'uses' => 'SuperAdminUser@dump',
                             'as' => 'dump'
-                        ]);
+                        ]);*/
 
                         Route::get('edit', [
                             'uses' => 'SuperAdminUser@edit',
