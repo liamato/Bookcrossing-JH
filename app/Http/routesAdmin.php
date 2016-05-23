@@ -96,27 +96,27 @@ Route::group(['namespace' => 'Admin'], function() {
                     'as' => 'edit'
                 ]);
 
-                Route::post('edit', [
+                Route::put('edit', [
                     'uses' => 'AdminBook@update',
                     'as' => 'edit'
                 ]);
 
-                Route::post('remove', [
+                Route::delete('remove', [
                     'uses' => 'AdminBook@remove',
                     'as' => 'remove'
                 ]);
 
-                Route::post('verify', [
+                Route::put('verify', [
                     'uses' => 'AdminBook@verify',
                     'as' => 'verify'
                 ]);
 
-                Route::post('liberate', [
+                Route::put('liberate', [
                     'uses' => 'AdminBook@liberate',
                     'as' => 'liberate'
                 ]);
 
-                Route::post('capture', [
+                Route::put('capture', [
                     'uses' => 'AdminBook@capture',
                     'as' => 'capture'
                 ]);
@@ -144,7 +144,7 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'move'
             ]);
 
-            Route::post('move', [
+            Route::put('move', [
                 'uses' => 'AdminCategory@change',
                 'as' => 'move'
             ]);
@@ -160,12 +160,12 @@ Route::group(['namespace' => 'Admin'], function() {
                     'as' => 'edit'
                 ]);
 
-                Route::post('edit', [
+                Route::put('edit', [
                     'uses' => 'AdminCategory@update',
                     'as' => 'edit'
                 ]);
 
-                Route::post('remove', [
+                Route::delete('remove', [
                     'uses' => 'AdminCategory@remove',
                     'as' => 'remove'
                 ]);
@@ -199,17 +199,17 @@ Route::group(['namespace' => 'Admin'], function() {
                     'as' => 'edit'
                 ]);
 
-                Route::post('edit', [
+                Route::put('edit', [
                     'uses' => 'AdminPost@update',
                     'as' => 'edit'
                 ]);
 
-                Route::post('remove', [
+                Route::delete('remove', [
                     'uses' => 'AdminPost@remove',
                     'as' => 'remove'
                 ]);
 
-                Route::post('verify', [
+                Route::put('verify', [
                     'uses' => 'AdminPost@verify',
                     'as' => 'verify'
                 ]);
@@ -243,12 +243,12 @@ Route::group(['namespace' => 'Admin'], function() {
                     'as' => 'edit'
                 ]);
 
-                Route::post('edit', [
+                Route::put('edit', [
                     'uses' => 'AdminReport@update',
                     'as' => 'edit'
                 ]);
 
-                Route::post('remove', [
+                Route::delete('remove', [
                     'uses' => 'AdminReport@remove',
                     'as' => 'remove'
                 ]);
@@ -266,7 +266,7 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'edit'
             ]);
 
-            Route::post('edit', [
+            Route::put('edit', [
                 'uses' => 'AdminSchool@update',
                 'as' => 'edit'
             ]);
@@ -299,12 +299,12 @@ Route::group(['namespace' => 'Admin'], function() {
                     'as' => 'edit'
                 ]);
 
-                Route::post('edit', [
+                Route::put('edit', [
                     'uses' => 'AdminUser@update',
                     'as' => 'edit'
                 ]);
 
-                Route::post('remove', [
+                Route::delete('remove', [
                     'uses' => 'AdminUser@remove',
                     'as' => 'remove'
                 ]);
@@ -322,12 +322,12 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'edit'
             ]);*/
 
-            Route::post('edit', [
+            Route::put('edit', [
                 'uses' => 'AdminUser@update',
                 'as' => 'edit'
             ]);
 
-            Route::post('remove', [
+            Route::delete('remove', [
                 'uses' => 'AdminUser@remove',
                 'as' => 'remove'
             ]);
@@ -354,7 +354,7 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'move'
             ]);
 
-            Route::post('move', [
+            Route::put('move', [
                 'uses' => 'AdminVideo@change',
                 'as' => 'move'
             ]);
@@ -370,17 +370,17 @@ Route::group(['namespace' => 'Admin'], function() {
                     'as' => 'edit'
                 ]);
 
-                Route::post('edit', [
+                Route::put('edit', [
                     'uses' => 'AdminVideo@update',
                     'as' => 'edit'
                 ]);
 
-                Route::post('remove', [
+                Route::delete('remove', [
                     'uses' => 'AdminVideo@remove',
                     'as' => 'remove'
                 ]);
 
-                Route::post('verify', [
+                Route::put('verify', [
                     'uses' => 'AdminVideo@verify',
                     'as' => 'verify'
                 ]);
@@ -415,12 +415,12 @@ Route::group(['namespace' => 'Admin'], function() {
                 'as' => 'edit'
             ]);
 
-            Route::post('edit', [
+            Route::put('edit', [
                 'uses' => 'SuperAdmin@update',
                 'as' => 'edit'
             ]);
 
-            Route::post('remove', [
+            Route::delete('remove', [
                 'uses' => 'SuperAdmin@remove',
                 'as' => 'remove'
             ]);
@@ -454,12 +454,12 @@ Route::group(['namespace' => 'Admin'], function() {
                     'as' => 'edit'
                 ]);
 
-                Route::post('edit', [
+                Route::put('edit', [
                     'uses' => 'SuperAdminSchool@update',
                     'as' => 'edit'
                 ]);
 
-                Route::post('remove', [
+                Route::delete('remove', [
                     'uses' => 'SuperAdminSchool@remove',
                     'as' => 'remove'
                 ]);
@@ -493,12 +493,12 @@ Route::group(['namespace' => 'Admin'], function() {
                             'as' => 'edit'
                         ]);
 
-                        Route::post('edit', [
+                        Route::put('edit', [
                             'uses' => 'SuperAdminUser@update',
                             'as' => 'edit'
                         ]);
 
-                        Route::post('remove', [
+                        Route::delete('remove', [
                             'uses' => 'SuperAdminUser@remove',
                             'as' => 'remove'
                         ]);
