@@ -55,7 +55,7 @@ class User extends Model implements AuthenticatableContract,
         if (!$school) {
             $school = \App::make(School::class);
         }
-        return $school === $this->school();
+        return $school->id === $this->school->id;
     }
 
     public function scopebyMail($q, $mail)
