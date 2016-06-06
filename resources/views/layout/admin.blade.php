@@ -5,6 +5,17 @@
     <title>@yield('title', isset($title) ? $title : "" )</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <script>
+        function getCookie(name) {
+            var pattern = RegExp(name + "=.[^;]*")
+            matched = document.cookie.match(pattern)
+            if (matched) {
+                var cookie = matched[0].split('=')
+                return decodeURIComponent(cookie[1])
+            }
+            return false
+        }
+    </script>
     @yield('CSS')
     @yield('preJS')
 

@@ -77,4 +77,6 @@ body {
 
 .main {
 	flex-grow: 1;
+	height: 90vh;
+	overflow: auto;
 }

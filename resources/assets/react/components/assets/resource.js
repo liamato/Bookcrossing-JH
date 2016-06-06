@@ -8,17 +8,17 @@ export default class Resource extends React.Component {
 	}
 
 	select(i, item, e, active, id) {
-		let cp = this.props.selected;
+		let cp = this.props.selected.slice(0);
 		if (!active) {
 			cp.splice(cp.indexOf(i),1);
 		} else {
 			cp.push(i);
 		}
-		this.props.select(cp);
+		this.props.select(cp, i, item);
 	}
 
 	save(i, item, o) {
-		let cp = this.props.db;
+		let cp = this.props.db.prepend([]);
 		cp[i] = Object.assign(item, o);
 		this.setState({edit: null});
 		this.props.save(cp, i, item);
@@ -29,8 +29,8 @@ export default class Resource extends React.Component {
 	}
 
 	remove(i, item, e) {
-		let cp = this.props.db;
-		cp.splice(i,1);
+		let cp = this.props.db.prepend([]);
+		cp.forget(i);
 		if (item.id == this.state.edit) this.setState({edit: null});
 		this.props.remove(cp,i,item);
 	}
@@ -65,13 +65,6 @@ export default class Resource extends React.Component {
 						}()
 					}
 					</div>
-					{
-						() => {
-							if (this.inOptions('e')) {
-								return <a href={`${this.props.name}/${item.id}/edit`} className="resource-item__edit-link">Editar</a>
-							}
-						}()
-					}
 					<C {...item} save={this.save.bind(this, i, item)} edit={this.state.edit == item.id} onclick={this.select.bind(this, i,item)} active={this.props.selected.indexOf(item.id) !== -1} selectable={this.inOptions('s')} />
 					</div>
 				})
@@ -88,7 +81,6 @@ Resource.PropTypes = {
 	select: React.PropTypes.func,
 	remove: React.PropTypes.func,
 	save: React.PropTypes.func,
-	name: React.PropTypes.string,
 	className: React.PropTypes.string,
 };
 

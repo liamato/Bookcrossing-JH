@@ -1,12 +1,5 @@
 <div class="menu-item">
-                <label for="menu-item--check1" class="menu-item--label">Llibres</label>
-                <input type="checkbox" class="menu-item--check" id="menu-item--check1">
-                <div class="menu-item menu-item--subitem">
-                    <a href="{{ route('Admin.book.index', $school->slug) }}" class="menu-item--link">Home</a>
-                </div>
-                <div class="menu-item menu-item--subitem">
-                    <a href="{{ route('Admin.book.edit', $school->slug) }}" class="menu-item--link">Editar</a>
-                </div>
+                <a href="{{ route('Admin.book.index', $school->slug) }}" class="menu-item--link menu-item--label">Llibres</a>
             </div>
             <div class="menu-item">
                 <label for="menu-item--check2" class="menu-item--label">Categoria</label>
@@ -42,7 +35,7 @@
                 </div>
             </div>
             <div class="menu-item">
-                <a href="{{ route('Admin.school.index', $school->slug) }}" class="menu-item--link menu-item--label">Escola</a>
+                <a href="{{ route('Admin.school.edit', $school->slug) }}" class="menu-item--link menu-item--label">Escola</a>
             </div>
             <div class="menu-item">
                 <label for="menu-item--check6" class="menu-item--label">Usuaris</label>
