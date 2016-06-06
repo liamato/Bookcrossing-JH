@@ -49,7 +49,7 @@ class Authenticate
             $params = [];
             foreach(Route::current()->parameterNames() as $order => $pm){
                 if ($pm == 'school') {
-                    $params[$order] = $school->slug;
+                    $params[$order] = $this->auth->user()->school->slug;
                 } else {
                     $params[$order] = Route::current()->getParameter($pm);
                 }
