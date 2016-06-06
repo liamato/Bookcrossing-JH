@@ -28,9 +28,12 @@ class App extends React.Component {
 		.set('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
 		.send(item)
 		.end((err, req) => {
-			console.log('add');
-			console.log(req);
-			console.log(err);
+			if(req.ok){
+				let cp = this.props.books.prepend([]);
+				cp.push(req.body);
+				this.setState({add: false});
+				reRender(cp);
+			}
 		});
 
 	}
@@ -47,9 +50,9 @@ class App extends React.Component {
 		.set('X-Requested-With', 'XMLHttpRequest')
 		.set('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
 		.end((err, req) => {
-			console.log('remove');
-			console.log(req);
-			console.log(err);
+			if (req.ok) {
+				reRender(ndb);
+			}
 		});
 	}
 
@@ -62,9 +65,9 @@ class App extends React.Component {
 		.set('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
 		.send(item)
 		.end((err, req) => {
-			console.log('add');
-			console.log(req);
-			console.log(err);
+			if (req.ok) {
+				reRender(ndb);
+			}
 		});
 	}
 
