@@ -34,16 +34,6 @@ class ApiCategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,7 +45,8 @@ class ApiCategoryController extends Controller
         if (!isset($insert['school_id']) && $school->filledOrFail()) {
             $insert['school_id'] = $school->id;
         }
-        return Category::create($insert);
+        $c = Category::create($insert);
+        return Category::findOrFail($c->id);
     }
 
     /**
@@ -72,17 +63,6 @@ class ApiCategoryController extends Controller
             $category = Category::bySchool($school->id)->findOrFail($id);
         }
         return $category->loads(Options::all());
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

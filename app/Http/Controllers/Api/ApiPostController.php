@@ -33,16 +33,6 @@ class ApiPostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,7 +44,8 @@ class ApiPostController extends Controller
         if (!isset($insert['school_id']) && $school->filledOrFail()) {
             $insert['school_id'] = $school->id;
         }
-        return Post::create($insert);
+        $p = Post::create($insert);
+        return Post::findOrFail($p->id);
     }
 
     /**
@@ -71,17 +62,6 @@ class ApiPostController extends Controller
             $post = Post::bySchool($school->id)->findOrFail($id);
         }
         return $post->loads(Options::all());
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

@@ -28,16 +28,6 @@ class ApiSchoolController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,7 +35,8 @@ class ApiSchoolController extends Controller
      */
     public function store(ApiSchool $request)
     {
-        return School::create($request->json()->all());
+        $s = School::create($request->json()->all());
+        return School::findOrFail($s->id);
     }
 
     /**
@@ -60,17 +51,6 @@ class ApiSchoolController extends Controller
             return School::findOrFail($id)->loads(Options::all());
         }
         return School::bySlug($id)->loads(Options::all());
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

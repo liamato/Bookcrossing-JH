@@ -34,16 +34,6 @@ class ApiReportController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,7 +45,8 @@ class ApiReportController extends Controller
         if (!isset($insert['school_id']) && $school->filledOrFail()) {
             $insert['school_id'] = $school->id;
         }
-        return Report::create($insert);
+        $r = Report::create($insert);
+        return Report::findOrFail($r->id);
     }
 
     /**
@@ -72,17 +63,6 @@ class ApiReportController extends Controller
             $report = Report::bySchool($school->id)->findOrFail($id);
         }
         return $report->loads(Options::all());
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
