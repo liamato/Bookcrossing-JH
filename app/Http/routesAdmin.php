@@ -78,7 +78,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             /*Route::get('add', [
                 'uses' => 'AdminBook@add',
                 'as' => 'add'
-            ]);*/
+            ]);
 
             Route::post('add', [
                 'uses' => 'AdminBook@store',
@@ -86,10 +86,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             ]);
 
             Route::group(['prefix' => '{book}'], function() {
-                /*Route::get('/', [
-                    'uses' => 'AdminBook@dump',
-                    'as' => 'dump'
-                ]);*/
+
 
                 Route::get('edit', [
                     'uses' => 'AdminBook@edit',
@@ -120,7 +117,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                     'uses' => 'AdminBook@capture',
                     'as' => 'capture'
                 ]);
-            });
+            });*/
         });
 
         Route::group(['prefix' => 'category', 'as' => 'category.'], function() {
@@ -132,28 +129,28 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             /*Route::get('add', [
                 'uses' => 'AdminCategory@add',
                 'as' => 'add'
-            ]);*/
+            ]);
 
             Route::post('add', [
                 'uses' => 'AdminCategory@store',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::get('move', [
                 'uses' => 'AdminCategory@move',
                 'as' => 'move'
             ]);
 
-            Route::put('move', [
+            /*Route::put('move', [
                 'uses' => 'AdminCategory@change',
                 'as' => 'move'
             ]);
 
             Route::group(['prefix' => '{category}'], function() {
-                /*Route::get('/', [
+                Route::get('/', [
                     'uses' => 'AdminCategory@dump',
                     'as' => 'dump'
-                ]);*/
+                ]);
 
                 Route::get('edit', [
                     'uses' => 'AdminCategory@edit',
@@ -169,7 +166,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                     'uses' => 'AdminCategory@remove',
                     'as' => 'remove'
                 ]);
-            });
+            });*/
         });
 
         Route::group(['prefix' => 'post', 'as' => 'post.'], function() {
@@ -181,18 +178,18 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             /*Route::get('add', [
                 'uses' => 'AdminPost@add',
                 'as' => 'add'
-            ]);*/
+            ]);
 
             Route::post('add', [
                 'uses' => 'AdminPost@store',
                 'as' => 'add'
-            ]);
+            ]);*/
 
-            Route::group(['prefix' => '{post}'], function() {
-                /*Route::get('/', [
+            /*Route::group(['prefix' => '{post}'], function() {
+                Route::get('/', [
                     'uses' => 'AdminPost@dump',
                     'as' => 'dump'
-                ]);*/
+                ]);
 
                 Route::get('edit', [
                     'uses' => 'AdminPost@edit',
@@ -213,7 +210,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                     'uses' => 'AdminPost@verify',
                     'as' => 'verify'
                 ]);
-            });
+            });*/
         });
 
         Route::group(['prefix' => 'news', 'as' => 'news.'], function() {
@@ -225,18 +222,18 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             /*Route::get('add', [
                 'uses' => 'AdminReport@add',
                 'as' => 'add'
-            ]);*/
+            ]);
 
             Route::post('add', [
                 'uses' => 'AdminReport@store',
                 'as' => 'add'
-            ]);
+            ]);*/
 
-            Route::group(['prefix' => '{news}'], function() {
-                /*Route::get('/', [
+            /*Route::group(['prefix' => '{news}'], function() {
+                Route::get('/', [
                     'uses' => 'AdminReport@dump',
                     'as' => 'dump'
-                ]);*/
+                ]);
 
                 Route::get('edit', [
                     'uses' => 'AdminReport@edit',
@@ -252,16 +249,16 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                     'uses' => 'AdminReport@remove',
                     'as' => 'remove'
                 ]);
-            });
+            });*/
         });
 
         Route::group(['prefix' => 'school', 'as' => 'school.'], function() {
-            /*Route::get('/', [
+            Route::get('/', [
                 'uses' => 'AdminSchool@index',
                 'as' => 'index'
-            ]);*/
+            ]);
 
-            Route::get('edit', [
+            /*Route::get('edit', [
                 'uses' => 'AdminSchool@edit',
                 'as' => 'edit'
             ]);
@@ -269,7 +266,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             Route::put('edit', [
                 'uses' => 'AdminSchool@update',
                 'as' => 'edit'
-            ]);
+            ]);*/
         });
 
         Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
@@ -281,18 +278,18 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             /*Route::get('add', [
                 'uses' => 'AdminUser@add',
                 'as' => 'add'
-            ]);*/
+            ]);
 
             Route::post('add', [
                 'uses' => 'AdminUser@store',
                 'as' => 'add'
-            ]);
+            ]);*/
 
-            Route::group(['prefix' => '{user}'], function() {
-                /*Route::get('/', [
+            /*Route::group(['prefix' => '{user}'], function() {
+                Route::get('/', [
                     'uses' => 'AdminUser@dump',
                     'as' => 'dump'
-                ]);*/
+                ]);
 
                 Route::get('edit', [
                     'uses' => 'AdminUser@edit',
@@ -308,7 +305,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                     'uses' => 'AdminUser@remove',
                     'as' => 'remove'
                 ]);
-            });
+            });*/
         });
 
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function() {
@@ -320,7 +317,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             /*Route::get('edit', [
                 'uses' => 'AdminUser@edit',
                 'as' => 'edit'
-            ]);*/
+            ]);
 
             Route::put('edit', [
                 'uses' => 'AdminUser@update',
@@ -330,7 +327,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             Route::delete('remove', [
                 'uses' => 'AdminUser@remove',
                 'as' => 'remove'
-            ]);
+            ]);*/
         });
 
         Route::group(['prefix' => 'video', 'as' => 'video.'], function() {
@@ -342,12 +339,12 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
             /*Route::get('add', [
                 'uses' => 'AdminVideo@add',
                 'as' => 'add'
-            ]);*/
+            ]);
 
             Route::post('add', [
                 'uses' => 'AdminVideo@store',
                 'as' => 'add'
-            ]);
+            ]);*/
 
             Route::get('move', [
                 'uses' => 'AdminVideo@move',
@@ -359,11 +356,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                 'as' => 'move'
             ]);
 
-            Route::group(['prefix' => '{video}'], function() {
-                /*Route::get('/', [
+            /*Route::group(['prefix' => '{video}'], function() {
+                Route::get('/', [
                     'uses' => 'AdminVideo@dump',
                     'as' => 'dump'
-                ]);*/
+                ]);
 
                 Route::get('edit', [
                     'uses' => 'AdminVideo@edit',
@@ -384,7 +381,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                     'uses' => 'AdminVideo@verify',
                     'as' => 'verify'
                 ]);
-            });
+            });*/
         });
     });
 
