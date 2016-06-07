@@ -42,7 +42,7 @@ class Authenticate
             if ($request->ajax()) {
                 return response(['response' => 'Unautorized', 'responseCode' => 401], 401);
             } else {
-                return redirect()->guest(route('school_admin_login', $school->slug));
+                return redirect()->guest(route('login'));
             }
         }
         if (!$this->auth->user()->inSchool($school)) {
