@@ -21,7 +21,7 @@ export default class Resource extends React.Component {
 		let cp = this.props.db.prepend([]);
 		cp[i] = Object.assign(item, o);
 		this.setState({edit: null});
-		this.props.save(cp, i, item);
+		this.props.save(cp, i, o);
 	}
 
 	edit(i, item, e) {

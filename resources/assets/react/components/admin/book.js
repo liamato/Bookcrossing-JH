@@ -62,7 +62,7 @@ class App extends React.Component {
 		.type('json')
 		.set('X-Requested-With', 'XMLHttpRequest')
 		.set('X-XSRF-TOKEN', getCookie('XSRF-TOKEN'))
-		.send(item)
+		.send(ndb[i])
 		.end((err, req) => {
 			if (req.ok) {
 				reRender(ndb);

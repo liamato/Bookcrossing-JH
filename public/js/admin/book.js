@@ -20330,25 +20330,6 @@ module.exports = function(arr, fn, initial){
   return curr;
 };
 },{}],161:[function(require,module,exports){
-/**
- * Export `uid`
- */
-
-module.exports = uid;
-
-/**
- * Create a `uid`
- *
- * @param {String} len
- * @return {String} uid
- */
-
-function uid(len) {
-  len = len || 7;
-  return Math.random().toString(35).substr(2, len);
-}
-
-},{}],162:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -20389,10 +20370,6 @@ var _assetsBook = require('../assets/book');
 
 var _assetsBook2 = _interopRequireDefault(_assetsBook);
 
-var _uid = require('uid');
-
-var _uid2 = _interopRequireDefault(_uid);
-
 var App = (function (_React$Component) {
 	_inherits(App, _React$Component);
 
@@ -20422,7 +20399,7 @@ var App = (function (_React$Component) {
 			_superagent2['default'].post(_config2['default'].api.baseUrl + '/school/' + db.school + '/book').accept('json').type('json').set('X-Requested-With', 'XMLHttpRequest').set('X-XSRF-TOKEN', getCookie('XSRF-TOKEN')).send(item).end(function (err, req) {
 				if (req.ok) {
 					var cp = _this.props.books.prepend([]);
-					cp.push(req.body);
+					cp.push(JSON.parse(req.body));
 					_this.setState({ add: false });
 					reRender(cp);
 				}
@@ -20445,7 +20422,7 @@ var App = (function (_React$Component) {
 	}, {
 		key: 'save',
 		value: function save(ndb, i, item) {
-			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + db.school + '/book/' + item.id).accept('json').type('json').set('X-Requested-With', 'XMLHttpRequest').set('X-XSRF-TOKEN', getCookie('XSRF-TOKEN')).send(item).end(function (err, req) {
+			_superagent2['default'].put(_config2['default'].api.baseUrl + '/school/' + db.school + '/book/' + item.id).accept('json').type('json').set('X-Requested-With', 'XMLHttpRequest').set('X-XSRF-TOKEN', getCookie('XSRF-TOKEN')).send(ndb[i]).end(function (err, req) {
 				if (req.ok) {
 					reRender(ndb);
 				}
@@ -20489,7 +20466,7 @@ function reRender(books) {
 
 reRender();
 
-},{"../../config":165,"../../data/collection":166,"../assets/book":163,"../assets/resource":164,"react":157,"react-dom":2,"superagent":158,"uid":161}],163:[function(require,module,exports){
+},{"../../config":164,"../../data/collection":165,"../assets/book":162,"../assets/resource":163,"react":157,"react-dom":2,"superagent":158}],162:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20670,7 +20647,7 @@ Book.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"react":157}],164:[function(require,module,exports){
+},{"react":157}],163:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20728,7 +20705,7 @@ var Resource = (function (_React$Component) {
 			var cp = this.props.db.prepend([]);
 			cp[i] = Object.assign(item, o);
 			this.setState({ edit: null });
-			this.props.save(cp, i, item);
+			this.props.save(cp, i, o);
 		}
 	}, {
 		key: 'edit',
@@ -20820,7 +20797,7 @@ Resource.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":166,"react":157}],165:[function(require,module,exports){
+},{"../../data/collection":165,"react":157}],164:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -20833,7 +20810,7 @@ exports['default'] = {
 };
 module.exports = exports['default'];
 
-},{}],166:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21601,4 +21578,4 @@ var Collection = (function () {
 exports["default"] = Collection;
 module.exports = exports["default"];
 
-},{}]},{},[162]);
+},{}]},{},[161]);
