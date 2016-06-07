@@ -29,7 +29,7 @@ class App extends React.Component {
 		.end((err, req) => {
 			if(req.ok){
 				let cp = this.props.books.prepend([]);
-				cp.push(req.body);
+				cp.push(JSON.parse(req.body));
 				this.setState({add: false});
 				reRender(cp);
 			}
