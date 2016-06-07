@@ -2,7 +2,7 @@
 
 @section('preJS')
 <script>
-    var db = {books: {!! $books !!}, school: "{!! $school->slug !!}", csrf: "{{ csrf_token() }}"}
+    var db = {books: {!! $books !!}, school: "{!! $school->slug !!}"}
 </script>
 @stop
 
