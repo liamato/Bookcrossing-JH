@@ -5,7 +5,6 @@ import request from 'superagent'
 import config from '../../config'
 import Resource from '../assets/resource'
 import Book from '../assets/book'
-import Uid from 'uid'
 
 class App extends React.Component {
 
