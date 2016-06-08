@@ -74,6 +74,9 @@ body {
 		background-color: #5D72AE;
 		color: white;
 	}
+	.menu-item.active {
+		background-color: #5D72AE;
+	}
 
 .main {
 	flex-grow: 1;
