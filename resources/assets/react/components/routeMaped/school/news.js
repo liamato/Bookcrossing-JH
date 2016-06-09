@@ -50,7 +50,7 @@ export default class News extends React.Component {
 						{
 							news.map((notice) => {
 								return (
-									<Notice notice={notice} key={notice.id} />
+									<Notice {...notice} key={notice.id} />
 								)
 							})
 						}

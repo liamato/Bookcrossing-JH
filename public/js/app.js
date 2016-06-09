@@ -30079,7 +30079,140 @@ _reactDom2['default'].render(_react2['default'].createElement(
 	_routesMain2['default']
 ), document.getElementById('container'));
 
-},{"./routes/main":248,"history/lib/createBrowserHistory":7,"react":221,"react-dom":20,"react-router":40}],227:[function(require,module,exports){
+},{"./routes/main":249,"history/lib/createBrowserHistory":7,"react":221,"react-dom":20,"react-router":40}],227:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _superagent = require('superagent');
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _config = require('../../config');
+
+var _config2 = _interopRequireDefault(_config);
+
+var _uid = require('uid');
+
+var _uid2 = _interopRequireDefault(_uid);
+
+var AddPost = (function (_React$Component) {
+	_inherits(AddPost, _React$Component);
+
+	function AddPost() {
+		_classCallCheck(this, AddPost);
+
+		_get(Object.getPrototypeOf(AddPost.prototype), 'constructor', this).apply(this, arguments);
+	}
+
+	_createClass(AddPost, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.setState({ btn: true });
+		}
+	}, {
+		key: 'send',
+		value: function send(ev, id) {
+			var _this = this;
+
+			var path = _config2['default'].api.baseUrl + '/school/' + this.props.schoolSlug + '/post';
+			var snd = {
+				title: document.getElementById('title-' + id).value,
+				body: document.getElementById('body-' + id).value,
+				author: document.getElementById('author-' + id).value,
+				category_id: this.props.category,
+				parent: this.props.parent
+			};
+
+			_superagent2['default'].post(path).accept('json').set('X-Requested-With', 'XMLHttpRequest').send(snd).end(function (err, req) {
+				if (req.ok) {
+					_this.props.writeMsg('Missatge enviat correctament');
+				} else if (err) {
+					_this.props.writeMsg('El missatge no s\'hapogut enviar');
+					console.log(err);
+				}
+				_this.close();
+			});
+		}
+	}, {
+		key: 'close',
+		value: function close() {
+			this.setState({ btn: true });
+		}
+	}, {
+		key: 'open',
+		value: function open() {
+			this.setState({ btn: false });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var uid = (0, _uid2['default'])();
+			return _react2['default'].createElement(
+				'div',
+				{ className: 'addPost' },
+				(function () {
+					if (_this2.state.btn) {
+						return _react2['default'].createElement(
+							'button',
+							{ className: 'addPost__btn', onClick: _this2.open.bind(_this2) },
+							'Afegir comentari'
+						);
+					}
+					return _react2['default'].createElement(
+						'div',
+						{ className: 'addPost__controls' },
+						_react2['default'].createElement(
+							'button',
+							{ onClick: _this2.close.bind(_this2) },
+							'X'
+						),
+						_react2['default'].createElement('input', { type: 'text', id: 'title-' + uid, placeholder: 'Titulo*', required: true }),
+						_react2['default'].createElement('textarea', { placeholder: 'Comentario*', id: 'body-' + uid, required: true }),
+						_react2['default'].createElement('input', { type: 'text', id: 'author-' + uid, placeholder: 'Nombre o pseudonimo' }),
+						_react2['default'].createElement(
+							'button',
+							{ onClick: _this2.send.bind(_this2, uid) },
+							'Enviar'
+						)
+					);
+				})()
+			);
+		}
+	}]);
+
+	return AddPost;
+})(_react2['default'].Component);
+
+exports['default'] = AddPost;
+
+AddPost.propTypes = {
+	parent: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]).isRequired,
+	schoolSlug: _react2['default'].PropTypes.string.isRequired,
+	category: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]).isRequired,
+	writeMsg: _react2['default'].PropTypes.func.isRequired
+};
+module.exports = exports['default'];
+
+},{"../../config":247,"react":221,"superagent":222,"uid":225}],228:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30112,18 +30245,18 @@ var Book = (function (_React$Component) {
 	_createClass(Book, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
-			this.setState({ selectable: this.props.selectable, active: this.props.active });
+			this.setState({ active: this.props.active });
 		}
 	}, {
 		key: 'componentWillReciveProps',
 		value: function componentWillReciveProps(props) {
-			this.setState({ selectable: props.selectable, active: props.active });
+			this.setState({ active: props.active });
 		}
 	}, {
 		key: 'toggle',
 		value: function toggle(ev) {
 			var active = this.state.active;
-			if (this.state.selectable) {
+			if (this.props.selectable) {
 				if (this.state.active) {
 					active = false;
 				} else {
@@ -30131,15 +30264,58 @@ var Book = (function (_React$Component) {
 				}
 			}
 			if (typeof this.props.onclick === 'function') {
-				this.props.onclick(ev, this.props.id);
+				this.props.onclick(ev, active, this.props.id);
 			}
 			this.setState({ active: active });
+		}
+	}, {
+		key: 'noPropagation',
+		value: function noPropagation(e) {
+			e.stopPropagation();
+		}
+	}, {
+		key: 'save',
+		value: function save(e) {
+			var parent = e.target.parentElement,
+			    o = {};
+			o.title = parent.getElementsByClassName('book__title--edit')[0].value;
+			o.author = parent.getElementsByClassName('book__author--edit')[0].value;
+			o.catched = parent.getElementsByClassName('book__catch--edit')[0].checked;
+			o.checked = parent.getElementsByClassName('book__check--edit')[0].checked;
+			this.props.save(o);
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 			var _this = this;
 
+			if (!this.props.edit) {
+				return _react2['default'].createElement(
+					'div',
+					{ onClick: this.toggle.bind(this), className: (function () {
+							var ret = "book";
+							if (_this.state.active) {
+								ret += ' book--active';
+							}
+							if (_this.props.selectable) {
+								ret += ' book--selectable';
+							}
+							return ret;
+						})() },
+					_react2['default'].createElement(
+						'span',
+						null,
+						this.props.id
+					),
+					_react2['default'].createElement(
+						'span',
+						null,
+						this.props.title,
+						' - ',
+						this.props.author
+					)
+				);
+			}
 			return _react2['default'].createElement(
 				'div',
 				{ onClick: this.toggle.bind(this), className: (function () {
@@ -30147,22 +30323,42 @@ var Book = (function (_React$Component) {
 						if (_this.state.active) {
 							ret += ' book--active';
 						}
-						if (_this.state.selectable) {
+						if (_this.props.selectable) {
 							ret += ' book--selectable';
+						}
+						if (_this.props.edit) {
+							ret += ' book--edit';
 						}
 						return ret;
 					})() },
 				_react2['default'].createElement(
-					'span',
-					null,
-					this.props.id
+					'label',
+					{ htmlFor: '' },
+					'Titol'
 				),
+				_react2['default'].createElement('input', { type: 'text', className: 'book__title--edit', defaultValue: this.props.title, onClick: this.noPropagation.bind(this) }),
 				_react2['default'].createElement(
-					'span',
-					null,
-					this.props.title,
-					' - ',
-					this.props.author
+					'label',
+					{ htmlFor: '' },
+					'Autor'
+				),
+				_react2['default'].createElement('input', { type: 'text', className: 'book__author--edit', defaultValue: this.props.author, onClick: this.noPropagation.bind(this) }),
+				_react2['default'].createElement(
+					'label',
+					{ htmlFor: '' },
+					'Agafat'
+				),
+				_react2['default'].createElement('input', { type: 'checkbox', className: 'book__catch--edit', defaultChecked: this.props.catched, onClick: this.noPropagation.bind(this) }),
+				_react2['default'].createElement(
+					'label',
+					{ htmlFor: '' },
+					'Revisat'
+				),
+				_react2['default'].createElement('input', { type: 'checkbox', className: 'book__check--edit', defaultChecked: true, onClick: this.noPropagation.bind(this) }),
+				_react2['default'].createElement(
+					'button',
+					{ onClick: this.save.bind(this) },
+					'Guardar'
 				)
 			);
 		}
@@ -30183,16 +30379,21 @@ Book.propTypes = {
 
 	active: _react2['default'].PropTypes.bool.isRequired,
 
-	onclick: _react2['default'].PropTypes.func
+	edit: _react2['default'].PropTypes.bool.isRequired,
+
+	onclick: _react2['default'].PropTypes.func,
+
+	save: _react2['default'].PropTypes.func
 };
 
 Book.defaultProps = {
 	selectable: false,
-	active: false
+	active: false,
+	edit: false
 };
 module.exports = exports['default'];
 
-},{"react":221}],228:[function(require,module,exports){
+},{"react":221}],229:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30400,7 +30601,7 @@ BookSearch.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":247,"./bookshelf":229,"react":221,"uid":225}],229:[function(require,module,exports){
+},{"../../data/collection":248,"./bookshelf":230,"react":221,"uid":225}],230:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30600,7 +30801,7 @@ BookShelf.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":247,"./book":227,"react":221}],230:[function(require,module,exports){
+},{"../../data/collection":248,"./book":228,"react":221}],231:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30647,22 +30848,22 @@ var Loading = (function (_React$Component) {
 exports['default'] = Loading;
 module.exports = exports['default'];
 
-},{"react":221}],231:[function(require,module,exports){
-"use strict";
+},{"react":221}],232:[function(require,module,exports){
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
 	value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -30674,49 +30875,176 @@ var Notice = (function (_React$Component) {
 	function Notice() {
 		_classCallCheck(this, Notice);
 
-		_get(Object.getPrototypeOf(Notice.prototype), "constructor", this).apply(this, arguments);
+		_get(Object.getPrototypeOf(Notice.prototype), 'constructor', this).apply(this, arguments);
 	}
 
 	_createClass(Notice, [{
-		key: "render",
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.setState({ active: this.props.active });
+		}
+	}, {
+		key: 'componentWillReciveProps',
+		value: function componentWillReciveProps(props) {
+			this.setState({ active: props.active });
+		}
+	}, {
+		key: 'toggle',
+		value: function toggle(ev) {
+			var active = this.state.active;
+			if (this.props.selectable) {
+				if (this.state.active) {
+					active = false;
+				} else {
+					active = true;
+				}
+			}
+			if (typeof this.props.onclick === 'function') {
+				this.props.onclick(ev, active, this.props.id);
+			}
+			this.setState({ active: active });
+		}
+	}, {
+		key: 'noPropagation',
+		value: function noPropagation(e) {
+			e.stopPropagation();
+		}
+	}, {
+		key: 'save',
+		value: function save(e) {
+			var parent = e.target.parentElement,
+			    o = {};
+			o.title = parent.getElementsByClassName('notice__title--edit')[0].value;
+			o.author = parent.getElementsByClassName('notice__author--edit')[0].value;
+			o.catched = parent.getElementsByClassName('notice__catch--edit')[0].checked;
+			o.checked = parent.getElementsByClassName('notice__check--edit')[0].checked;
+			this.props.save(o);
+		}
+	}, {
+		key: 'render',
 		value: function render() {
-			return _react2["default"].createElement(
-				"article",
-				{ className: "post" },
-				_react2["default"].createElement(
-					"h2",
+			var _this = this;
+
+			return _react2['default'].createElement(
+				'article',
+				{ className: 'notice' },
+				_react2['default'].createElement(
+					'h2',
 					null,
-					this.props.notice.title
+					this.props.title
 				),
-				_react2["default"].createElement(
-					"blockquote",
+				_react2['default'].createElement(
+					'blockquote',
 					null,
-					this.props.notice.body
+					this.props.body
 				),
-				_react2["default"].createElement(
-					"p",
+				_react2['default'].createElement(
+					'p',
 					null,
-					this.props.notice.author
+					this.props.author
+				)
+			);
+			if (!this.props.edit) {
+				return _react2['default'].createElement(
+					'article',
+					{ onClick: this.toggle.bind(this), className: (function () {
+							var ret = "notice";
+							if (_this.state.active) {
+								ret += ' notice--active';
+							}
+							if (_this.props.selectable) {
+								ret += ' notice--selectable';
+							}
+							return ret;
+						})() },
+					_react2['default'].createElement(
+						'h2',
+						null,
+						this.props.notice.title
+					),
+					_react2['default'].createElement(
+						'blockquote',
+						null,
+						this.props.notice.body
+					),
+					_react2['default'].createElement(
+						'p',
+						null,
+						this.props.notice.author
+					)
+				);
+			}
+			return _react2['default'].createElement(
+				'div',
+				{ onClick: this.toggle.bind(this), className: (function () {
+						var ret = "notice";
+						if (_this.state.active) {
+							ret += ' notice--active';
+						}
+						if (_this.props.selectable) {
+							ret += ' notice--selectable';
+						}
+						if (_this.props.edit) {
+							ret += ' notice--edit';
+						}
+						return ret;
+					})() },
+				_react2['default'].createElement(
+					'label',
+					{ htmlFor: '' },
+					'Titol'
+				),
+				_react2['default'].createElement('input', { type: 'text', className: 'notice__title--edit', defaultValue: this.props.title, onClick: this.noPropagation.bind(this) }),
+				_react2['default'].createElement(
+					'label',
+					{ htmlFor: '' },
+					'Autor'
+				),
+				_react2['default'].createElement('input', { type: 'text', className: 'notice__author--edit', defaultValue: this.props.author, onClick: this.noPropagation.bind(this) }),
+				_react2['default'].createElement(
+					'label',
+					{ htmlFor: '' },
+					'Noticia'
+				),
+				_react2['default'].createElement('input', { type: 'text', className: 'notice__body--edit', defaultValue: this.props.body, onClick: this.noPropagation.bind(this) }),
+				_react2['default'].createElement(
+					'button',
+					{ onClick: this.save.bind(this) },
+					'Guardar'
 				)
 			);
 		}
 	}]);
 
 	return Notice;
-})(_react2["default"].Component);
+})(_react2['default'].Component);
 
-exports["default"] = Notice;
+exports['default'] = Notice;
 
 Notice.propTypes = {
-	notice: _react2["default"].PropTypes.shape({
-		author: _react2["default"].PropTypes.string,
-		body: _react2["default"].PropTypes.string.isRequired,
-		title: _react2["default"].PropTypes.string.isRequired
-	}).isRequired
-};
-module.exports = exports["default"];
+	author: _react2['default'].PropTypes.string,
+	body: _react2['default'].PropTypes.string.isRequired,
+	title: _react2['default'].PropTypes.string.isRequired,
 
-},{"react":221}],232:[function(require,module,exports){
+	selectable: _react2['default'].PropTypes.bool.isRequired,
+
+	active: _react2['default'].PropTypes.bool.isRequired,
+
+	edit: _react2['default'].PropTypes.bool.isRequired,
+
+	onclick: _react2['default'].PropTypes.func,
+
+	save: _react2['default'].PropTypes.func
+};
+
+Notice.defaultProps = {
+	selectable: false,
+	active: false,
+	edit: false
+};
+module.exports = exports['default'];
+
+},{"react":221}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30742,6 +31070,10 @@ var _react2 = _interopRequireDefault(_react);
 var _dataCollection = require('../../data/collection');
 
 var _dataCollection2 = _interopRequireDefault(_dataCollection);
+
+var _addpost = require('./addpost');
+
+var _addpost2 = _interopRequireDefault(_addpost);
 
 var Post = (function (_React$Component) {
 	_inherits(Post, _React$Component);
@@ -30785,8 +31117,9 @@ var Post = (function (_React$Component) {
 					null,
 					this.props.author
 				),
+				_react2['default'].createElement(_addpost2['default'], { parent: this.props.id, schoolSlug: this.props.schoolSlug, writeMsg: this.props.writeMsg, category: this.props.category_id }),
 				this.props.posts.where('category_id', this.props.category_id).where('parent', this.props.id).map(function (post) {
-					return _react2['default'].createElement(Post, _extends({ key: post.id }, post, { posts: _this.props.posts }));
+					return _react2['default'].createElement(Post, _extends({ key: post.id }, post, { posts: _this.props.posts, schoolSlug: _this.props.schoolSlug, writeMsg: _this.props.writeMsg }));
 				})
 			);
 		}
@@ -30801,11 +31134,14 @@ Post.propTypes = {
 	author: _react2['default'].PropTypes.string,
 	body: _react2['default'].PropTypes.string.isRequired,
 	title: _react2['default'].PropTypes.string.isRequired,
-	posts: _react2['default'].PropTypes.instanceOf(_dataCollection2['default']).isRequired
+	category_id: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]).isRequired,
+	posts: _react2['default'].PropTypes.instanceOf(_dataCollection2['default']).isRequired,
+	schoolSlug: _react2['default'].PropTypes.string.isRequired,
+	writeMsg: _react2['default'].PropTypes.func.isRequired
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":247,"react":221}],233:[function(require,module,exports){
+},{"../../data/collection":248,"./addpost":227,"react":221}],234:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30903,7 +31239,7 @@ Question.defaultProps = {
 };
 module.exports = exports["default"];
 
-},{"react":221}],234:[function(require,module,exports){
+},{"react":221}],235:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31105,7 +31441,7 @@ var Menu = (function (_React$Component) {
 exports['default'] = Menu;
 module.exports = exports['default'];
 
-},{"../../config":246,"../../data/collection":247,"immutable":19,"react":221,"react-router":40,"superagent":222}],235:[function(require,module,exports){
+},{"../../config":247,"../../data/collection":248,"immutable":19,"react":221,"react-router":40,"superagent":222}],236:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31172,7 +31508,7 @@ Video.propTypes = {
 };
 module.exports = exports["default"];
 
-},{"react":221}],236:[function(require,module,exports){
+},{"react":221}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31241,7 +31577,7 @@ VideoShelf.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":247,"./video":235,"react":221}],237:[function(require,module,exports){
+},{"../../data/collection":248,"./video":236,"react":221}],238:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31329,7 +31665,7 @@ var Home = (function (_React$Component) {
 exports['default'] = Home;
 module.exports = exports['default'];
 
-},{"../../config":246,"react":221,"react-router":40,"superagent":222,"uid":225}],238:[function(require,module,exports){
+},{"../../config":247,"react":221,"react-router":40,"superagent":222,"uid":225}],239:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31451,7 +31787,7 @@ var Capture = (function (_React$Component) {
 exports['default'] = Capture;
 module.exports = exports['default'];
 
-},{"../../../config":246,"../../assets/booksearch":228,"../../assets/loading":230,"../../assets/question":233,"immutable":19,"react":221,"superagent":222}],239:[function(require,module,exports){
+},{"../../../config":247,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"immutable":19,"react":221,"superagent":222}],240:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31490,29 +31826,43 @@ var _assetsPost = require('../../assets/post');
 
 var _assetsPost2 = _interopRequireDefault(_assetsPost);
 
+var _assetsAddpost = require('../../assets/addpost');
+
+var _assetsAddpost2 = _interopRequireDefault(_assetsAddpost);
+
 var Forum = (function (_React$Component) {
 	_inherits(Forum, _React$Component);
 
-	function Forum(props) {
+	function Forum() {
 		_classCallCheck(this, Forum);
 
-		_get(Object.getPrototypeOf(Forum.prototype), 'constructor', this).call(this, props);
-		this.state = {};
+		_get(Object.getPrototypeOf(Forum.prototype), 'constructor', this).apply(this, arguments);
 	}
 
 	_createClass(Forum, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
+			this.setState({ category: undefined });
 			this.updateCategory();
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			if (!this.props.school.posts) {
 				this.setPosts();
 			}
 		}
 	}, {
-		key: 'componentReciveProps',
-		value: function componentReciveProps(props) {
+		key: 'componentWillReciveProps',
+		value: function componentWillReciveProps(props) {
 			this.setPosts();
 			this.updateCategory();
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(props) {
+			//this.setPosts();
+			//this.updateCategory();
 		}
 	}, {
 		key: 'setPosts',
@@ -31535,6 +31885,7 @@ var Forum = (function (_React$Component) {
 					}
 					_this.updateCategory(c);
 				} else if (err) {
+					_this.updateCategory();
 					console.log(err);
 				}
 			}).bind(this));
@@ -31554,19 +31905,26 @@ var Forum = (function (_React$Component) {
 				this.setState({ category: category }, callback);
 			} else if (this.props.school.categories && category === undefined) {
 				this.setState({ category: this.props.school.categories[0].id }, callback);
+			} else if (category === undefined) {
+				this.setPosts();
 			}
 		}
 	}, {
 		key: 'changeHandler',
 		value: function changeHandler(e) {
-			this.updateCategory(e.nativeEvent.target.value);
+			this.updateCategory(e.target.value);
+		}
+	}, {
+		key: 'writeMsg',
+		value: function writeMsg(msg) {
+			console.log(msg);
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
 
-			if (this.props.school.posts && this.props.school.categories) {
+			if (this.props.school.posts && this.props.school.categories && this.state.category !== undefined) {
 				return _react2['default'].createElement(
 					'div',
 					null,
@@ -31581,8 +31939,9 @@ var Forum = (function (_React$Component) {
 							);
 						})
 					),
+					_react2['default'].createElement(_assetsAddpost2['default'], { parent: 0, schoolSlug: this.props.school.slug, writeMsg: this.writeMsg.bind(this), category: this.state.category }),
 					this.props.school.posts.where('category_id', this.state.category, false).where('parent', 0, false).map(function (post) {
-						return _react2['default'].createElement(_assetsPost2['default'], _extends({ key: post.id }, post, { posts: _this2.props.school.posts }));
+						return _react2['default'].createElement(_assetsPost2['default'], _extends({ key: post.id }, post, { posts: _this2.props.school.posts, schoolSlug: _this2.props.school.slug, writeMsg: _this2.writeMsg.bind(_this2), category: _this2.state.category }));
 					})
 				);
 			}
@@ -31596,7 +31955,7 @@ var Forum = (function (_React$Component) {
 exports['default'] = Forum;
 module.exports = exports['default'];
 
-},{"../../../config":246,"../../assets/post":232,"immutable":19,"react":221,"superagent":222}],240:[function(require,module,exports){
+},{"../../../config":247,"../../assets/addpost":227,"../../assets/post":233,"immutable":19,"react":221,"superagent":222}],241:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31643,7 +32002,7 @@ var SchoolHome = (function (_React$Component) {
 exports['default'] = SchoolHome;
 module.exports = exports['default'];
 
-},{"react":221}],241:[function(require,module,exports){
+},{"react":221}],242:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31761,7 +32120,7 @@ var Liberate = (function (_React$Component) {
 exports['default'] = Liberate;
 module.exports = exports['default'];
 
-},{"../../../config":246,"../../assets/booksearch":228,"../../assets/loading":230,"../../assets/question":233,"react":221,"superagent":222}],242:[function(require,module,exports){
+},{"../../../config":247,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"react":221,"superagent":222}],243:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31901,12 +32260,14 @@ var List = (function (_React$Component) {
 exports['default'] = List;
 module.exports = exports['default'];
 
-},{"../../../config":246,"../../assets/booksearch":228,"../../assets/bookshelf":229,"../../assets/loading":230,"immutable":19,"react":221,"superagent":222}],243:[function(require,module,exports){
+},{"../../../config":247,"../../assets/booksearch":229,"../../assets/bookshelf":230,"../../assets/loading":231,"immutable":19,"react":221,"superagent":222}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -32000,7 +32361,7 @@ var News = (function (_React$Component) {
 						),
 						_react2['default'].createElement('hr', null),
 						news.map(function (notice) {
-							return _react2['default'].createElement(_assetsNotice2['default'], { notice: notice, key: notice.id });
+							return _react2['default'].createElement(_assetsNotice2['default'], _extends({}, notice, { key: notice.id }));
 						})
 					);
 				}
@@ -32030,7 +32391,7 @@ var News = (function (_React$Component) {
 exports['default'] = News;
 module.exports = exports['default'];
 
-},{"../../../config":246,"../../assets/loading":230,"../../assets/notice":231,"immutable":19,"react":221,"superagent":222}],244:[function(require,module,exports){
+},{"../../../config":247,"../../assets/loading":231,"../../assets/notice":232,"immutable":19,"react":221,"superagent":222}],245:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32133,7 +32494,7 @@ var Register = (function (_React$Component) {
 exports['default'] = Register;
 module.exports = exports['default'];
 
-},{"../../../config":246,"react":221,"superagent":222,"uid":225}],245:[function(require,module,exports){
+},{"../../../config":247,"react":221,"superagent":222,"uid":225}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32337,7 +32698,7 @@ var Tube = (function (_React$Component) {
 exports['default'] = Tube;
 module.exports = exports['default'];
 
-},{"../../../config":246,"../../assets/loading":230,"../../assets/videoshelf":236,"react":221,"superagent":222,"uid":225}],246:[function(require,module,exports){
+},{"../../../config":247,"../../assets/loading":231,"../../assets/videoshelf":237,"react":221,"superagent":222,"uid":225}],247:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32350,7 +32711,7 @@ exports['default'] = {
 };
 module.exports = exports['default'];
 
-},{}],247:[function(require,module,exports){
+},{}],248:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33118,7 +33479,7 @@ var Collection = (function () {
 exports["default"] = Collection;
 module.exports = exports["default"];
 
-},{}],248:[function(require,module,exports){
+},{}],249:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -33200,4 +33561,4 @@ exports['default'] = _react2['default'].createElement(
 );
 module.exports = exports['default'];
 
-},{"../components/assets/school-menu":234,"../components/routeMaped/home":237,"../components/routeMaped/school/capture":238,"../components/routeMaped/school/forum":239,"../components/routeMaped/school/home":240,"../components/routeMaped/school/liberate":241,"../components/routeMaped/school/list":242,"../components/routeMaped/school/news":243,"../components/routeMaped/school/register":244,"../components/routeMaped/school/tube":245,"react":221,"react-router":40}]},{},[226]);
+},{"../components/assets/school-menu":235,"../components/routeMaped/home":238,"../components/routeMaped/school/capture":239,"../components/routeMaped/school/forum":240,"../components/routeMaped/school/home":241,"../components/routeMaped/school/liberate":242,"../components/routeMaped/school/list":243,"../components/routeMaped/school/news":244,"../components/routeMaped/school/register":245,"../components/routeMaped/school/tube":246,"react":221,"react-router":40}]},{},[226]);
