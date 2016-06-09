@@ -19,6 +19,7 @@
   "scripts": {
     "build": "browserify -t babelify resources/assets/react/app.js > public/js/app.js",
     "book": "browserify -t babelify resources/assets/react/components/admin/book.js > public/js/admin/book.js",
-    "category": "browserify -t babelify resources/assets/react/components/admin/category.js > public/js/admin/category.js"
+    "category": "browserify -t babelify resources/assets/react/components/admin/category.js > public/js/admin/category.js",
+    "post": "browserify -t babelify resources/assets/react/components/admin/post.js > public/js/admin/post.js"
   }
 }

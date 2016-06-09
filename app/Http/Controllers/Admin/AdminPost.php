@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Post;
+use App\Category;
 
 class AdminPost extends Controller
 {
@@ -15,7 +17,7 @@ class AdminPost extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.post.index', ['posts' => Post::all(), 'categories' => Category::all()]);
     }
 
     /**
