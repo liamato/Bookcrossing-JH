@@ -79,7 +79,7 @@ body {
 	}
 
 .main {
-	flex-grow: 1;
+	width: 82vw;
 	height: 90vh;
 	overflow: auto;
 }
