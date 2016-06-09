@@ -65,7 +65,7 @@ export default class Resource extends React.Component {
 						}()
 					}
 					</div>
-					<C {...item} save={this.save.bind(this, i, item)} edit={this.state.edit == item.id} onclick={this.select.bind(this, i,item)} active={this.props.selected.indexOf(item.id) !== -1} selectable={this.inOptions('s')} />
+					<C {...item} {...this.props.props} save={this.save.bind(this, i, item)} edit={this.state.edit == item.id} onclick={this.select.bind(this, i,item)} active={this.props.selected.indexOf(item.id) !== -1} selectable={this.inOptions('s')} />
 					</div>
 				})
 			}
@@ -82,6 +82,7 @@ Resource.PropTypes = {
 	remove: React.PropTypes.func,
 	save: React.PropTypes.func,
 	className: React.PropTypes.string,
+	props: React.PropTypes.object,
 };
 
 Resource.defaultProps = {
