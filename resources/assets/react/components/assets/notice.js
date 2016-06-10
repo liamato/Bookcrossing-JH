@@ -31,22 +31,14 @@ export default class Notice extends React.Component {
 
 	save(e) {
 		var parent = e.target.parentElement,
-			o = {};
-		o.title = parent.getElementsByClassName('notice__title--edit')[0].value
-		o.author = parent.getElementsByClassName('notice__author--edit')[0].value
-		o.catched = parent.getElementsByClassName('notice__catch--edit')[0].checked
-		o.checked = parent.getElementsByClassName('notice__check--edit')[0].checked;
+			o = {id: this.props.id};
+		if (parent.getElementsByClassName('notice__title--edit')[0].value != this.props.title) o.title = parent.getElementsByClassName('notice__title--edit')[0].value
+		if (parent.getElementsByClassName('notice__author--edit')[0].value != this.props.author) o.author = parent.getElementsByClassName('notice__author--edit')[0].value
+		if (parent.getElementsByClassName('notice__body--edit')[0].value != this.props.body) o.body = parent.getElementsByClassName('notice__body--edit')[0].value
 		this.props.save(o);
 	}
 
 	render() {
-		return (
-			<article className="notice">
-				<h2>{this.props.title}</h2>
-				<blockquote>{this.props.body}</blockquote>
-				<p>{this.props.author}</p>
-			</article>
-		)
 		if (!this.props.edit) {
 			return (
 				<article onClick={this.toggle.bind(this)} className={()=>{
@@ -55,9 +47,9 @@ export default class Notice extends React.Component {
 						if(this.props.selectable){ret += ' notice--selectable'}
 						return ret
 					}()}>
-					<h2>{this.props.notice.title}</h2>
-					<blockquote>{this.props.notice.body}</blockquote>
-					<p>{this.props.notice.author}</p>
+					<h2>{this.props.title}</h2>
+					<blockquote>{this.props.body}</blockquote>
+					<p>{this.props.author}</p>
 				</article>
 			)
 		}

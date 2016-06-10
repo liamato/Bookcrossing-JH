@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Report;
 
 class AdminReport extends Controller
 {
@@ -15,7 +16,7 @@ class AdminReport extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.news.index', ['news' => Report::all()]);
     }
 
     /**
