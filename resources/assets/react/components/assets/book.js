@@ -30,11 +30,11 @@ export default class Book extends React.Component {
 
 	save(e) {
 		var parent = e.target.parentElement,
-			o = {};
-		o.title = parent.getElementsByClassName('book__title--edit')[0].value
-		o.author = parent.getElementsByClassName('book__author--edit')[0].value
-		o.catched = parent.getElementsByClassName('book__catch--edit')[0].checked
-		o.checked = parent.getElementsByClassName('book__check--edit')[0].checked;
+			o = {id: this.props.id};
+		if (parent.getElementsByClassName('book__title--edit')[0].value != this.props.title) o.title = parent.getElementsByClassName('book__title--edit')[0].value
+		if (parent.getElementsByClassName('book__author--edit')[0].value != this.props.author) o.author = parent.getElementsByClassName('book__author--edit')[0].value
+		if (parent.getElementsByClassName('book__catch--edit')[0].checked != this.props.catched) o.catched = parent.getElementsByClassName('book__catch--edit')[0].checked
+		if (parent.getElementsByClassName('book__check--edit')[0].checked != this.props.checked) o.checked = parent.getElementsByClassName('book__check--edit')[0].checked;
 		this.props.save(o);
 	}
 

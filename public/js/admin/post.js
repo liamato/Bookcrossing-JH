@@ -20548,10 +20548,10 @@ var Post = (function (_React$Component) {
 		key: 'save',
 		value: function save(e) {
 			var parent = e.target.parentElement,
-			    o = {};
-			o.title = parent.getElementsByClassName('post__title--edit')[0].value;
-			o.author = parent.getElementsByClassName('post__author--edit')[0].value;
-			o.body = parent.getElementsByClassName('post__body--edit')[0].value;
+			    o = { id: this.props.id };
+			if (parent.getElementsByClassName('post__title--edit')[0].value != this.props.title) o.title = parent.getElementsByClassName('post__title--edit')[0].value;
+			if (parent.getElementsByClassName('post__author--edit')[0].value != this.props.author) o.author = parent.getElementsByClassName('post__author--edit')[0].value;
+			if (parent.getElementsByClassName('post__body--edit')[0].value != this.props.body) o.body = parent.getElementsByClassName('post__body--edit')[0].value;
 			this.props.save(o);
 		}
 	}, {

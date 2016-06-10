@@ -30277,11 +30277,11 @@ var Book = (function (_React$Component) {
 		key: 'save',
 		value: function save(e) {
 			var parent = e.target.parentElement,
-			    o = {};
-			o.title = parent.getElementsByClassName('book__title--edit')[0].value;
-			o.author = parent.getElementsByClassName('book__author--edit')[0].value;
-			o.catched = parent.getElementsByClassName('book__catch--edit')[0].checked;
-			o.checked = parent.getElementsByClassName('book__check--edit')[0].checked;
+			    o = { id: this.props.id };
+			if (parent.getElementsByClassName('book__title--edit')[0].value != this.props.title) o.title = parent.getElementsByClassName('book__title--edit')[0].value;
+			if (parent.getElementsByClassName('book__author--edit')[0].value != this.props.author) o.author = parent.getElementsByClassName('book__author--edit')[0].value;
+			if (parent.getElementsByClassName('book__catch--edit')[0].checked != this.props.catched) o.catched = parent.getElementsByClassName('book__catch--edit')[0].checked;
+			if (parent.getElementsByClassName('book__check--edit')[0].checked != this.props.checked) o.checked = parent.getElementsByClassName('book__check--edit')[0].checked;
 			this.props.save(o);
 		}
 	}, {
@@ -30913,11 +30913,10 @@ var Notice = (function (_React$Component) {
 		key: 'save',
 		value: function save(e) {
 			var parent = e.target.parentElement,
-			    o = {};
-			o.title = parent.getElementsByClassName('notice__title--edit')[0].value;
-			o.author = parent.getElementsByClassName('notice__author--edit')[0].value;
-			o.catched = parent.getElementsByClassName('notice__catch--edit')[0].checked;
-			o.checked = parent.getElementsByClassName('notice__check--edit')[0].checked;
+			    o = { id: this.props.id };
+			if (parent.getElementsByClassName('notice__title--edit')[0].value != this.props.title) o.title = parent.getElementsByClassName('notice__title--edit')[0].value;
+			if (parent.getElementsByClassName('notice__author--edit')[0].value != this.props.author) o.author = parent.getElementsByClassName('notice__author--edit')[0].value;
+			if (parent.getElementsByClassName('notice__body--edit')[0].value != this.props.body) o.body = parent.getElementsByClassName('notice__body--edit')[0].value;
 			this.props.save(o);
 		}
 	}, {
@@ -30925,25 +30924,6 @@ var Notice = (function (_React$Component) {
 		value: function render() {
 			var _this = this;
 
-			return _react2['default'].createElement(
-				'article',
-				{ className: 'notice' },
-				_react2['default'].createElement(
-					'h2',
-					null,
-					this.props.title
-				),
-				_react2['default'].createElement(
-					'blockquote',
-					null,
-					this.props.body
-				),
-				_react2['default'].createElement(
-					'p',
-					null,
-					this.props.author
-				)
-			);
 			if (!this.props.edit) {
 				return _react2['default'].createElement(
 					'article',
@@ -30960,17 +30940,17 @@ var Notice = (function (_React$Component) {
 					_react2['default'].createElement(
 						'h2',
 						null,
-						this.props.notice.title
+						this.props.title
 					),
 					_react2['default'].createElement(
 						'blockquote',
 						null,
-						this.props.notice.body
+						this.props.body
 					),
 					_react2['default'].createElement(
 						'p',
 						null,
-						this.props.notice.author
+						this.props.author
 					)
 				);
 			}

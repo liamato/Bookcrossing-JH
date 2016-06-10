@@ -20755,7 +20755,7 @@ var Resource = (function (_React$Component) {
 								}
 							})()
 						),
-						_react2['default'].createElement(C, _extends({}, item, { save: _this.save.bind(_this, i, item), edit: _this.state.edit == item.id, onclick: _this.select.bind(_this, i, item), active: _this.props.selected.indexOf(item.id) !== -1, selectable: _this.inOptions('s') }))
+						_react2['default'].createElement(C, _extends({}, item, _this.props.props, { save: _this.save.bind(_this, i, item), edit: _this.state.edit == item.id, onclick: _this.select.bind(_this, i, item), active: _this.props.selected.indexOf(item.id) !== -1, selectable: _this.inOptions('s') }))
 					);
 				})
 			);
@@ -20775,7 +20775,8 @@ Resource.PropTypes = {
 	select: _react2['default'].PropTypes.func,
 	remove: _react2['default'].PropTypes.func,
 	save: _react2['default'].PropTypes.func,
-	className: _react2['default'].PropTypes.string
+	className: _react2['default'].PropTypes.string,
+	props: _react2['default'].PropTypes.object
 };
 
 Resource.defaultProps = {

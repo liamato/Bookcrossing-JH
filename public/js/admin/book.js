@@ -20531,11 +20531,11 @@ var Book = (function (_React$Component) {
 		key: 'save',
 		value: function save(e) {
 			var parent = e.target.parentElement,
-			    o = {};
-			o.title = parent.getElementsByClassName('book__title--edit')[0].value;
-			o.author = parent.getElementsByClassName('book__author--edit')[0].value;
-			o.catched = parent.getElementsByClassName('book__catch--edit')[0].checked;
-			o.checked = parent.getElementsByClassName('book__check--edit')[0].checked;
+			    o = { id: this.props.id };
+			if (parent.getElementsByClassName('book__title--edit')[0].value != this.props.title) o.title = parent.getElementsByClassName('book__title--edit')[0].value;
+			if (parent.getElementsByClassName('book__author--edit')[0].value != this.props.author) o.author = parent.getElementsByClassName('book__author--edit')[0].value;
+			if (parent.getElementsByClassName('book__catch--edit')[0].checked != this.props.catched) o.catched = parent.getElementsByClassName('book__catch--edit')[0].checked;
+			if (parent.getElementsByClassName('book__check--edit')[0].checked != this.props.checked) o.checked = parent.getElementsByClassName('book__check--edit')[0].checked;
 			this.props.save(o);
 		}
 	}, {
@@ -20768,7 +20768,7 @@ var Resource = (function (_React$Component) {
 								}
 							})()
 						),
-						_react2['default'].createElement(C, _extends({}, item, { save: _this.save.bind(_this, i, item), edit: _this.state.edit == item.id, onclick: _this.select.bind(_this, i, item), active: _this.props.selected.indexOf(item.id) !== -1, selectable: _this.inOptions('s') }))
+						_react2['default'].createElement(C, _extends({}, item, _this.props.props, { save: _this.save.bind(_this, i, item), edit: _this.state.edit == item.id, onclick: _this.select.bind(_this, i, item), active: _this.props.selected.indexOf(item.id) !== -1, selectable: _this.inOptions('s') }))
 					);
 				})
 			);
@@ -20788,7 +20788,8 @@ Resource.PropTypes = {
 	select: _react2['default'].PropTypes.func,
 	remove: _react2['default'].PropTypes.func,
 	save: _react2['default'].PropTypes.func,
-	className: _react2['default'].PropTypes.string
+	className: _react2['default'].PropTypes.string,
+	props: _react2['default'].PropTypes.object
 };
 
 Resource.defaultProps = {
