@@ -21,6 +21,7 @@
     "book": "browserify -t babelify resources/assets/react/components/admin/book.js > public/js/admin/book.js",
     "category": "browserify -t babelify resources/assets/react/components/admin/category.js > public/js/admin/category.js",
     "post": "browserify -t babelify resources/assets/react/components/admin/post.js > public/js/admin/post.js",
-    "news": "browserify -t babelify resources/assets/react/components/admin/news.js > public/js/admin/news.js"
+    "news": "browserify -t babelify resources/assets/react/components/admin/news.js > public/js/admin/news.js",
+    "school": "browserify -t babelify resources/assets/react/components/admin/school.js > public/js/admin/school.js"
   }
 }

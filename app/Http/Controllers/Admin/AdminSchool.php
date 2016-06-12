@@ -9,6 +9,16 @@ use App\Http\Controllers\Controller;
 class AdminSchool extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('admin.school.index');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
