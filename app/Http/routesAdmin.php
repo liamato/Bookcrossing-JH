@@ -310,7 +310,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
 
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function() {
             Route::get('/', [
-                'uses' => 'AdminUser@index',
+                'uses' => 'AdminProfile@index',
                 'as' => 'index'
             ]);
 

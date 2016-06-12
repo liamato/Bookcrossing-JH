@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class AdminProfile extends Controller
 {
@@ -13,9 +14,9 @@ class AdminProfile extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dump()
+    public function index()
     {
-        //
+        return view('admin.profile.index', ['user' => User::first()]);
     }
 
     /**
