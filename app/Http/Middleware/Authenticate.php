@@ -45,16 +45,20 @@ class Authenticate
                 return redirect()->guest(route('login'));
             }
         }
-        if (!$this->auth->user()->inSchool($school)) {
-            $params = [];
-            foreach(Route::current()->parameterNames() as $order => $pm){
-                if ($pm == 'school') {
-                    $params[$order] = $this->auth->user()->school->slug;
-                } else {
-                    $params[$order] = Route::current()->getParameter($pm);
+        if (!$school->isEmpty()) {
+            if (!$this->auth->user()->isSuper()) {
+                if (!$this->auth->user()->inSchool($school)) {
+                    $params = [];
+                    foreach(Route::current()->parameterNames() as $order => $pm){
+                        if ($pm == 'school') {
+                            $params[$order] = $this->auth->user()->school->slug;
+                        } else {
+                            $params[$order] = Route::current()->getParameter($pm);
+                        }
+                    }
+                    return redirect()->route(Route::current()->getName(), $params);
                 }
             }
-            return redirect()->route(Route::current()->getName(), $params);
         }
 
         return $next($request);
