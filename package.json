@@ -24,6 +24,7 @@
     "news": "browserify -t babelify resources/assets/react/components/admin/news.js > public/js/admin/news.js",
     "school": "browserify -t babelify resources/assets/react/components/admin/school.js > public/js/admin/school.js",
     "user": "browserify -t babelify resources/assets/react/components/admin/user.js > public/js/admin/user.js",
-    "profile": "browserify -t babelify resources/assets/react/components/admin/profile.js > public/js/admin/profile.js"
+    "profile": "browserify -t babelify resources/assets/react/components/admin/profile.js > public/js/admin/profile.js",
+    "video": "browserify -t babelify resources/assets/react/components/admin/video.js > public/js/admin/video.js"
   }
 }

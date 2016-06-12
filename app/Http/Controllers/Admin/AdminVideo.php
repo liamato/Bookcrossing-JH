@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Video;
 
 class AdminVideo extends Controller
 {
@@ -15,7 +16,7 @@ class AdminVideo extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.video.index', ['videos' => Video::all()]);
     }
 
     /**
