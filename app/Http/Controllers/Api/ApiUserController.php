@@ -45,6 +45,7 @@ class ApiUserController extends Controller
         if (!isset($insert['school_id']) && $school->filledOrFail()) {
             $insert['school_id'] = $school->id;
         }
+        $insert['password'] = bcrypt($insert['password']);
         $u = User::create($insert);
         return User::findOrFail($u->id);
     }
@@ -89,6 +90,10 @@ class ApiUserController extends Controller
 
         if (isset($all['school_id'])) {
             unset($all['school_id']);
+        }
+
+        if (isset($all['password'])) {
+            $all['password'] = bcrypt($all['password']);
         }
 
         foreach ($all as $key => $value) {
