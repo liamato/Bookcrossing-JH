@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Video;
+use App\School;
 
 class AdminVideo extends Controller
 {
@@ -14,9 +15,9 @@ class AdminVideo extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return view('admin.video.index', ['videos' => Video::all()]);
+        return view('admin.video.index', ['videos' => Video::bySchool($school->id)->get()]);
     }
 
     /**

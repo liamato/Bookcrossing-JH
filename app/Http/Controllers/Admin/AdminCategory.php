@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\School;
 
 class AdminCategory extends Controller
 {
@@ -14,9 +15,9 @@ class AdminCategory extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return view('admin.category.index', ['categories' => Category::all()]);
+        return view('admin.category.index', ['categories' => Category::bySchool($school->id)->get()]);
     }
 
     /**

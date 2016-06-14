@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Book;
+use App\School;
 
 class AdminBook extends Controller
 {
@@ -14,9 +15,9 @@ class AdminBook extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return view('admin.book.index', ['books' => Book::all()]);
+        return view('admin.book.index', ['books' => Book::bySchool($school->id)->get()]);
     }
 
     /**

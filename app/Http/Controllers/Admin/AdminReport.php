@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Report;
+use App\School;
 
 class AdminReport extends Controller
 {
@@ -14,9 +15,9 @@ class AdminReport extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return view('admin.news.index', ['news' => Report::all()]);
+        return view('admin.news.index', ['news' => Report::bySchool($school->id)->get()]);
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Category;
+use App\School;
 
 class AdminPost extends Controller
 {
@@ -15,9 +16,9 @@ class AdminPost extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school)
     {
-        return view('admin.post.index', ['posts' => Post::all(), 'categories' => Category::all()]);
+        return view('admin.post.index', ['posts' => Post::bySchool($school->id)->get(), 'categories' => Category::bySchool($school->id)->get()]);
     }
 
     /**
