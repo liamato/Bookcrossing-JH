@@ -10,6 +10,8 @@ class Report extends Model
 
     protected $fillable = ['title', 'body', 'author', 'school_id'];
 
+    protected $hidden = ['school_id'];
+
     protected $relationship = ['school' => 'school_id'];
 
     public function school()

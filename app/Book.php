@@ -8,7 +8,7 @@ class Book extends Model
 {
     protected $fillable = ['title', 'author', 'school_id'];
 
-    protected $hidden = ['created_at', 'updated_at', 'checked'];
+    protected $hidden = ['created_at', 'updated_at', 'checked', 'school_id'];
 
     protected $relationship = ['school' => 'school_id'];
 

@@ -35,7 +35,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token', 'super', 'created_at', 'updated_at'];
+    protected $hidden = ['password', 'remember_token', 'super', 'created_at', 'updated_at', 'school_id'];
 
     protected $relationship = ['school' => 'school_id'];
 

@@ -8,7 +8,7 @@ class Video extends Model
 {
     protected $fillable = ['code', 'trailer', 'author', 'school_id'];
 
-    protected $hidden = ['updated_at'];
+    protected $hidden = ['updated_at', 'school_id'];
 
     protected $relationship = ['school' => 'school_id'];
 

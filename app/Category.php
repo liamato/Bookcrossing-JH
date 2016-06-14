@@ -8,6 +8,8 @@ class Category extends Model
 {
     protected $fillable = ['name', 'slug', 'school_id'];
 
+    protected $hidden = ['school_id'];
+
     protected $relationship = ['school' => 'school_id', 'posts' => ''];
 
     public function posts()
@@ -31,7 +33,7 @@ class Category extends Model
                 $school = \App::make(School::class);
             }
         }
-        
+
         return static::where('slug', $slug)->where('school_id', $school->id)->firstOrFail();
     }
 
