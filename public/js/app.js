@@ -31335,7 +31335,7 @@ var Menu = (function (_React$Component) {
 		key: 'changeSchool',
 		value: function changeSchool(ev) {
 			var target = ev.target;
-			this.props.history.pushState(this.props.location.key, '/' + target.value + this.props.location.pathname.substr(this.props.location.pathname.indexOf('/', 1)));
+			this.props.history.pushState(this.props.location.key, '/' + target.value + (this.props.location.pathname.indexOf('/', 1) != -1 ? this.props.location.pathname.substr(this.props.location.pathname.indexOf('/', 1)) : ''));
 			this.setState({ school: { name: target.selectedOptions[0].text, slug: target.value } });
 			this.setSchool();
 		}
@@ -31344,58 +31344,58 @@ var Menu = (function (_React$Component) {
 		value: function render() {
 			return _react2['default'].createElement(
 				'div',
-				null,
+				{ className: 'app' },
 				_react2['default'].createElement(
 					'nav',
-					null,
+					{ className: 'navigation' },
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug },
 						'Inicio'
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug + '/news' },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/news' },
 						'Novedades'
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug + '/list' },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/list' },
 						'Llista de libros'
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug + '/capture' },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/capture' },
 						'Capturar libro'
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug + '/liberate' },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/liberate' },
 						'Liberar libro'
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug + '/register' },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/register' },
 						'Registrar libro'
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug + '/forum' },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/forum' },
 						'Foro'
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug + '/booktrailer' },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/booktrailer' },
 						'Booktrailer'
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + this.state.school.slug + '/booktube' },
+						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/booktube' },
 						'Booktube'
 					),
 					_react2['default'].createElement(
 						'select',
-						{ onChange: this.changeSchool.bind(this) },
+						{ className: 'navigation__school', onChange: this.changeSchool.bind(this), value: this.state.school.slug },
 						this.state.schools.map(function (school) {
 							return _react2['default'].createElement(
 								'option',
@@ -31408,7 +31408,7 @@ var Menu = (function (_React$Component) {
 				_react2['default'].cloneElement(this.props.children, { school: this.state.school, updateSchool: this.setSchool.bind(this) }),
 				_react2['default'].createElement(
 					'footer',
-					null,
+					{ className: 'footer' },
 					this.state.school.name
 				)
 			);
@@ -31422,21 +31422,21 @@ exports['default'] = Menu;
 module.exports = exports['default'];
 
 },{"../../config":247,"../../data/collection":248,"immutable":19,"react":221,"react-router":40,"superagent":222}],236:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
 	value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -31448,45 +31448,159 @@ var Video = (function (_React$Component) {
 	function Video() {
 		_classCallCheck(this, Video);
 
-		_get(Object.getPrototypeOf(Video.prototype), "constructor", this).apply(this, arguments);
+		_get(Object.getPrototypeOf(Video.prototype), 'constructor', this).apply(this, arguments);
 	}
 
 	_createClass(Video, [{
-		key: "render",
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			this.setState({ active: this.props.active });
+		}
+	}, {
+		key: 'componentWillReciveProps',
+		value: function componentWillReciveProps(props) {
+			this.setState({ active: props.active });
+		}
+	}, {
+		key: 'toggle',
+		value: function toggle(ev) {
+			var active = this.state.active;
+			if (this.props.selectable) {
+				if (this.state.active) {
+					active = false;
+				} else {
+					active = true;
+				}
+			}
+			if (typeof this.props.onclick === 'function') {
+				this.props.onclick(ev, active, this.props.id);
+			}
+			this.setState({ active: active });
+		}
+	}, {
+		key: 'noPropagation',
+		value: function noPropagation(e) {
+			e.stopPropagation();
+		}
+	}, {
+		key: 'save',
+		value: function save(e) {
+			var parent = e.target.parentElement,
+			    o = { id: this.props.id };
+			var video = parent.getElementsByClassName('video__code--edit')[0].value,
+			    r = RegExp("^\w*:\/\/[\w\.]*\/watch\?v\=(.{11}).*$|^\w*:\/\/[\w\.]*\/(.{11}).*$|^<iframe.*src\=.*\/\/[\w\.]*\/embed\/(.{11}).*$|^[A-Za-z0-9\_\-]{11}$", 'm');
+			video = r.exec(video);
+			if (video) {
+				for (var x = video.length; x > -1; x--) {
+					if (video[x]) {
+						if (video[x] != this.props.code) o.code = video[x];
+						break;
+					}
+				}
+			}
+			if (parent.getElementsByClassName('video__author--edit')[0].value != this.props.author) o.author = parent.getElementsByClassName('video__author--edit')[0].value;
+			if (parent.getElementsByClassName('video__trailer--edit')[0].value != this.props.trailer) o.trailer = parent.getElementsByClassName('video__trailer--edit')[0].value;
+			this.props.save(o);
+		}
+	}, {
+		key: 'render',
 		value: function render() {
 			var _this = this;
 
-			return _react2["default"].createElement(
-				"div",
-				{ className: "video" },
-				_react2["default"].createElement("iframe", { src: "//www.youtube.com/embed/" + this.props.code + "?autohide=1&rel=0", frameborde: "0", allowFullScreen: true }),
-				(function () {
-					if (_this.props.author) {
-						return _react2["default"].createElement(
-							"p",
-							null,
-							_this.props.author
-						);
-					}
-				})()
+			if (!this.props.edit) {
+				return _react2['default'].createElement(
+					'div',
+					{ className: 'video' },
+					_react2['default'].createElement('iframe', { src: '//www.youtube.com/embed/' + this.props.code + '?autohide=1&rel=0', frameborde: '0', allowFullScreen: true }),
+					(function () {
+						if (_this.props.author) {
+							return _react2['default'].createElement(
+								'p',
+								null,
+								_this.props.author
+							);
+						}
+					})()
+				);
+			}
+			return _react2['default'].createElement(
+				'div',
+				{ onClick: this.toggle.bind(this), className: (function () {
+						var ret = "video";
+						if (_this.state.active) {
+							ret += ' video--active';
+						}
+						if (_this.props.selectable) {
+							ret += ' video--selectable';
+						}
+						if (_this.props.edit) {
+							ret += ' video--edit';
+						}
+						return ret;
+					})() },
+				_react2['default'].createElement(
+					'label',
+					{ htmlFor: '' },
+					'Codi del video'
+				),
+				_react2['default'].createElement('input', { type: 'text', className: 'video__code--edit', defaultValue: this.props.code, onClick: this.noPropagation.bind(this), pattern: '^\\w*:\\/\\/[\\w\\.]*\\/watch\\?v\\=(.{11}).*$|^\\w*:\\/\\/[\\w\\.]*\\/(.{11}).*$|^<iframe.*src\\=.*\\/\\/[\\w\\.]*\\/embed\\/(.{11}).*$|^[A-Za-z0-9\\_\\-]{11}$' }),
+				_react2['default'].createElement(
+					'label',
+					{ htmlFor: '' },
+					'Autor'
+				),
+				_react2['default'].createElement('input', { type: 'text', className: 'video__author--edit', defaultValue: this.props.author, onClick: this.noPropagation.bind(this) }),
+				_react2['default'].createElement(
+					'label',
+					{ htmlFor: '' },
+					'Tipus'
+				),
+				_react2['default'].createElement(
+					'select',
+					{ className: 'video__trailer--edit', onClick: this.noPropagation.bind(this) },
+					_react2['default'].createElement(
+						'option',
+						{ value: 0, selected: parseInt(this.props.trailer, 10) == 0 ? 'selected' : '' },
+						'BookTube'
+					),
+					_react2['default'].createElement(
+						'option',
+						{ value: 1, selected: parseInt(this.props.trailer, 10) == 1 ? 'selected' : '' },
+						'BookTrailer'
+					)
+				),
+				_react2['default'].createElement(
+					'button',
+					{ onClick: this.save.bind(this) },
+					'Guardar'
+				)
 			);
 		}
 	}]);
 
 	return Video;
-})(_react2["default"].Component);
+})(_react2['default'].Component);
 
-exports["default"] = Video;
+exports['default'] = Video;
 
 Video.propTypes = {
-	id: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.number]).isRequired,
-	code: _react2["default"].PropTypes.string.isRequired,
-	author: _react2["default"].PropTypes.string,
-	trailer: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.bool, _react2["default"].PropTypes.string, _react2["default"].PropTypes.number]).isRequired,
-	created_at: _react2["default"].PropTypes.string.isRequired,
-	school_id: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.number])
+	id: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]).isRequired,
+	code: _react2['default'].PropTypes.string.isRequired,
+	author: _react2['default'].PropTypes.string,
+	trailer: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.bool, _react2['default'].PropTypes.string, _react2['default'].PropTypes.number]).isRequired,
+	created_at: _react2['default'].PropTypes.string.isRequired,
+
+	selectable: _react2['default'].PropTypes.bool.isRequired,
+
+	active: _react2['default'].PropTypes.bool.isRequired,
+
+	edit: _react2['default'].PropTypes.bool.isRequired,
+
+	onclick: _react2['default'].PropTypes.func,
+
+	save: _react2['default'].PropTypes.func
 };
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 },{"react":221}],237:[function(require,module,exports){
 'use strict';

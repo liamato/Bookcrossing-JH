@@ -73,25 +73,25 @@ export default class Menu extends React.Component {
 
 	changeSchool(ev) {
 		let target = ev.target
-		this.props.history.pushState(this.props.location.key, '/'+target.value+this.props.location.pathname.substr(this.props.location.pathname.indexOf('/',1)))
+		this.props.history.pushState(this.props.location.key, '/'+target.value+(this.props.location.pathname.indexOf('/',1) != -1 ? this.props.location.pathname.substr(this.props.location.pathname.indexOf('/',1)) : ''))
 		this.setState({school: {name: target.selectedOptions[0].text, slug: target.value}})
 		this.setSchool()
 	}
 
 	render() {
 		return (
-		<div>
-			<nav>
-				<Link to={`/${this.state.school.slug}`}>Inicio</Link>
-				<Link to={`/${this.state.school.slug}/news`}>Novedades</Link>
-				<Link to={`/${this.state.school.slug}/list`}>Llista de libros</Link>
-				<Link to={`/${this.state.school.slug}/capture`}>Capturar libro</Link>
-				<Link to={`/${this.state.school.slug}/liberate`}>Liberar libro</Link>
-				<Link to={`/${this.state.school.slug}/register`}>Registrar libro</Link>
-				<Link to={`/${this.state.school.slug}/forum`}>Foro</Link>				
-				<Link to={`/${this.state.school.slug}/booktrailer`}>Booktrailer</Link>				
-				<Link to={`/${this.state.school.slug}/booktube`}>Booktube</Link>				
-				<select onChange={this.changeSchool.bind(this)}>
+		<div className="app">
+			<nav className="navigation">
+				<Link className="navigation__link" to={`/${this.state.school.slug}`}>Inicio</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/news`}>Novedades</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/list`}>Llista de libros</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/capture`}>Capturar libro</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/liberate`}>Liberar libro</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/register`}>Registrar libro</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/forum`}>Foro</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/booktrailer`}>Booktrailer</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/booktube`}>Booktube</Link>
+				<select className="navigation__school" onChange={this.changeSchool.bind(this)} value={this.state.school.slug}>
 					{
 						this.state.schools.map((school) => {
 							return <option key={school.id} value={school.slug}>{school.name}</option>
@@ -100,7 +100,7 @@ export default class Menu extends React.Component {
 				</select>
 			</nav>
 			{React.cloneElement(this.props.children, {school: this.state.school, updateSchool: this.setSchool.bind(this)})}
-			<footer>{this.state.school.name}</footer>
+			<footer className="footer">{this.state.school.name}</footer>
 		</div>)
 	}
 }
