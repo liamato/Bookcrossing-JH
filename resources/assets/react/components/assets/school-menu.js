@@ -8,9 +8,18 @@ import Collection from '../../data/collection'
 export default class Menu extends React.Component {
 
 	componentWillMount() {
-		this.setState({school: {name: '', slug: this.props.params.school}, schools: []});
-		this.setSchool();
-		this.getSchools();
+		if (db && db.school) {
+			this.setState({school: db.school});
+		} else {
+			this.setState({school: {name: '', slug: this.props.params.school}});
+			this.setSchool();
+		}
+		if (db && db.schools) {
+			this.setState({schools: db.schools});
+		} else {
+			this.setState({schools: []});
+			this.getSchools();
+		}
 	}
 
 	componentDidUpdate(props, state) {
@@ -91,16 +100,20 @@ export default class Menu extends React.Component {
 				<Link className="navigation__link" to={`/${this.state.school.slug}/forum`}>Foro</Link>
 				<Link className="navigation__link" to={`/${this.state.school.slug}/booktrailer`}>Booktrailer</Link>
 				<Link className="navigation__link" to={`/${this.state.school.slug}/booktube`}>Booktube</Link>
-				<select className="navigation__school" onChange={this.changeSchool.bind(this)} value={this.state.school.slug}>
+
+			</nav>
+			<main className="main">
+				{React.cloneElement(this.props.children, {school: this.state.school, updateSchool: this.setSchool.bind(this)})}
+			</main>
+			<footer className="footer">
+				<select className="footer__school" onChange={this.changeSchool.bind(this)} value={this.state.school.slug}>
 					{
 						this.state.schools.map((school) => {
 							return <option key={school.id} value={school.slug}>{school.name}</option>
 						})
 					}
 				</select>
-			</nav>
-			{React.cloneElement(this.props.children, {school: this.state.school, updateSchool: this.setSchool.bind(this)})}
-			<footer className="footer">{this.state.school.name}</footer>
+			</footer>
 		</div>)
 	}
 }

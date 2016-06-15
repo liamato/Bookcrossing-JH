@@ -31270,9 +31270,18 @@ var Menu = (function (_React$Component) {
 	_createClass(Menu, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
-			this.setState({ school: { name: '', slug: this.props.params.school }, schools: [] });
-			this.setSchool();
-			this.getSchools();
+			if (db && db.school) {
+				this.setState({ school: db.school });
+			} else {
+				this.setState({ school: { name: '', slug: this.props.params.school } });
+				this.setSchool();
+			}
+			if (db && db.schools) {
+				this.setState({ schools: db.schools });
+			} else {
+				this.setState({ schools: [] });
+				this.getSchools();
+			}
 		}
 	}, {
 		key: 'componentDidUpdate',
@@ -31392,10 +31401,19 @@ var Menu = (function (_React$Component) {
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/booktube' },
 						'Booktube'
-					),
+					)
+				),
+				_react2['default'].createElement(
+					'main',
+					{ className: 'main' },
+					_react2['default'].cloneElement(this.props.children, { school: this.state.school, updateSchool: this.setSchool.bind(this), translations: db.translations })
+				),
+				_react2['default'].createElement(
+					'footer',
+					{ className: 'footer' },
 					_react2['default'].createElement(
 						'select',
-						{ className: 'navigation__school', onChange: this.changeSchool.bind(this), value: this.state.school.slug },
+						{ className: 'footer__school', onChange: this.changeSchool.bind(this), value: this.state.school.slug },
 						this.state.schools.map(function (school) {
 							return _react2['default'].createElement(
 								'option',
@@ -31404,12 +31422,6 @@ var Menu = (function (_React$Component) {
 							);
 						})
 					)
-				),
-				_react2['default'].cloneElement(this.props.children, { school: this.state.school, updateSchool: this.setSchool.bind(this) }),
-				_react2['default'].createElement(
-					'footer',
-					{ className: 'footer' },
-					this.state.school.name
 				)
 			);
 		}
