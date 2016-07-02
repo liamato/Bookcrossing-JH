@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import config from '../../../config'
+import translate from '../../../translate'
 import VideoShelf from '../../assets/videoshelf'
 import Loading from '../../assets/loading'
 import uid from 'uid'
@@ -32,7 +33,7 @@ export default class Tube extends React.Component {
 		if (this.props.route.trailer) {
 			this.setState({type: 'trailer', trailer: 1});
 		} else {
-			this.setState({type: 'tube', trailer: 0});			
+			this.setState({type: 'tube', trailer: 0});
 		}
 	}
 
@@ -74,15 +75,6 @@ export default class Tube extends React.Component {
 			<div>
 				<h1>{`Book${this.state.type}`}</h1>
 				<hr/>
-				<button onClick={this.nv.bind(this)}>Puja un video</button>
-				{
-					() => {
-						if (this.props.school && this.props.school.videos) {
-							return <VideoShelf videos={this.props.school.videos.whereLoose('trailer',this.state.trailer)}/>
-						}
-						return <Loading/>
-					}()
-				}
 				{
 					() => {
 						if (this.state.nv) {
@@ -90,15 +82,16 @@ export default class Tube extends React.Component {
 								let id = uid();
 								return (
 									<div className="new-video">
+										<button onClick={this.nvc.bind(this)}>{translate('cerrar','Tancar')}</button>
 										<input type="text" id={`code-${id}`} placeholder="https://www.youtube.com/watch?v=xxxxxxxxxxx"/>
 										<input type="text" id={`name-${id}`} placeholder="Nom"/>
-										<button onClick={this.addVideo.bind(this, id)}>Pujar</button>
+										<button onClick={this.addVideo.bind(this, id)}>{translate('sube-video','Puja el teu video')}</button>
 									</div>
 								)
 							} else if (this.state.request === 1) {
 								return (
 									<div className="new-video">
-										Pujant el video
+										{translate('subiendo-video', 'EL video s\'esta pujant')}
 									</div>
 								)
 							} else if (this.state.request === 2) {
@@ -107,16 +100,25 @@ export default class Tube extends React.Component {
 										{
 											() => {
 												if (this.state.res[1].ok) {
-													return <div>Video pujat</div>				
+													return <div>{translate('subido-video', 'El video s\'ha pujat')}</div>
 												}
-												return <div>Hi ha hagut un error</div>
+												return <div>{translate('un-error', 'Hi ha hagut un error')}</div>
 											}()
 										}
-										<button onClick={this.nbc.bind(this)}>Tancar</button>
+										<button onClick={this.nvc.bind(this)}>{translate('cerrar','Tancar')}</button>
 									</div>
 								)
 							}
 						}
+						return <button onClick={this.nv.bind(this)}>{translate('sube-video','Puja el teu video')}</button>
+					}()
+				}
+				{
+					() => {
+						if (this.props.school && this.props.school.videos) {
+							return <VideoShelf videos={this.props.school.videos.whereLoose('trailer',this.state.trailer)}/>
+						}
+						return <Loading/>
 					}()
 				}
 			</div>

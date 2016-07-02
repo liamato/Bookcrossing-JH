@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import config from '../../config'
+import translate from '../../translate'
 import Uid from 'uid'
 
 export default class AddPost extends React.Component {
@@ -54,14 +55,14 @@ export default class AddPost extends React.Component {
 			{
 				() => {
 					if (this.state.btn) {
-						return <button className="addPost__btn" onClick={this.open.bind(this)}>Afegir comentari</button>
+						return <button className="addPost__btn" onClick={this.open.bind(this)}>{translate('nuevo-comentario', 'Nou comentari')}</button>
 					}
 					return <div className="addPost__controls">
 						<button onClick={this.close.bind(this)}>X</button>
-						<input type="text" id={`title-${uid}`} placeholder="Titulo*" required/>
-						<textarea placeholder="Comentario*" id={`body-${uid}`} required></textarea>
-						<input type="text" id={`author-${uid}`} placeholder="Nombre o pseudonimo"/>
-						<button onClick={this.send.bind(this, uid)}>Enviar</button>
+						<input type="text" id={`title-${uid}`} placeholder={`${translate('titulo','Títol')}*`} required/>
+						<textarea placeholder={`${translate('comentario','Comentari')}*`} id={`body-${uid}`} required></textarea>
+						<input type="text" id={`author-${uid}`} placeholder={`${translate('nombre-seud','Nom o pseudonim')}*`}/>
+						<button onClick={this.send.bind(this, uid)}>{translate('enviar', 'Enviar')}</button>
 					</div>
 				}()
 			}

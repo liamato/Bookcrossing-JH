@@ -1,5 +1,6 @@
 import React from 'react'
 import Book from './book'
+import translate from '../../translate'
 import Collection from '../../data/collection'
 
 export default class BookShelf extends React.Component {
@@ -98,9 +99,9 @@ export default class BookShelf extends React.Component {
 					() => {
 						if (this.state.controls) {
 							return (<div className="bookshelf__controls">
-								<button onClick={this.by.bind(this, 'id')}>Id</button>
-								<button onClick={this.by.bind(this, 'name')}>Nom</button>
-								<button onClick={this.by.bind(this, 'author')}>Autor</button>
+								<button onClick={this.by.bind(this, 'id')}>{translate('codigo', 'Codi')}</button>
+								<button onClick={this.by.bind(this, 'name')}>{translate('titulo', 'Títol')}</button>
+								<button onClick={this.by.bind(this, 'author')}>{translate('autor', 'Autor')}</button>
 							</div>)
 						} else {
 							return <div></div>

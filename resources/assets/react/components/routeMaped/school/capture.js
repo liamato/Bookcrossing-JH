@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import config from '../../../config'
+import translate from '../../../translate'
 import { default as Im } from 'immutable'
 import BookSearch from '../../assets/booksearch'
 import Loading from '../../assets/loading'
@@ -49,14 +50,14 @@ export default class Capture extends React.Component {
 			}
 			return <Loading/>
 		} else if(this.state.request === 1) {
-			return <Question msg="Segur que vols quest llibre?" onAccept={this.selectBook.bind(this)} onDecline={this.cancelSelection.bind(this)} optional />
+			return <Question msg={translate('seguro-libro','Segur que vols quest llibre?')} onAccept={this.selectBook.bind(this)} onDecline={this.cancelSelection.bind(this)} optional />
 		} else if (this.state.request === 2) {
-			return <div>Capturant llibre...</div>
+			return <div>{translate('capturando','Capturant')} {translate('libro','llibre')}...</div>
 		} else if (this.state.request === 3) {
 			if (this.state.res[1].ok) {
-				return <div>Llibre capturat</div>
+				return <div>{translate('libro-capturado','Llibre capturat')}</div>
 			}
-			return <div>Hi ha hagut un error</div>
+			return <div>{translate('un-error', 'Hi ha hagut un error')}</div>
 		}
 	}
 }

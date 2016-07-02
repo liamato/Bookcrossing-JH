@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import config from '../../../config'
+import translate from '../../../translate'
 //import uid from 'uid'
 import { default as Im } from 'immutable'
 import Notice from '../../assets/notice'
@@ -40,28 +41,22 @@ export default class News extends React.Component {
 
 	render() {
 		if(this.props.school.news){
-			if(this.props.school.news[0]){
-				let news = this.props.school.news.sortBy('created_at', true)
-
-				return (
-					<div>
-						<h1>Novedades</h1>
-						<hr/>
-						{
-							news.map((notice) => {
-								return (
-									<Notice {...notice} key={notice.id} />
-								)
-							})
-						}
-					</div>
-				)
-			}
 			return (
 				<div>
-					<h1>Novedades</h1>
+					<h1>{translate('novedades', 'Novetats')}</h1>
 					<hr/>
-					<p>No hi ha noticies</p>
+					{
+						() => {
+							if (this.props.school.news[0]) {
+								return this.props.school.news.sortBy('created_at', true).map((notice) => {
+									return (
+										<Notice {...notice} key={notice.id} />
+									)
+								})
+							}
+							return <p>{translate('no-resultados', 'No hi han resultats')}</p>
+						}()
+					}
 				</div>
 			)
 		}

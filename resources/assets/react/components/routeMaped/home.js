@@ -39,8 +39,8 @@ export default class Home extends React.Component {
 		return <div>
 			{
 				this.state.schools.map(function(school){
-					return <Link to={`/${school.slug}/`} key={uid()}>{school.name}</Link>
-				}) 
+					return <Link to={`/${school.slug}/`} key={school.id}>{school.name}</Link>
+				})
 			}
 		</div>
 	}

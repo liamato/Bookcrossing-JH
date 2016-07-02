@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import config from '../../../config'
+import translate from '../../../translate'
 import { default as Im } from 'immutable'
 import Post from '../../assets/post'
 import AddPost from '../../assets/addpost'
@@ -22,7 +23,7 @@ export default class Forum extends React.Component {
 	componentWillReciveProps(props) {
 		this.setPosts();
 		this.updateCategory();
-		
+
 	}
 
 	componentDidUpdate(props) {
@@ -86,6 +87,7 @@ export default class Forum extends React.Component {
 	render() {
 		if(this.props.school.posts && this.props.school.categories && this.state.category !== undefined){
 			return <div>
+			<h1>{translate('forum', 'Forum')}</h1>
 			<select onChange={this.changeHandler.bind(this)}>
 				{
 					this.props.school.categories.map((category) => {

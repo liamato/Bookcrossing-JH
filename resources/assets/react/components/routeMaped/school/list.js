@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import config from '../../../config'
+import translate from '../../../translate'
 import { default as Im } from 'immutable'
 import BookShelf from '../../assets/bookshelf'
 import BookSearch from '../../assets/booksearch'
@@ -39,28 +40,30 @@ export default class List extends React.Component {
 
 	render() {
 		if (this.props.school.books){
+			var title = translate('libro', 'Llibre');
+			title= title[0].toUpperCase()+title.slice(1)+'s';
 			if(this.props.school.books[0]){
 				let uncatched = this.props.school.books.whereLoose('catched',0);
 				let catched = this.props.school.books.whereLoose('catched',1);
 				return (
 					<div>
-						<h1>Llibres</h1>
+						<h1>{title}</h1>
 						<hr/>
-						<h2>Per Agafar</h2>
+						<h2>{translate('disponibles','Disponibles')}</h2>
 						<BookShelf books={uncatched} controls/>
-						<h2>Agafats</h2>
+						<h2>{translate('capturados','Capturats')}</h2>
 						<BookShelf books={catched} controls/>
 					</div>
 				)
 			}
 			return (
 				<div>
-					<h1>Llibres</h1>
+					<h1>{title}</h1>
 					<hr/>
-					<p>No hi ha llibres</p>
+					<p>{translate('no-resultados', 'No hi han resultats')}</p>
 				</div>
 			)
 		}
 		return <Loading/>
-	} 
+	}
 }

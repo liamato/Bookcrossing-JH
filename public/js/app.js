@@ -30108,6 +30108,10 @@ var _config = require('../../config');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _translate = require('../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
+
 var _uid = require('uid');
 
 var _uid2 = _interopRequireDefault(_uid);
@@ -30174,7 +30178,7 @@ var AddPost = (function (_React$Component) {
 						return _react2['default'].createElement(
 							'button',
 							{ className: 'addPost__btn', onClick: _this2.open.bind(_this2) },
-							'Afegir comentari'
+							(0, _translate2['default'])('nuevo-comentario', 'Nou comentari')
 						);
 					}
 					return _react2['default'].createElement(
@@ -30185,13 +30189,13 @@ var AddPost = (function (_React$Component) {
 							{ onClick: _this2.close.bind(_this2) },
 							'X'
 						),
-						_react2['default'].createElement('input', { type: 'text', id: 'title-' + uid, placeholder: 'Titulo*', required: true }),
-						_react2['default'].createElement('textarea', { placeholder: 'Comentario*', id: 'body-' + uid, required: true }),
-						_react2['default'].createElement('input', { type: 'text', id: 'author-' + uid, placeholder: 'Nombre o pseudonimo' }),
+						_react2['default'].createElement('input', { type: 'text', id: 'title-' + uid, placeholder: (0, _translate2['default'])('titulo', 'Títol') + '*', required: true }),
+						_react2['default'].createElement('textarea', { placeholder: (0, _translate2['default'])('comentario', 'Comentari') + '*', id: 'body-' + uid, required: true }),
+						_react2['default'].createElement('input', { type: 'text', id: 'author-' + uid, placeholder: (0, _translate2['default'])('nombre-seud', 'Nom o pseudonim') + '*' }),
 						_react2['default'].createElement(
 							'button',
 							{ onClick: _this2.send.bind(_this2, uid) },
-							'Enviar'
+							(0, _translate2['default'])('enviar', 'Enviar')
 						)
 					);
 				})()
@@ -30212,7 +30216,7 @@ AddPost.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../../config":247,"react":221,"superagent":222,"uid":225}],228:[function(require,module,exports){
+},{"../../config":247,"../../translate":250,"react":221,"superagent":222,"uid":225}],228:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30418,6 +30422,10 @@ var _bookshelf = require('./bookshelf');
 
 var _bookshelf2 = _interopRequireDefault(_bookshelf);
 
+var _translate = require('../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
+
 var _dataCollection = require('../../data/collection');
 
 var _dataCollection2 = _interopRequireDefault(_dataCollection);
@@ -30567,7 +30575,8 @@ var BookSearch = (function (_React$Component) {
 							_react2['default'].createElement(
 								'label',
 								{ htmlFor: 'search_' + uid },
-								'Search: '
+								(0, _translate2['default'])('buscar', 'Buscar'),
+								': '
 							),
 							_react2['default'].createElement('input', { type: 'text', id: 'search_' + uid, onChange: _this3.search.bind(_this3) })
 						);
@@ -30601,7 +30610,7 @@ BookSearch.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":248,"./bookshelf":230,"react":221,"uid":225}],230:[function(require,module,exports){
+},{"../../data/collection":248,"../../translate":250,"./bookshelf":230,"react":221,"uid":225}],230:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30627,6 +30636,10 @@ var _react2 = _interopRequireDefault(_react);
 var _book = require('./book');
 
 var _book2 = _interopRequireDefault(_book);
+
+var _translate = require('../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 var _dataCollection = require('../../data/collection');
 
@@ -30750,17 +30763,17 @@ var BookShelf = (function (_React$Component) {
 							_react2['default'].createElement(
 								'button',
 								{ onClick: _this.by.bind(_this, 'id') },
-								'Id'
+								(0, _translate2['default'])('codigo', 'Codi')
 							),
 							_react2['default'].createElement(
 								'button',
 								{ onClick: _this.by.bind(_this, 'name') },
-								'Nom'
+								(0, _translate2['default'])('titulo', 'Títol')
 							),
 							_react2['default'].createElement(
 								'button',
 								{ onClick: _this.by.bind(_this, 'author') },
-								'Autor'
+								(0, _translate2['default'])('autor', 'Autor')
 							)
 						);
 					} else {
@@ -30801,7 +30814,7 @@ BookShelf.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":248,"./book":228,"react":221}],231:[function(require,module,exports){
+},{"../../data/collection":248,"../../translate":250,"./book":228,"react":221}],231:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30822,6 +30835,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _translate = require('../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
+
 var Loading = (function (_React$Component) {
 	_inherits(Loading, _React$Component);
 
@@ -30837,7 +30854,8 @@ var Loading = (function (_React$Component) {
 			return _react2['default'].createElement(
 				'p',
 				null,
-				'Carregant...'
+				(0, _translate2['default'])('cargando', 'Carregant'),
+				'...'
 			);
 		}
 	}]);
@@ -30848,7 +30866,7 @@ var Loading = (function (_React$Component) {
 exports['default'] = Loading;
 module.exports = exports['default'];
 
-},{"react":221}],232:[function(require,module,exports){
+},{"../../translate":250,"react":221}],232:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31254,6 +31272,10 @@ var _config = require('../../config');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _translate = require('../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
+
 var _dataCollection = require('../../data/collection');
 
 var _dataCollection2 = _interopRequireDefault(_dataCollection);
@@ -31271,6 +31293,11 @@ var Menu = (function (_React$Component) {
 		key: 'componentWillMount',
 		value: function componentWillMount() {
 			if (db && db.school) {
+				Object.keys(db.school).map(function (key) {
+					if (db.school[key] instanceof Array) {
+						db.school[key] = new _dataCollection2['default'](db.school[key]);
+					}
+				});
 				this.setState({ school: db.school });
 			} else {
 				this.setState({ school: { name: '', slug: this.props.params.school } });
@@ -31281,6 +31308,17 @@ var Menu = (function (_React$Component) {
 			} else {
 				this.setState({ schools: [] });
 				this.getSchools();
+			}
+			if (window.localStorage) {
+				if (!localStorage.lang) {
+					var sc = ['ca', 'es', 'en'];
+					for (var x in navigator.languages) {
+						if (sc.indexOf(navigator.languages[x]) != -1) {
+							localStorage.lang = navigator.languages[x];
+							break;
+						}
+					}
+				}
 			}
 		}
 	}, {
@@ -31349,8 +31387,15 @@ var Menu = (function (_React$Component) {
 			this.setSchool();
 		}
 	}, {
+		key: 'changeLang',
+		value: function changeLang(ev) {
+			localStorage.lang = ev.target.value;
+			this.forceUpdate();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var lang = window.localStorage && localStorage.lang ? localStorage.lang : 'ca';
 			return _react2['default'].createElement(
 				'div',
 				{ className: 'app' },
@@ -31360,37 +31405,43 @@ var Menu = (function (_React$Component) {
 					_react2['default'].createElement(
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug },
-						'Inicio'
+						(0, _translate2['default'])('inicio', 'Inici')
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/news' },
-						'Novedades'
+						(0, _translate2['default'])('novedades', 'Novetats')
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/list' },
-						'Llista de libros'
+						(0, _translate2['default'])('lista-libros', 'Llista de llibres')
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/capture' },
-						'Capturar libro'
+						(0, _translate2['default'])('capturar', 'Capturar'),
+						' ',
+						(0, _translate2['default'])('libro', 'llibre')
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/liberate' },
-						'Liberar libro'
+						(0, _translate2['default'])('liberar', 'Alliberar'),
+						' ',
+						(0, _translate2['default'])('libro', 'llibre')
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/register' },
-						'Registrar libro'
+						(0, _translate2['default'])('registrar', 'Registrar'),
+						' ',
+						(0, _translate2['default'])('libro', 'llibre')
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/forum' },
-						'Foro'
+						(0, _translate2['default'])('forum', 'Forum')
 					),
 					_react2['default'].createElement(
 						_reactRouter.Link,
@@ -31401,12 +31452,31 @@ var Menu = (function (_React$Component) {
 						_reactRouter.Link,
 						{ className: 'navigation__link', to: '/' + this.state.school.slug + '/booktube' },
 						'Booktube'
+					),
+					_react2['default'].createElement(
+						'select',
+						{ className: 'navigation__link', value: lang, onChange: this.changeLang.bind(this) },
+						_react2['default'].createElement(
+							'option',
+							{ value: 'ca' },
+							'Català'
+						),
+						_react2['default'].createElement(
+							'option',
+							{ value: 'es' },
+							'Catellano'
+						),
+						_react2['default'].createElement(
+							'option',
+							{ value: 'en' },
+							'English'
+						)
 					)
 				),
 				_react2['default'].createElement(
 					'main',
 					{ className: 'main' },
-					_react2['default'].cloneElement(this.props.children, { school: this.state.school, updateSchool: this.setSchool.bind(this), translations: db.translations })
+					_react2['default'].cloneElement(this.props.children, { school: this.state.school, updateSchool: this.setSchool.bind(this) })
 				),
 				_react2['default'].createElement(
 					'footer',
@@ -31433,7 +31503,7 @@ var Menu = (function (_React$Component) {
 exports['default'] = Menu;
 module.exports = exports['default'];
 
-},{"../../config":247,"../../data/collection":248,"immutable":19,"react":221,"react-router":40,"superagent":222}],236:[function(require,module,exports){
+},{"../../config":247,"../../data/collection":248,"../../translate":250,"immutable":19,"react":221,"react-router":40,"superagent":222}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31453,6 +31523,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== 'function' 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _translate = require('../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 var Video = (function (_React$Component) {
 	_inherits(Video, _React$Component);
@@ -31553,19 +31627,19 @@ var Video = (function (_React$Component) {
 				_react2['default'].createElement(
 					'label',
 					{ htmlFor: '' },
-					'Codi del video'
+					(0, _translate2['default'])('codigo-video', 'Codi del video')
 				),
 				_react2['default'].createElement('input', { type: 'text', className: 'video__code--edit', defaultValue: this.props.code, onClick: this.noPropagation.bind(this), pattern: '^\\w*:\\/\\/[\\w\\.]*\\/watch\\?v\\=(.{11}).*$|^\\w*:\\/\\/[\\w\\.]*\\/(.{11}).*$|^<iframe.*src\\=.*\\/\\/[\\w\\.]*\\/embed\\/(.{11}).*$|^[A-Za-z0-9\\_\\-]{11}$' }),
 				_react2['default'].createElement(
 					'label',
 					{ htmlFor: '' },
-					'Autor'
+					(0, _translate2['default'])('autor', 'Autor')
 				),
 				_react2['default'].createElement('input', { type: 'text', className: 'video__author--edit', defaultValue: this.props.author, onClick: this.noPropagation.bind(this) }),
 				_react2['default'].createElement(
 					'label',
 					{ htmlFor: '' },
-					'Tipus'
+					(0, _translate2['default'])('tipo', 'Tipus')
 				),
 				_react2['default'].createElement(
 					'select',
@@ -31584,7 +31658,7 @@ var Video = (function (_React$Component) {
 				_react2['default'].createElement(
 					'button',
 					{ onClick: this.save.bind(this) },
-					'Guardar'
+					(0, _translate2['default'])('guardar', 'Guardar')
 				)
 			);
 		}
@@ -31612,9 +31686,15 @@ Video.propTypes = {
 
 	save: _react2['default'].PropTypes.func
 };
+
+Video.defaultProps = {
+	selectable: false,
+	active: false,
+	edit: false
+};
 module.exports = exports['default'];
 
-},{"react":221}],237:[function(require,module,exports){
+},{"../../translate":250,"react":221}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31757,7 +31837,7 @@ var Home = (function (_React$Component) {
 				this.state.schools.map(function (school) {
 					return _react2['default'].createElement(
 						_reactRouter.Link,
-						{ to: '/' + school.slug + '/', key: (0, _uid2['default'])() },
+						{ to: '/' + school.slug + '/', key: school.id },
 						school.name
 					);
 				})
@@ -31799,6 +31879,10 @@ var _superagent2 = _interopRequireDefault(_superagent);
 var _config = require('../../../config');
 
 var _config2 = _interopRequireDefault(_config);
+
+var _translate = require('../../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 var _immutable = require('immutable');
 
@@ -31863,25 +31947,28 @@ var Capture = (function (_React$Component) {
 				}
 				return _react2['default'].createElement(_assetsLoading2['default'], null);
 			} else if (this.state.request === 1) {
-				return _react2['default'].createElement(_assetsQuestion2['default'], { msg: 'Segur que vols quest llibre?', onAccept: this.selectBook.bind(this), onDecline: this.cancelSelection.bind(this), optional: true });
+				return _react2['default'].createElement(_assetsQuestion2['default'], { msg: (0, _translate2['default'])('seguro-libro', 'Segur que vols quest llibre?'), onAccept: this.selectBook.bind(this), onDecline: this.cancelSelection.bind(this), optional: true });
 			} else if (this.state.request === 2) {
 				return _react2['default'].createElement(
 					'div',
 					null,
-					'Capturant llibre...'
+					(0, _translate2['default'])('capturando', 'Capturant'),
+					' ',
+					(0, _translate2['default'])('libro', 'llibre'),
+					'...'
 				);
 			} else if (this.state.request === 3) {
 				if (this.state.res[1].ok) {
 					return _react2['default'].createElement(
 						'div',
 						null,
-						'Llibre capturat'
+						(0, _translate2['default'])('libro-capturado', 'Llibre capturat')
 					);
 				}
 				return _react2['default'].createElement(
 					'div',
 					null,
-					'Hi ha hagut un error'
+					(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
 				);
 			}
 		}
@@ -31893,7 +31980,7 @@ var Capture = (function (_React$Component) {
 exports['default'] = Capture;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"immutable":19,"react":221,"superagent":222}],240:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":250,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"immutable":19,"react":221,"superagent":222}],240:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31923,6 +32010,10 @@ var _superagent2 = _interopRequireDefault(_superagent);
 var _config = require('../../../config');
 
 var _config2 = _interopRequireDefault(_config);
+
+var _translate = require('../../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 var _immutable = require('immutable');
 
@@ -32035,6 +32126,11 @@ var Forum = (function (_React$Component) {
 					'div',
 					null,
 					_react2['default'].createElement(
+						'h1',
+						null,
+						(0, _translate2['default'])('forum', 'Forum')
+					),
+					_react2['default'].createElement(
 						'select',
 						{ onChange: this.changeHandler.bind(this) },
 						this.props.school.categories.map(function (category) {
@@ -32061,11 +32157,11 @@ var Forum = (function (_React$Component) {
 exports['default'] = Forum;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../assets/addpost":227,"../../assets/post":233,"immutable":19,"react":221,"superagent":222}],241:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":250,"../../assets/addpost":227,"../../assets/post":233,"immutable":19,"react":221,"superagent":222}],241:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-	value: true
+    value: true
 });
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -32082,33 +32178,33 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _translate = require('../../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
+
 var SchoolHome = (function (_React$Component) {
-	_inherits(SchoolHome, _React$Component);
+    _inherits(SchoolHome, _React$Component);
 
-	function SchoolHome() {
-		_classCallCheck(this, SchoolHome);
+    function SchoolHome() {
+        _classCallCheck(this, SchoolHome);
 
-		_get(Object.getPrototypeOf(SchoolHome.prototype), 'constructor', this).apply(this, arguments);
-	}
+        _get(Object.getPrototypeOf(SchoolHome.prototype), 'constructor', this).apply(this, arguments);
+    }
 
-	_createClass(SchoolHome, [{
-		key: 'render',
-		value: function render() {
-			return _react2['default'].createElement(
-				'p',
-				null,
-				'SchoolHome'
-			);
-		}
-	}]);
+    _createClass(SchoolHome, [{
+        key: 'render',
+        value: function render() {
+            return _react2['default'].createElement('div', { dangerouslySetInnerHTML: { __html: (0, _translate2['default'])('home', '<h1>Què és BookCrossing<span>?</span></h1>\n    <p>És la pràctica de deixar un llibre en un lloc públic perquè qualsevol persona el trobi, el llegeixi i el torni a deixar.</p>\n    <p>L\'Institut Jaume Huguet ha começat aquest projecte gràcies a la idea de la pàgina web de BookCrossing.</p>\n\n    <h2>Com funciona?</span></h2>\n\n    <ol>\n      <li>Tot el procés és anònim.</li>\n      <li>Registra el llibre a la web. En registrar un llibre se\'t donarà un número que hauràs d\'anotar a l\'adhesiu que et facilitarà el centre i col·locar-lo a l\'interior del llibre.</li>\n      <li>Allibera el llibre al lloc que tu prefereixis.</li>\n      <li>Captura un nou llibre que trobis. La persona que capturi el llibre hauria de notificar a la web que està capturat introduint el codi a la pestanya "Capturar llibre".</li>\n      <li>Un cop llegit, tornes a alliberar-lo on tu vulguis i ho notifiques novament a la pestanya "Alliberar llibre" introduint el codi.</li>\n    </ol>\n\n    <h2>Recomanacions</h2>\n\n    <ul>\n        <li>Sigues generós/a: Alliberar un llibre significa desprendre d\'ell amb l\'esperança que algú ho aprofiti.</li>\n        <li>Tingues il·lusió: De la mateixa manera tu tindràs accés a altres llibres que de no ser així mai hauries conegut.</li>\n        <li>No siguis codiciós: No captures llibres que no vagis a llegir immediatament.</li>\n        <li>Comparteix: Que els llibres circulin de forma lliure i gratuïta, compartir amb els altres sense ànim de possessió, no té preu.</li>\n        <li>Col·labora: Sempre que capturis un llibre faràs una entrada al seguiment de la web perquè els altres sàpiguen que aquest llibre està sent llegit.</li>\n        <li>Comunicació de la mateixa manera l\'alliberament del llibre quan l\'hagis acabat.</li>\n    </ul>\n\n    <h2>Pensa en els altres</h2>\n\n    <ul>\n        <li>El temps recomanable de possessió seria d\'un mes.</li>\n        <li>Cuida el llibre perquè molts més usuaris puguin beneficiar d\'ell:\n            <ul>\n                <li>Introdueix el llibre en una bossa de plàstic transparent i amb tancament si vas a alliberar a la intempèrie.</li>\n                <li>Si arriba a les teves mans en mal estat pots folrar.</li>\n            </ul>\n        </li>\n    </ul>\n\n\n    <h2>Que pretenem<span>?</span></h2>\n\n    <ul>\n        <li>Fomentar l\'hàbit lector facilitant la lliure circulació de llibres en el nostre institut.</li>\n        <li>Impulsar la curiositat afegint comentaris personals i anònims que incitin a llegir el llibre que alliberem.</li>\n        <li>Reutilitzar llibres desaprofitats en la lleixa de l\'oblit.</li>\n        <li>Dinamitzar a través del web del centre l\'intercanvi d\'opinions , experiències i recomanacions entre els lectors.</li>\n    </ul>') } });
+        }
+    }]);
 
-	return SchoolHome;
+    return SchoolHome;
 })(_react2['default'].Component);
 
 exports['default'] = SchoolHome;
 module.exports = exports['default'];
 
-},{"react":221}],242:[function(require,module,exports){
+},{"../../../translate":250,"react":221}],242:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32136,6 +32232,10 @@ var _superagent2 = _interopRequireDefault(_superagent);
 var _config = require('../../../config');
 
 var _config2 = _interopRequireDefault(_config);
+
+var _translate = require('../../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 var _assetsBooksearch = require('../../assets/booksearch');
 
@@ -32196,25 +32296,28 @@ var Liberate = (function (_React$Component) {
 				}
 				return _react2['default'].createElement(_assetsLoading2['default'], null);
 			} else if (this.state.request === 1) {
-				return _react2['default'].createElement(_assetsQuestion2['default'], { msg: 'Segur que vols alliberar quest llibre?', onAccept: this.selectBook.bind(this), onDecline: this.cancelSelection.bind(this), optional: true });
+				return _react2['default'].createElement(_assetsQuestion2['default'], { msg: (0, _translate2['default'])('seguro-liberar', 'Segur que vols alliberar quest llibre?'), onAccept: this.selectBook.bind(this), onDecline: this.cancelSelection.bind(this), optional: true });
 			} else if (this.state.request === 2) {
 				return _react2['default'].createElement(
 					'div',
 					null,
-					'Alliberant llibre...'
+					(0, _translate2['default'])('liberando', 'Alliberant'),
+					' ',
+					(0, _translate2['default'])('libro', 'llibre'),
+					'...'
 				);
 			} else if (this.state.request === 3) {
 				if (this.state.res[1].ok) {
 					return _react2['default'].createElement(
 						'div',
 						null,
-						'Llibre alliberat'
+						(0, _translate2['default'])('libro-liberado', 'Llibre alliberat')
 					);
 				}
 				return _react2['default'].createElement(
 					'div',
 					null,
-					'Hi ha hagut un error'
+					(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
 				);
 			}
 		}
@@ -32226,7 +32329,7 @@ var Liberate = (function (_React$Component) {
 exports['default'] = Liberate;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"react":221,"superagent":222}],243:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":250,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"react":221,"superagent":222}],243:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32254,6 +32357,10 @@ var _superagent2 = _interopRequireDefault(_superagent);
 var _config = require('../../../config');
 
 var _config2 = _interopRequireDefault(_config);
+
+var _translate = require('../../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 var _immutable = require('immutable');
 
@@ -32314,6 +32421,8 @@ var List = (function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			if (this.props.school.books) {
+				var title = (0, _translate2['default'])('libro', 'Llibre');
+				title = title[0].toUpperCase() + title.slice(1) + 's';
 				if (this.props.school.books[0]) {
 					var uncatched = this.props.school.books.whereLoose('catched', 0);
 					var catched = this.props.school.books.whereLoose('catched', 1);
@@ -32323,19 +32432,19 @@ var List = (function (_React$Component) {
 						_react2['default'].createElement(
 							'h1',
 							null,
-							'Llibres'
+							title
 						),
 						_react2['default'].createElement('hr', null),
 						_react2['default'].createElement(
 							'h2',
 							null,
-							'Per Agafar'
+							(0, _translate2['default'])('disponibles', 'Disponibles')
 						),
 						_react2['default'].createElement(_assetsBookshelf2['default'], { books: uncatched, controls: true }),
 						_react2['default'].createElement(
 							'h2',
 							null,
-							'Agafats'
+							(0, _translate2['default'])('capturados', 'Capturats')
 						),
 						_react2['default'].createElement(_assetsBookshelf2['default'], { books: catched, controls: true })
 					);
@@ -32346,13 +32455,13 @@ var List = (function (_React$Component) {
 					_react2['default'].createElement(
 						'h1',
 						null,
-						'Llibres'
+						title
 					),
 					_react2['default'].createElement('hr', null),
 					_react2['default'].createElement(
 						'p',
 						null,
-						'No hi ha llibres'
+						(0, _translate2['default'])('no-resultados', 'No hi han resultats')
 					)
 				);
 			}
@@ -32366,7 +32475,7 @@ var List = (function (_React$Component) {
 exports['default'] = List;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../assets/booksearch":229,"../../assets/bookshelf":230,"../../assets/loading":231,"immutable":19,"react":221,"superagent":222}],244:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":250,"../../assets/booksearch":229,"../../assets/bookshelf":230,"../../assets/loading":231,"immutable":19,"react":221,"superagent":222}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32396,6 +32505,10 @@ var _superagent2 = _interopRequireDefault(_superagent);
 var _config = require('../../../config');
 
 var _config2 = _interopRequireDefault(_config);
+
+var _translate = require('../../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 //import uid from 'uid'
 
@@ -32453,38 +32566,30 @@ var News = (function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			if (this.props.school.news) {
-				if (this.props.school.news[0]) {
-					var news = this.props.school.news.sortBy('created_at', true);
+			var _this2 = this;
 
-					return _react2['default'].createElement(
-						'div',
-						null,
-						_react2['default'].createElement(
-							'h1',
-							null,
-							'Novedades'
-						),
-						_react2['default'].createElement('hr', null),
-						news.map(function (notice) {
-							return _react2['default'].createElement(_assetsNotice2['default'], _extends({}, notice, { key: notice.id }));
-						})
-					);
-				}
+			if (this.props.school.news) {
 				return _react2['default'].createElement(
 					'div',
 					null,
 					_react2['default'].createElement(
 						'h1',
 						null,
-						'Novedades'
+						(0, _translate2['default'])('novedades', 'Novetats')
 					),
 					_react2['default'].createElement('hr', null),
-					_react2['default'].createElement(
-						'p',
-						null,
-						'No hi ha noticies'
-					)
+					(function () {
+						if (_this2.props.school.news[0]) {
+							return _this2.props.school.news.sortBy('created_at', true).map(function (notice) {
+								return _react2['default'].createElement(_assetsNotice2['default'], _extends({}, notice, { key: notice.id }));
+							});
+						}
+						return _react2['default'].createElement(
+							'p',
+							null,
+							(0, _translate2['default'])('no-resultados', 'No hi han resultats')
+						);
+					})()
 				);
 			}
 			return _react2['default'].createElement(_assetsLoading2['default'], null);
@@ -32497,7 +32602,7 @@ var News = (function (_React$Component) {
 exports['default'] = News;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../assets/loading":231,"../../assets/notice":232,"immutable":19,"react":221,"superagent":222}],245:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":250,"../../assets/loading":231,"../../assets/notice":232,"immutable":19,"react":221,"superagent":222}],245:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32525,6 +32630,10 @@ var _superagent2 = _interopRequireDefault(_superagent);
 var _config = require('../../../config');
 
 var _config2 = _interopRequireDefault(_config);
+
+var _translate = require('../../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 var _uid = require('uid');
 
@@ -32562,33 +32671,39 @@ var Register = (function (_React$Component) {
 				return _react2['default'].createElement(
 					'div',
 					{ className: 'register' },
-					_react2['default'].createElement('input', { type: 'text', id: 'title-' + id, placeholder: 'Títol' }),
-					_react2['default'].createElement('input', { type: 'text', id: 'author-' + id, placeholder: 'Autor' }),
+					_react2['default'].createElement('input', { type: 'text', id: 'title-' + id, placeholder: (0, _translate2['default'])('titulo', 'Títol') }),
+					_react2['default'].createElement('input', { type: 'text', id: 'author-' + id, placeholder: (0, _translate2['default'])('autor', 'Autor') }),
 					_react2['default'].createElement(
 						'button',
 						{ onClick: this.createBook.bind(this, id) },
-						'Registrar'
+						(0, _translate2['default'])('registrar', 'Registrar')
 					)
 				);
 			} else if (this.state.request === 1) {
 				return _react2['default'].createElement(
 					'div',
 					null,
-					'Alliberant llibre...'
+					(0, _translate2['default'])('regstrando', 'Registrant'),
+					' ',
+					(0, _translate2['default'])('libro', 'llibre'),
+					'...'
 				);
 			} else if (this.state.request === 2) {
 				if (this.state.res[1].ok) {
 					return _react2['default'].createElement(
 						'div',
 						null,
-						'Llibre registrat, codi: ',
+						(0, _translate2['default'])('libro-registrado', 'Llibre registrat'),
+						', ',
+						(0, _translate2['default'])('codigo', 'Codi').toLowerCase(),
+						': ',
 						this.state.res[1].body.id
 					);
 				}
 				return _react2['default'].createElement(
 					'div',
 					null,
-					'Hi ha hagut un error'
+					(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
 				);
 			}
 		}
@@ -32600,7 +32715,7 @@ var Register = (function (_React$Component) {
 exports['default'] = Register;
 module.exports = exports['default'];
 
-},{"../../../config":247,"react":221,"superagent":222,"uid":225}],246:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":250,"react":221,"superagent":222,"uid":225}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32628,6 +32743,10 @@ var _superagent2 = _interopRequireDefault(_superagent);
 var _config = require('../../../config');
 
 var _config2 = _interopRequireDefault(_config);
+
+var _translate = require('../../../translate');
+
+var _translate2 = _interopRequireDefault(_translate);
 
 var _assetsVideoshelf = require('../../assets/videoshelf');
 
@@ -32735,17 +32854,6 @@ var Tube = (function (_React$Component) {
 					'Book' + this.state.type
 				),
 				_react2['default'].createElement('hr', null),
-				_react2['default'].createElement(
-					'button',
-					{ onClick: this.nv.bind(this) },
-					'Puja un video'
-				),
-				(function () {
-					if (_this3.props.school && _this3.props.school.videos) {
-						return _react2['default'].createElement(_assetsVideoshelf2['default'], { videos: _this3.props.school.videos.whereLoose('trailer', _this3.state.trailer) });
-					}
-					return _react2['default'].createElement(_assetsLoading2['default'], null);
-				})(),
 				(function () {
 					if (_this3.state.nv) {
 						if (_this3.state.request === 0) {
@@ -32753,19 +32861,24 @@ var Tube = (function (_React$Component) {
 							return _react2['default'].createElement(
 								'div',
 								{ className: 'new-video' },
+								_react2['default'].createElement(
+									'button',
+									{ onClick: _this3.nvc.bind(_this3) },
+									(0, _translate2['default'])('cerrar', 'Tancar')
+								),
 								_react2['default'].createElement('input', { type: 'text', id: 'code-' + id, placeholder: 'https://www.youtube.com/watch?v=xxxxxxxxxxx' }),
 								_react2['default'].createElement('input', { type: 'text', id: 'name-' + id, placeholder: 'Nom' }),
 								_react2['default'].createElement(
 									'button',
 									{ onClick: _this3.addVideo.bind(_this3, id) },
-									'Pujar'
+									(0, _translate2['default'])('sube-video', 'Puja el teu video')
 								)
 							);
 						} else if (_this3.state.request === 1) {
 							return _react2['default'].createElement(
 								'div',
 								{ className: 'new-video' },
-								'Pujant el video'
+								(0, _translate2['default'])('subiendo-video', 'EL video s\'esta pujant')
 							);
 						} else if (_this3.state.request === 2) {
 							return _react2['default'].createElement(
@@ -32776,23 +32889,34 @@ var Tube = (function (_React$Component) {
 										return _react2['default'].createElement(
 											'div',
 											null,
-											'Video pujat'
+											(0, _translate2['default'])('subido-video', 'El video s\'ha pujat')
 										);
 									}
 									return _react2['default'].createElement(
 										'div',
 										null,
-										'Hi ha hagut un error'
+										(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
 									);
 								})(),
 								_react2['default'].createElement(
 									'button',
-									{ onClick: _this3.nbc.bind(_this3) },
-									'Tancar'
+									{ onClick: _this3.nvc.bind(_this3) },
+									(0, _translate2['default'])('cerrar', 'Tancar')
 								)
 							);
 						}
 					}
+					return _react2['default'].createElement(
+						'button',
+						{ onClick: _this3.nv.bind(_this3) },
+						(0, _translate2['default'])('sube-video', 'Puja el teu video')
+					);
+				})(),
+				(function () {
+					if (_this3.props.school && _this3.props.school.videos) {
+						return _react2['default'].createElement(_assetsVideoshelf2['default'], { videos: _this3.props.school.videos.whereLoose('trailer', _this3.state.trailer) });
+					}
+					return _react2['default'].createElement(_assetsLoading2['default'], null);
 				})()
 			);
 		}
@@ -32804,7 +32928,7 @@ var Tube = (function (_React$Component) {
 exports['default'] = Tube;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../assets/loading":231,"../../assets/videoshelf":237,"react":221,"superagent":222,"uid":225}],247:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":250,"../../assets/loading":231,"../../assets/videoshelf":237,"react":221,"superagent":222,"uid":225}],247:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -33667,4 +33791,28 @@ exports['default'] = _react2['default'].createElement(
 );
 module.exports = exports['default'];
 
-},{"../components/assets/school-menu":235,"../components/routeMaped/home":238,"../components/routeMaped/school/capture":239,"../components/routeMaped/school/forum":240,"../components/routeMaped/school/home":241,"../components/routeMaped/school/liberate":242,"../components/routeMaped/school/list":243,"../components/routeMaped/school/news":244,"../components/routeMaped/school/register":245,"../components/routeMaped/school/tube":246,"react":221,"react-router":40}]},{},[226]);
+},{"../components/assets/school-menu":235,"../components/routeMaped/home":238,"../components/routeMaped/school/capture":239,"../components/routeMaped/school/forum":240,"../components/routeMaped/school/home":241,"../components/routeMaped/school/liberate":242,"../components/routeMaped/school/list":243,"../components/routeMaped/school/news":244,"../components/routeMaped/school/register":245,"../components/routeMaped/school/tube":246,"react":221,"react-router":40}],250:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports["default"] = translate;
+
+function translate(index, def, lang) {
+    if (!db || !db.translations) {
+        return def;
+    }
+    if (!lang) {
+        if (window.localStorage && localStorage.lang) {
+            lang = localStorage.lang;
+        } else {
+            lang = Object.keys(db.translations)[0];
+        }
+    }
+    return db.translations[lang][index] ? db.translations[lang][index] : def;
+}
+
+module.exports = exports["default"];
+
+},{}]},{},[226]);

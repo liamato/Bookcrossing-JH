@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'superagent'
 import config from '../../../config'
+import translate from '../../../translate'
 import BookSearch from '../../assets/booksearch'
 import Loading from '../../assets/loading'
 import Question from '../../assets/question'
@@ -48,14 +49,14 @@ export default class Liberate extends React.Component {
 			}
 			return <Loading/>
 		} else if(this.state.request === 1) {
-			return <Question msg="Segur que vols alliberar quest llibre?" onAccept={this.selectBook.bind(this)} onDecline={this.cancelSelection.bind(this)} optional />
+			return <Question msg={translate('seguro-liberar', 'Segur que vols alliberar quest llibre?')} onAccept={this.selectBook.bind(this)} onDecline={this.cancelSelection.bind(this)} optional />
 		} else if(this.state.request === 2) {
-			return <div>Alliberant llibre...</div>
+			return <div>{translate('liberando','Alliberant')} {translate('libro','llibre')}...</div>
 		} else if (this.state.request === 3) {
 			if (this.state.res[1].ok) {
-				return <div>Llibre alliberat</div>				
+				return <div>{translate('libro-liberado','Llibre alliberat')}</div>
 			}
-			return <div>Hi ha hagut un error</div>
+			return <div>{translate('un-error','Hi ha hagut un error')}</div>
 		}
 	}
 }

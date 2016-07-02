@@ -1,5 +1,6 @@
 import React from 'react'
 import BookShelf from './bookshelf'
+import translate from '../../translate'
 import Collection from '../../data/collection'
 import Uid from 'uid'
 
@@ -117,7 +118,7 @@ export default class BookSearch extends React.Component {
 							let uid = Uid();
 							return (
 									<div className="booksearch-controls">
-										<label htmlFor={`search_${uid}`}>Search: </label>
+										<label htmlFor={`search_${uid}`}>{translate('buscar', 'Buscar')}: </label>
 										<input type="text" id={`search_${uid}`} onChange={this.search.bind(this)}/>
 									</div>
 								)

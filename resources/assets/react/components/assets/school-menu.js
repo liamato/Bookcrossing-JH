@@ -3,12 +3,18 @@ import { Link } from 'react-router'
 import request from 'superagent'
 import { default as Im } from 'immutable'
 import config from '../../config'
+import translate from '../../translate'
 import Collection from '../../data/collection'
 
 export default class Menu extends React.Component {
 
 	componentWillMount() {
 		if (db && db.school) {
+			Object.keys(db.school).map((key) =>{
+				if (db.school[key] instanceof Array) {
+					db.school[key] = new Collection(db.school[key]);
+				}
+			});
 			this.setState({school: db.school});
 		} else {
 			this.setState({school: {name: '', slug: this.props.params.school}});
@@ -19,6 +25,17 @@ export default class Menu extends React.Component {
 		} else {
 			this.setState({schools: []});
 			this.getSchools();
+		}
+		if (window.localStorage) {
+			if (!localStorage.lang) {
+				let sc = ['ca','es','en'];
+				for (var x in navigator.languages) {
+					if (sc.indexOf(navigator.languages[x]) != -1) {
+						localStorage.lang = navigator.languages[x]
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -87,20 +104,30 @@ export default class Menu extends React.Component {
 		this.setSchool()
 	}
 
+	changeLang(ev) {
+		localStorage.lang = ev.target.value;
+		this.forceUpdate()
+	}
+
 	render() {
+		let lang = window.localStorage && localStorage.lang ? localStorage.lang : 'ca';
 		return (
 		<div className="app">
 			<nav className="navigation">
-				<Link className="navigation__link" to={`/${this.state.school.slug}`}>Inicio</Link>
-				<Link className="navigation__link" to={`/${this.state.school.slug}/news`}>Novedades</Link>
-				<Link className="navigation__link" to={`/${this.state.school.slug}/list`}>Llista de libros</Link>
-				<Link className="navigation__link" to={`/${this.state.school.slug}/capture`}>Capturar libro</Link>
-				<Link className="navigation__link" to={`/${this.state.school.slug}/liberate`}>Liberar libro</Link>
-				<Link className="navigation__link" to={`/${this.state.school.slug}/register`}>Registrar libro</Link>
-				<Link className="navigation__link" to={`/${this.state.school.slug}/forum`}>Foro</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}`}>{translate('inicio','Inici')}</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/news`}>{translate('novedades','Novetats')}</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/list`}>{translate('lista-libros','Llista de llibres')}</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/capture`}>{translate('capturar','Capturar')} {translate('libro','llibre')}</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/liberate`}>{translate('liberar','Alliberar')} {translate('libro','llibre')}</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/register`}>{translate('registrar','Registrar')} {translate('libro','llibre')}</Link>
+				<Link className="navigation__link" to={`/${this.state.school.slug}/forum`}>{translate('forum','Forum')}</Link>
 				<Link className="navigation__link" to={`/${this.state.school.slug}/booktrailer`}>Booktrailer</Link>
 				<Link className="navigation__link" to={`/${this.state.school.slug}/booktube`}>Booktube</Link>
-
+				<select className="navigation__link" value={lang} onChange={this.changeLang.bind(this)}>
+					<option value="ca">Català</option>
+					<option value="es">Catellano</option>
+					<option value="en">English</option>
+				</select>
 			</nav>
 			<main className="main">
 				{React.cloneElement(this.props.children, {school: this.state.school, updateSchool: this.setSchool.bind(this)})}

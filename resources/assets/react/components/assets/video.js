@@ -1,5 +1,5 @@
 import React from 'react'
-
+import translate from '../../translate'
 
 export default class Video extends React.Component {
 	componentWillMount() {
@@ -71,17 +71,17 @@ export default class Video extends React.Component {
 					if(this.props.edit){ret += ' video--edit'}
 					return ret
 				}()}>
-				<label htmlFor="">Codi del video</label>
+				<label htmlFor="">{translate('codigo-video', 'Codi del video')}</label>
 				<input type="text" className="video__code--edit" defaultValue={this.props.code} onClick={this.noPropagation.bind(this)} pattern="^\w*:\/\/[\w\.]*\/watch\?v\=(.{11}).*$|^\w*:\/\/[\w\.]*\/(.{11}).*$|^<iframe.*src\=.*\/\/[\w\.]*\/embed\/(.{11}).*$|^[A-Za-z0-9\_\-]{11}$"/>
-				<label htmlFor="">Autor</label>
+				<label htmlFor="">{translate('autor', 'Autor')}</label>
 				<input type="text" className="video__author--edit" defaultValue={this.props.author} onClick={this.noPropagation.bind(this)}/>
-				<label htmlFor="">Tipus</label>
+				<label htmlFor="">{translate('tipo', 'Tipus')}</label>
 				<select className="video__trailer--edit" onClick={this.noPropagation.bind(this)}>
 					<option value={0} selected={parseInt(this.props.trailer,10)==0?'selected':''}>BookTube</option>
 					<option value={1} selected={parseInt(this.props.trailer,10)==1?'selected':''}>BookTrailer</option>
 				</select>
 
-				<button onClick={this.save.bind(this)}>Guardar</button>
+				<button onClick={this.save.bind(this)}>{translate('guardar', 'Guardar')}</button>
 			</div>
 		)
 	}
@@ -111,4 +111,10 @@ Video.propTypes = {
 	onclick: React.PropTypes.func,
 
 	save: React.PropTypes.func
+};
+
+Video.defaultProps = {
+	selectable: false,
+	active: false,
+	edit: false,
 };
