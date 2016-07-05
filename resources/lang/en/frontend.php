@@ -66,7 +66,7 @@ return [
     </ul>
 
 
-    <h2><span></span>Our aim<span></span></h2>
+    <h2>Our aim</h2>
 
     <ul>
         <li>Promote the reading habit by the free flow of books in our school.</li>
