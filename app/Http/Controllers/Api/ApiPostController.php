@@ -44,6 +44,7 @@ class ApiPostController extends Controller
         if (!isset($insert['school_id']) && $school->filledOrFail()) {
             $insert['school_id'] = $school->id;
         }
+        if (isset($insert['body'])) $insert['body'] = clean($insert['body']);
         $p = Post::create($insert);
         return Post::findOrFail($p->id);
     }
@@ -89,6 +90,8 @@ class ApiPostController extends Controller
         if (isset($all['school_id'])) {
             unset($all['school_id']);
         }
+
+        if (isset($insert['body'])) $insert['body'] = clean($insert['body']);
 
         foreach ($all as $key => $value) {
             if (in_array($key, $attrs)) {

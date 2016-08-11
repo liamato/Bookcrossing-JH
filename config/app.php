@@ -146,7 +146,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
         App\Providers\SchoolServiceProvider::class,
-        App\Providers\RouteOptionsServiceProvider::class,        
+        App\Providers\RouteOptionsServiceProvider::class,
+        Mews\Purifier\PurifierServiceProvider::class,
 
     ],
 
@@ -199,6 +200,7 @@ return [
 
 
         'RouteOptions' => App\Facades\RouteOptions::class,
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
 
     ],
 
