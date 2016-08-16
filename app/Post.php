@@ -6,7 +6,7 @@ namespace App;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'author', 'school_id', 'parent'];
+    protected $fillable = ['title', 'body', 'author', 'school_id', 'parent','category_id'];
 
     protected $hidden = ['school_id', 'checked'];
 

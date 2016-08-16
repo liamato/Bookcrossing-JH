@@ -46,6 +46,8 @@ class ApiPostController extends Controller
         }
         if (isset($insert['body'])) $insert['body'] = clean($insert['body']);
         $p = Post::create($insert);
+        $p->category_id = $insert['category_id'];
+        $p->save();
         return Post::findOrFail($p->id);
     }
 
@@ -91,7 +93,7 @@ class ApiPostController extends Controller
             unset($all['school_id']);
         }
 
-        if (isset($insert['body'])) $insert['body'] = clean($insert['body']);
+        if (isset($all['body'])) $all['body'] = clean($all['body']);
 
         foreach ($all as $key => $value) {
             if (in_array($key, $attrs)) {
