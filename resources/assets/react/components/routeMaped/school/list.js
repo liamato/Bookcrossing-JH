@@ -10,7 +10,7 @@ import Loading from '../../assets/loading'
 export default class List extends React.Component {
 
 	componentWillMount() {
-		if (this.props.school.books) {
+		if (!this.props.school.books) {
 			this.setBooks();
 		}
 	}
@@ -46,18 +46,22 @@ export default class List extends React.Component {
 				let uncatched = this.props.school.books.whereLoose('catched',0);
 				let catched = this.props.school.books.whereLoose('catched',1);
 				return (
-					<div>
-						<h1>{title}</h1>
-						<hr/>
-						<h2>{translate('disponibles','Disponibles')}</h2>
-						<BookShelf books={uncatched} controls/>
-						<h2>{translate('capturados','Capturats')}</h2>
-						<BookShelf books={catched} controls/>
+					<div className="school-list">
+						<h1 className="school-list__title">{title}</h1>
+						<hr className="school-list__break"/>
+						<section className="list-column">
+							<h2>{translate('disponibles','Disponibles')}</h2>
+							<BookShelf books={uncatched} controls/>
+						</section>
+						<section className="list-column">
+							<h2>{translate('capturados','Capturats')}</h2>
+							<BookShelf books={catched} controls/>
+						</section>
 					</div>
 				)
 			}
 			return (
-				<div>
+				<div className="school-list">
 					<h1>{title}</h1>
 					<hr/>
 					<p>{translate('no-resultados', 'No hi han resultats')}</p>

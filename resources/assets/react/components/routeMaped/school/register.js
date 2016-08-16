@@ -10,7 +10,7 @@ export default class Register extends React.Component {
 		this.setState({request: 0});
 	}
 
-	createBook(ev, id) {
+	createBook(id, ev) {
 		this.setState({request: 1});
 		request
 		.post(`${config.api.baseUrl}/school/${this.props.params.school}/book`)
@@ -24,22 +24,30 @@ export default class Register extends React.Component {
 	}
 
 	render() {
-		if (this.state.request === 0) {
-			let id = uid();
-			return (
-					<div className="register">
-						<input type="text" id={`title-${id}`} placeholder={translate('titulo','Títol')}/>
-						<input type="text" id={`author-${id}`} placeholder={translate('autor', 'Autor')}/>
-						<button onClick={this.createBook.bind(this, id)}>{translate('registrar', 'Registrar')}</button>
-					</div>
-				)
-		} else if(this.state.request === 1) {
-			return <div>{translate('regstrando', 'Registrant')} {translate('libro', 'llibre')}...</div>
-		} else if (this.state.request === 2) {
-			if (this.state.res[1].ok) {
-				return <div>{translate('libro-registrado', 'Llibre registrat')}, {translate('codigo', 'Codi').toLowerCase()}: {this.state.res[1].body.id}</div>
+		return <div className="school-register">
+			<h1>{translate('registrar','Registrar')} {translate('libro', 'llibre')}</h1>
+			<hr/>
+			{
+				() => {
+					if (this.state.request === 0) {
+						let id = uid();
+						return (
+								<div className="register">
+									<input type="text" id={`title-${id}`} placeholder={translate('titulo','Títol')}/>
+									<input type="text" id={`author-${id}`} placeholder={translate('autor', 'Autor')}/>
+									<button onClick={this.createBook.bind(this, id)}>{translate('registrar', 'Registrar')}</button>
+								</div>
+							)
+					} else if(this.state.request === 1) {
+						return <div>{translate('regstrando', 'Registrant')} {translate('libro', 'llibre')}...</div>
+					} else if (this.state.request === 2) {
+						if (this.state.res[1].ok) {
+							return <div>{translate('libro-registrado', 'Llibre registrat')}, {translate('codigo', 'Codi').toLowerCase()}: {this.state.res[1].body.id}</div>
+						}
+						return <div>{translate('un-error', 'Hi ha hagut un error')}</div>
+					}
+				}()
 			}
-			return <div>{translate('un-error', 'Hi ha hagut un error')}</div>
-		}
+		</div>
 	}
 }

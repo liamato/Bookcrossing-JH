@@ -41,23 +41,31 @@ export default class Capture extends React.Component {
 	}
 
 	render() {
+		return <div className="school-capture">
+			<h1>{translate('capturar','Capturar')} {translate('libro','llibre')}</h1>
+			<hr/>
+			{
+				() => {
+					if (this.state.request === 0) {
+						if (this.props.school.books) {
+							return (
 
-		if (this.state.request === 0) {
-			if (this.props.school.books) {
-				return (
-					<BookSearch onBookClick={this.askBook.bind(this)} by="name" books={this.props.school.books.whereLoose('catched',false)} selectable/>
-				)
+								<BookSearch onBookClick={this.askBook.bind(this)} by="name" books={this.props.school.books.whereLoose('catched',false)} selectable/>
+							)
+						}
+						return <Loading/>
+					} else if(this.state.request === 1) {
+						return <Question msg={translate('seguro-libro','Segur que vols quest llibre?')} onAccept={this.selectBook.bind(this)} onDecline={this.cancelSelection.bind(this)} optional />
+					} else if (this.state.request === 2) {
+						return <div>{translate('capturando','Capturant')} {translate('libro','llibre')}...</div>
+					} else if (this.state.request === 3) {
+						if (this.state.res[1].ok) {
+							return <div>{translate('libro-capturado','Llibre capturat')}</div>
+						}
+						return <div>{translate('un-error', 'Hi ha hagut un error')}</div>
+					}
+				}()
 			}
-			return <Loading/>
-		} else if(this.state.request === 1) {
-			return <Question msg={translate('seguro-libro','Segur que vols quest llibre?')} onAccept={this.selectBook.bind(this)} onDecline={this.cancelSelection.bind(this)} optional />
-		} else if (this.state.request === 2) {
-			return <div>{translate('capturando','Capturant')} {translate('libro','llibre')}...</div>
-		} else if (this.state.request === 3) {
-			if (this.state.res[1].ok) {
-				return <div>{translate('libro-capturado','Llibre capturat')}</div>
-			}
-			return <div>{translate('un-error', 'Hi ha hagut un error')}</div>
-		}
+		</div>
 	}
 }

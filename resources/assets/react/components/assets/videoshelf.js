@@ -7,13 +7,13 @@ export default class VideoShelf extends React.Component {
 	render() {
 		return (
 			<div className="videoshelf">
-				<ul className="videoshelf__videos">
+				<section className="videoshelf__videos">
 				{
 					this.props.videos.map((video) => {
-						return <li key={video.id} className="videoshelf__video"><Video {...video}/></li>
+						return <article key={video.id} className="videoshelf__video"><Video {...video}/></article>
 					})
 				}
-				</ul>
+				</section>
 			</div>
 		)
 	}

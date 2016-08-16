@@ -3,6 +3,7 @@ import request from 'superagent'
 import config from '../../config'
 import translate from '../../translate'
 import Uid from 'uid'
+import tinyInit from '../../tinyInit'
 
 export default class AddPost extends React.Component {
 
@@ -11,16 +12,28 @@ export default class AddPost extends React.Component {
 		this.setState({btn: true});
 	}
 
-	send(ev, id)
+	componentDidUpdate()
+	{
+		var lang;
+		if (window.localStorage && localStorage.lang) lang = localStorage.lang
+		tinyInit(lang);
+	}
+
+	send(id, ev)
 	{
 		var path = `${config.api.baseUrl}/school/${this.props.schoolSlug}/post`;
+		if (tinyMCE) {
+			var body = tinyMCE.get(`body-${id}`).getContent();
+		} else {
+			var body = document.getElementById(`body-${id}`).value;
+		}
 		var snd  = {
 			title: document.getElementById(`title-${id}`).value,
-			body: document.getElementById(`body-${id}`).value,
+			body: body,
 			author: document.getElementById(`author-${id}`).value,
-			category_id: this.props.category,
-			parent: this.props.parent
+			category_id: this.props.category
 		};
+		if (this.props.parent) snd.parent = this.props.parent
 
 		request
 		.post(path)
@@ -55,14 +68,14 @@ export default class AddPost extends React.Component {
 			{
 				() => {
 					if (this.state.btn) {
-						return <button className="addPost__btn" onClick={this.open.bind(this)}>{translate('nuevo-comentario', 'Nou comentari')}</button>
+						return <button className="addPost__btn btn" onClick={this.open.bind(this)}>{translate('nuevo-comentario', 'Nou comentari')}</button>
 					}
 					return <div className="addPost__controls">
-						<button onClick={this.close.bind(this)}>X</button>
-						<input type="text" id={`title-${uid}`} placeholder={`${translate('titulo','Títol')}*`} required/>
-						<textarea placeholder={`${translate('comentario','Comentari')}*`} id={`body-${uid}`} required></textarea>
-						<input type="text" id={`author-${uid}`} placeholder={`${translate('nombre-seud','Nom o pseudonim')}*`}/>
-						<button onClick={this.send.bind(this, uid)}>{translate('enviar', 'Enviar')}</button>
+						<button className="addPost__close" onClick={this.close.bind(this)}>X</button>
+						<input className="addPost__title" type="text" id={`title-${uid}`} placeholder={`${translate('titulo','Títol')}*`} required/>
+						<textarea className="addPost__body tinymce" placeholder={`${translate('comentario','Comentari')}*`} id={`body-${uid}`} required></textarea>
+						<input className="addPost__name" type="text" id={`author-${uid}`} placeholder={`${translate('nombre-seud','Nom o pseudonim')}*`}/>
+						<button className="addPost__send" onClick={this.send.bind(this, uid)}>{translate('enviar', 'Enviar')}</button>
 					</div>
 				}()
 			}

@@ -15,20 +15,20 @@ export default class BookShelf extends React.Component {
 	componentDidMount() {
 		if (this.props.by) {
 			switch (this.props.by.toLowerCase()) {
-				case 'name':
-					this.byName();
+				case 'title':
+					this.by('title');
 					break;
 				case 'author':
-					this.byAuthor();
+					this.by('author');
 					break;
 				case 'id':
-					this.byId();
+					this.by('id');
 					break;
 				case 'code':
-					this.byId();
+					this.by('id');
 					break;
 				default:
-					this.byName();
+					this.by('title');
 					break;
 			}
 		}
@@ -39,32 +39,30 @@ export default class BookShelf extends React.Component {
 		if(props.controls) {
 			this.setState({controls: true});
 		}
-	}
-
-	componentDidUpdate() {
 		if (this.props.by) {
 			switch (this.props.by.toLowerCase()) {
-				case 'name':
-					this.byName();
+				case 'title':
+					this.by('title', props.books);
 					break;
 				case 'author':
-					this.byAuthor();
+					this.by('author', props.books);
 					break;
 				case 'id':
-					this.byId();
+					this.by('id', props.books);
 					break;
 				case 'code':
-					this.byId();
+					this.by('id', props.books);
 					break;
 				default:
-					this.byName();
+					this.by('title', props.books);
 					break;
 			}
 		}
 	}
 
-	by(sort) {
-		let copy = this.state.books;
+	by(sort, books) {
+		if (!books) books = this.state.books;
+		let copy = books;
 		if(this.state.by === sort) {
 			copy = copy.reverse();
 			if (this.state.direction){
@@ -73,24 +71,28 @@ export default class BookShelf extends React.Component {
 				var direction = true;
 			}
 		} else {
-			copy = copy.sortBy(sort);
+			if (sort == 'id') {
+				copy = copy.sortByNumeric(sort);
+			} else {
+				copy = copy.sortBy(sort);
+			}
 			var direction = true;
 		}
 		this.setState({books: copy, by: sort, direction: direction});
 	}
 
-	onBookClick(ev, id) {
+	onBookClick(ev, active, id) {
 		let cp = this.state.active;
 		if (cp.indexOf(id) > -1) {
 			cp.splice(cp.indexOf(id),1);
 		} else {
 			cp.push(id);
+			}
+			if (typeof(this.props.onBookClick) === 'function') {
+				this.props.onBookClick(ev, id, cp);
+			}
+			this.setState({active: cp});
 		}
-		if (typeof(this.props.onBookClick) === 'function') {
-			this.props.onBookClick(ev, id, cp);
-		}
-		this.setState({active: cp});
-	}
 
 	render() {
 		return (
@@ -99,12 +101,12 @@ export default class BookShelf extends React.Component {
 					() => {
 						if (this.state.controls) {
 							return (<div className="bookshelf__controls">
-								<button onClick={this.by.bind(this, 'id')}>{translate('codigo', 'Codi')}</button>
-								<button onClick={this.by.bind(this, 'name')}>{translate('titulo', 'Títol')}</button>
-								<button onClick={this.by.bind(this, 'author')}>{translate('autor', 'Autor')}</button>
+								<button className="bookshelf__control bookshelf__control-code" onClick={this.by.bind(this, 'id', this.state.books)}>{translate('codigo', 'Codi')} <span className={`${this.state.by == 'id' ? this.state.direction ? 'triangle' : 'triangle triangle--reverse' : ''}`}/></button>
+								<button className="bookshelf__control bookshelf__control-title" onClick={this.by.bind(this, 'title', this.state.books)}>{translate('titulo', 'Títol')} <span className={`${this.state.by == 'title' ? this.state.direction ? 'triangle' : 'triangle triangle--reverse' : ''}`}/></button>
+								<button className="bookshelf__control bookshelf__control-author" onClick={this.by.bind(this, 'author', this.state.books)}>{translate('autor', 'Autor')} <span className={`${this.state.by == 'author' ? this.state.direction ? 'triangle' : 'triangle triangle--reverse' : ''}`}/></button>
 							</div>)
 						} else {
-							return <div></div>
+							return <div/>
 						}
 
 					}()
@@ -125,12 +127,14 @@ export default class BookShelf extends React.Component {
 BookShelf.propTypes = {
 	books: React.PropTypes.instanceOf(Collection).isRequired,
 	controls: React.PropTypes.bool,
-	by: React.PropTypes.oneOf(['name','author','id','code']),
+	by: React.PropTypes.oneOf(['title','author','id','code']),
 	selectable: React.PropTypes.bool.isRequired,
 	active: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 };
 
 BookShelf.defaultProps = {
+	by: 'title',
+
 	selectable: false,
 	active: []
 };

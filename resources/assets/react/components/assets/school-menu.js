@@ -123,11 +123,13 @@ export default class Menu extends React.Component {
 				<Link className="navigation__link" to={`/${this.state.school.slug}/forum`}>{translate('forum','Forum')}</Link>
 				<Link className="navigation__link" to={`/${this.state.school.slug}/booktrailer`}>Booktrailer</Link>
 				<Link className="navigation__link" to={`/${this.state.school.slug}/booktube`}>Booktube</Link>
-				<select className="navigation__link" value={lang} onChange={this.changeLang.bind(this)}>
+				<div className="navigation__link">
+				<select className="navigation__link navigation__select" value={lang} onChange={this.changeLang.bind(this)}>
 					<option value="ca">Català</option>
-					<option value="es">Catellano</option>
+					<option value="es">Castellano</option>
 					<option value="en">English</option>
 				</select>
+				</div>
 			</nav>
 			<main className="main">
 				{React.cloneElement(this.props.children, {school: this.state.school, updateSchool: this.setSchool.bind(this)})}

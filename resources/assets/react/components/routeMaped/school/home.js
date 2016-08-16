@@ -3,11 +3,11 @@ import translate from '../../../translate'
 
 export default class SchoolHome extends React.Component {
 	render() {
-		return <div dangerouslySetInnerHTML={{__html: translate('home',`<h1>Què és BookCrossing<span>?</span></h1>
+		return <div className="school-home" dangerouslySetInnerHTML={{__html: translate('home',`<h1>Què és BookCrossing<span>?</span></h1>
     <p>És la pràctica de deixar un llibre en un lloc públic perquè qualsevol persona el trobi, el llegeixi i el torni a deixar.</p>
     <p>L'Institut Jaume Huguet ha começat aquest projecte gràcies a la idea de la pàgina web de BookCrossing.</p>
 
-    <h2>Com funciona?</span></h2>
+    <h2>Com funciona<span>?</span></h2>
 
     <ol>
       <li>Tot el procés és anònim.</li>

@@ -41,14 +41,15 @@ export default class Book extends React.Component {
 	render() {
 		if (!this.props.edit) {
 			return (
-				<div onClick={this.toggle.bind(this)} className={()=>{
+				<div className="book" onClick={this.toggle.bind(this)} className={()=>{
 						let ret = "book"
 						if(this.state.active){ret += ' book--active'}
 						if(this.props.selectable){ret += ' book--selectable'}
 						return ret
 					}()}>
-					<span>{this.props.id}</span>
-					<span>{this.props.title} - {this.props.author}</span>
+					<span className="book__code">{this.props.id}</span>
+					<span className="book__title">{this.props.title}</span>
+					<span className="book__author">{this.props.author}</span>
 				</div>
 			)
 		}

@@ -42,7 +42,7 @@ export default class News extends React.Component {
 	render() {
 		if(this.props.school.news){
 			return (
-				<div>
+				<div className="school-news">
 					<h1>{translate('novedades', 'Novetats')}</h1>
 					<hr/>
 					{

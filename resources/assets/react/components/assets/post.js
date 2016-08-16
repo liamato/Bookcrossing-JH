@@ -5,11 +5,11 @@ import AddPost from './addpost'
 export default class Post extends React.Component {
 
 	render() {
+				//<p>id: {this.props.id}, parent: {this.props.parent}, category: {this.props.category_id}</p>
 		return (
 			<article className="post">
 				<h2>{this.props.title}</h2>
-				<blockquote>{this.props.body}</blockquote>
-				<p>id: {this.props.id}, parent: {this.props.parent}, category: {this.props.category_id}</p>
+				<blockquote  dangerouslySetInnerHTML={{__html:this.props.body}}></blockquote>
 				<p>{this.props.author}</p>
 
 

@@ -30116,6 +30116,10 @@ var _uid = require('uid');
 
 var _uid2 = _interopRequireDefault(_uid);
 
+var _tinyInit = require('../../tinyInit');
+
+var _tinyInit2 = _interopRequireDefault(_tinyInit);
+
 var AddPost = (function (_React$Component) {
 	_inherits(AddPost, _React$Component);
 
@@ -30131,18 +30135,30 @@ var AddPost = (function (_React$Component) {
 			this.setState({ btn: true });
 		}
 	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
+			var lang;
+			if (window.localStorage && localStorage.lang) lang = localStorage.lang;
+			(0, _tinyInit2['default'])(lang);
+		}
+	}, {
 		key: 'send',
-		value: function send(ev, id) {
+		value: function send(id, ev) {
 			var _this = this;
 
 			var path = _config2['default'].api.baseUrl + '/school/' + this.props.schoolSlug + '/post';
+			if (tinyMCE) {
+				var body = tinyMCE.get('body-' + id).getContent();
+			} else {
+				var body = document.getElementById('body-' + id).value;
+			}
 			var snd = {
 				title: document.getElementById('title-' + id).value,
-				body: document.getElementById('body-' + id).value,
+				body: body,
 				author: document.getElementById('author-' + id).value,
-				category_id: this.props.category,
-				parent: this.props.parent
+				category_id: this.props.category
 			};
+			if (this.props.parent) snd.parent = this.props.parent;
 
 			_superagent2['default'].post(path).accept('json').set('X-Requested-With', 'XMLHttpRequest').send(snd).end(function (err, req) {
 				if (req.ok) {
@@ -30177,7 +30193,7 @@ var AddPost = (function (_React$Component) {
 					if (_this2.state.btn) {
 						return _react2['default'].createElement(
 							'button',
-							{ className: 'addPost__btn', onClick: _this2.open.bind(_this2) },
+							{ className: 'addPost__btn btn', onClick: _this2.open.bind(_this2) },
 							(0, _translate2['default'])('nuevo-comentario', 'Nou comentari')
 						);
 					}
@@ -30186,15 +30202,15 @@ var AddPost = (function (_React$Component) {
 						{ className: 'addPost__controls' },
 						_react2['default'].createElement(
 							'button',
-							{ onClick: _this2.close.bind(_this2) },
+							{ className: 'addPost__close', onClick: _this2.close.bind(_this2) },
 							'X'
 						),
-						_react2['default'].createElement('input', { type: 'text', id: 'title-' + uid, placeholder: (0, _translate2['default'])('titulo', 'Títol') + '*', required: true }),
-						_react2['default'].createElement('textarea', { placeholder: (0, _translate2['default'])('comentario', 'Comentari') + '*', id: 'body-' + uid, required: true }),
-						_react2['default'].createElement('input', { type: 'text', id: 'author-' + uid, placeholder: (0, _translate2['default'])('nombre-seud', 'Nom o pseudonim') + '*' }),
+						_react2['default'].createElement('input', { className: 'addPost__title', type: 'text', id: 'title-' + uid, placeholder: (0, _translate2['default'])('titulo', 'Títol') + '*', required: true }),
+						_react2['default'].createElement('textarea', { className: 'addPost__body tinymce', placeholder: (0, _translate2['default'])('comentario', 'Comentari') + '*', id: 'body-' + uid, required: true }),
+						_react2['default'].createElement('input', { className: 'addPost__name', type: 'text', id: 'author-' + uid, placeholder: (0, _translate2['default'])('nombre-seud', 'Nom o pseudonim') + '*' }),
 						_react2['default'].createElement(
 							'button',
-							{ onClick: _this2.send.bind(_this2, uid) },
+							{ className: 'addPost__send', onClick: _this2.send.bind(_this2, uid) },
 							(0, _translate2['default'])('enviar', 'Enviar')
 						)
 					);
@@ -30216,7 +30232,7 @@ AddPost.propTypes = {
 };
 module.exports = exports['default'];
 
-},{"../../config":247,"../../translate":250,"react":221,"superagent":222,"uid":225}],228:[function(require,module,exports){
+},{"../../config":247,"../../tinyInit":250,"../../translate":251,"react":221,"superagent":222,"uid":225}],228:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30296,7 +30312,7 @@ var Book = (function (_React$Component) {
 			if (!this.props.edit) {
 				return _react2['default'].createElement(
 					'div',
-					{ onClick: this.toggle.bind(this), className: (function () {
+					{ className: 'book', onClick: this.toggle.bind(this), className: (function () {
 							var ret = "book";
 							if (_this.state.active) {
 								ret += ' book--active';
@@ -30308,14 +30324,17 @@ var Book = (function (_React$Component) {
 						})() },
 					_react2['default'].createElement(
 						'span',
-						null,
+						{ className: 'book__code' },
 						this.props.id
 					),
 					_react2['default'].createElement(
 						'span',
-						null,
-						this.props.title,
-						' - ',
+						{ className: 'book__title' },
+						this.props.title
+					),
+					_react2['default'].createElement(
+						'span',
+						{ className: 'book__author' },
 						this.props.author
 					)
 				);
@@ -30606,11 +30625,12 @@ BookSearch.propTypes = {
 };
 
 BookSearch.defaultProps = {
-	controls: '*'
+	controls: '*',
+	active: []
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":248,"../../translate":250,"./bookshelf":230,"react":221,"uid":225}],230:[function(require,module,exports){
+},{"../../data/collection":248,"../../translate":251,"./bookshelf":230,"react":221,"uid":225}],230:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30667,20 +30687,20 @@ var BookShelf = (function (_React$Component) {
 		value: function componentDidMount() {
 			if (this.props.by) {
 				switch (this.props.by.toLowerCase()) {
-					case 'name':
-						this.byName();
+					case 'title':
+						this.by('title');
 						break;
 					case 'author':
-						this.byAuthor();
+						this.by('author');
 						break;
 					case 'id':
-						this.byId();
+						this.by('id');
 						break;
 					case 'code':
-						this.byId();
+						this.by('id');
 						break;
 					default:
-						this.byName();
+						this.by('title');
 						break;
 				}
 			}
@@ -30692,34 +30712,31 @@ var BookShelf = (function (_React$Component) {
 			if (props.controls) {
 				this.setState({ controls: true });
 			}
-		}
-	}, {
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate() {
 			if (this.props.by) {
 				switch (this.props.by.toLowerCase()) {
-					case 'name':
-						this.byName();
+					case 'title':
+						this.by('title', props.books);
 						break;
 					case 'author':
-						this.byAuthor();
+						this.by('author', props.books);
 						break;
 					case 'id':
-						this.byId();
+						this.by('id', props.books);
 						break;
 					case 'code':
-						this.byId();
+						this.by('id', props.books);
 						break;
 					default:
-						this.byName();
+						this.by('title', props.books);
 						break;
 				}
 			}
 		}
 	}, {
 		key: 'by',
-		value: function by(sort) {
-			var copy = this.state.books;
+		value: function by(sort, books) {
+			if (!books) books = this.state.books;
+			var copy = books;
 			if (this.state.by === sort) {
 				copy = copy.reverse();
 				if (this.state.direction) {
@@ -30728,14 +30745,18 @@ var BookShelf = (function (_React$Component) {
 					var direction = true;
 				}
 			} else {
-				copy = copy.sortBy(sort);
+				if (sort == 'id') {
+					copy = copy.sortByNumeric(sort);
+				} else {
+					copy = copy.sortBy(sort);
+				}
 				var direction = true;
 			}
 			this.setState({ books: copy, by: sort, direction: direction });
 		}
 	}, {
 		key: 'onBookClick',
-		value: function onBookClick(ev, id) {
+		value: function onBookClick(ev, active, id) {
 			var cp = this.state.active;
 			if (cp.indexOf(id) > -1) {
 				cp.splice(cp.indexOf(id), 1);
@@ -30762,18 +30783,24 @@ var BookShelf = (function (_React$Component) {
 							{ className: 'bookshelf__controls' },
 							_react2['default'].createElement(
 								'button',
-								{ onClick: _this.by.bind(_this, 'id') },
-								(0, _translate2['default'])('codigo', 'Codi')
+								{ className: 'bookshelf__control bookshelf__control-code', onClick: _this.by.bind(_this, 'id', _this.state.books) },
+								(0, _translate2['default'])('codigo', 'Codi'),
+								' ',
+								_react2['default'].createElement('span', { className: '' + (_this.state.by == 'id' ? _this.state.direction ? 'triangle' : 'triangle triangle--reverse' : '') })
 							),
 							_react2['default'].createElement(
 								'button',
-								{ onClick: _this.by.bind(_this, 'name') },
-								(0, _translate2['default'])('titulo', 'Títol')
+								{ className: 'bookshelf__control bookshelf__control-title', onClick: _this.by.bind(_this, 'title', _this.state.books) },
+								(0, _translate2['default'])('titulo', 'Títol'),
+								' ',
+								_react2['default'].createElement('span', { className: '' + (_this.state.by == 'title' ? _this.state.direction ? 'triangle' : 'triangle triangle--reverse' : '') })
 							),
 							_react2['default'].createElement(
 								'button',
-								{ onClick: _this.by.bind(_this, 'author') },
-								(0, _translate2['default'])('autor', 'Autor')
+								{ className: 'bookshelf__control bookshelf__control-author', onClick: _this.by.bind(_this, 'author', _this.state.books) },
+								(0, _translate2['default'])('autor', 'Autor'),
+								' ',
+								_react2['default'].createElement('span', { className: '' + (_this.state.by == 'author' ? _this.state.direction ? 'triangle' : 'triangle triangle--reverse' : '') })
 							)
 						);
 					} else {
@@ -30803,18 +30830,20 @@ exports['default'] = BookShelf;
 BookShelf.propTypes = {
 	books: _react2['default'].PropTypes.instanceOf(_dataCollection2['default']).isRequired,
 	controls: _react2['default'].PropTypes.bool,
-	by: _react2['default'].PropTypes.oneOf(['name', 'author', 'id', 'code']),
+	by: _react2['default'].PropTypes.oneOf(['title', 'author', 'id', 'code']),
 	selectable: _react2['default'].PropTypes.bool.isRequired,
 	active: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.string).isRequired
 };
 
 BookShelf.defaultProps = {
+	by: 'title',
+
 	selectable: false,
 	active: []
 };
 module.exports = exports['default'];
 
-},{"../../data/collection":248,"../../translate":250,"./book":228,"react":221}],231:[function(require,module,exports){
+},{"../../data/collection":248,"../../translate":251,"./book":228,"react":221}],231:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -30866,7 +30895,7 @@ var Loading = (function (_React$Component) {
 exports['default'] = Loading;
 module.exports = exports['default'];
 
-},{"../../translate":250,"react":221}],232:[function(require,module,exports){
+},{"../../translate":251,"react":221}],232:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31087,6 +31116,7 @@ var Post = (function (_React$Component) {
 		value: function render() {
 			var _this = this;
 
+			//<p>id: {this.props.id}, parent: {this.props.parent}, category: {this.props.category_id}</p>
 			return _react2['default'].createElement(
 				'article',
 				{ className: 'post' },
@@ -31095,21 +31125,7 @@ var Post = (function (_React$Component) {
 					null,
 					this.props.title
 				),
-				_react2['default'].createElement(
-					'blockquote',
-					null,
-					this.props.body
-				),
-				_react2['default'].createElement(
-					'p',
-					null,
-					'id: ',
-					this.props.id,
-					', parent: ',
-					this.props.parent,
-					', category: ',
-					this.props.category_id
-				),
+				_react2['default'].createElement('blockquote', { dangerouslySetInnerHTML: { __html: this.props.body } }),
 				_react2['default'].createElement(
 					'p',
 					null,
@@ -31454,22 +31470,26 @@ var Menu = (function (_React$Component) {
 						'Booktube'
 					),
 					_react2['default'].createElement(
-						'select',
-						{ className: 'navigation__link', value: lang, onChange: this.changeLang.bind(this) },
+						'div',
+						{ className: 'navigation__link' },
 						_react2['default'].createElement(
-							'option',
-							{ value: 'ca' },
-							'Català'
-						),
-						_react2['default'].createElement(
-							'option',
-							{ value: 'es' },
-							'Catellano'
-						),
-						_react2['default'].createElement(
-							'option',
-							{ value: 'en' },
-							'English'
+							'select',
+							{ className: 'navigation__link navigation__select', value: lang, onChange: this.changeLang.bind(this) },
+							_react2['default'].createElement(
+								'option',
+								{ value: 'ca' },
+								'Català'
+							),
+							_react2['default'].createElement(
+								'option',
+								{ value: 'es' },
+								'Castellano'
+							),
+							_react2['default'].createElement(
+								'option',
+								{ value: 'en' },
+								'English'
+							)
 						)
 					)
 				),
@@ -31503,7 +31523,7 @@ var Menu = (function (_React$Component) {
 exports['default'] = Menu;
 module.exports = exports['default'];
 
-},{"../../config":247,"../../data/collection":248,"../../translate":250,"immutable":19,"react":221,"react-router":40,"superagent":222}],236:[function(require,module,exports){
+},{"../../config":247,"../../data/collection":248,"../../translate":251,"immutable":19,"react":221,"react-router":40,"superagent":222}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31597,12 +31617,16 @@ var Video = (function (_React$Component) {
 				return _react2['default'].createElement(
 					'div',
 					{ className: 'video' },
-					_react2['default'].createElement('iframe', { src: '//www.youtube.com/embed/' + this.props.code + '?autohide=1&rel=0', frameborde: '0', allowFullScreen: true }),
+					_react2['default'].createElement(
+						'div',
+						{ className: 'video__media', 'data-aspect-ratio': '16:9' },
+						_react2['default'].createElement('iframe', { src: '//www.youtube.com/embed/' + this.props.code + '?autohide=1&rel=0&html5=1', frameborde: '0', allowFullScreen: true })
+					),
 					(function () {
 						if (_this.props.author) {
 							return _react2['default'].createElement(
 								'p',
-								null,
+								{ className: 'video__author' },
 								_this.props.author
 							);
 						}
@@ -31694,7 +31718,7 @@ Video.defaultProps = {
 };
 module.exports = exports['default'];
 
-},{"../../translate":250,"react":221}],237:[function(require,module,exports){
+},{"../../translate":251,"react":221}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -31739,11 +31763,11 @@ var VideoShelf = (function (_React$Component) {
 				'div',
 				{ className: 'videoshelf' },
 				_react2['default'].createElement(
-					'ul',
+					'section',
 					{ className: 'videoshelf__videos' },
 					this.props.videos.map(function (video) {
 						return _react2['default'].createElement(
-							'li',
+							'article',
 							{ key: video.id, className: 'videoshelf__video' },
 							_react2['default'].createElement(_video2['default'], video)
 						);
@@ -31940,37 +31964,52 @@ var Capture = (function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
 
-			if (this.state.request === 0) {
-				if (this.props.school.books) {
-					return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.askBook.bind(this), by: 'name', books: this.props.school.books.whereLoose('catched', false), selectable: true });
-				}
-				return _react2['default'].createElement(_assetsLoading2['default'], null);
-			} else if (this.state.request === 1) {
-				return _react2['default'].createElement(_assetsQuestion2['default'], { msg: (0, _translate2['default'])('seguro-libro', 'Segur que vols quest llibre?'), onAccept: this.selectBook.bind(this), onDecline: this.cancelSelection.bind(this), optional: true });
-			} else if (this.state.request === 2) {
-				return _react2['default'].createElement(
-					'div',
+			return _react2['default'].createElement(
+				'div',
+				{ className: 'school-capture' },
+				_react2['default'].createElement(
+					'h1',
 					null,
-					(0, _translate2['default'])('capturando', 'Capturant'),
+					(0, _translate2['default'])('capturar', 'Capturar'),
 					' ',
-					(0, _translate2['default'])('libro', 'llibre'),
-					'...'
-				);
-			} else if (this.state.request === 3) {
-				if (this.state.res[1].ok) {
-					return _react2['default'].createElement(
-						'div',
-						null,
-						(0, _translate2['default'])('libro-capturado', 'Llibre capturat')
-					);
-				}
-				return _react2['default'].createElement(
-					'div',
-					null,
-					(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
-				);
-			}
+					(0, _translate2['default'])('libro', 'llibre')
+				),
+				_react2['default'].createElement('hr', null),
+				(function () {
+					if (_this2.state.request === 0) {
+						if (_this2.props.school.books) {
+							return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: _this2.askBook.bind(_this2), by: 'name', books: _this2.props.school.books.whereLoose('catched', false), selectable: true });
+						}
+						return _react2['default'].createElement(_assetsLoading2['default'], null);
+					} else if (_this2.state.request === 1) {
+						return _react2['default'].createElement(_assetsQuestion2['default'], { msg: (0, _translate2['default'])('seguro-libro', 'Segur que vols quest llibre?'), onAccept: _this2.selectBook.bind(_this2), onDecline: _this2.cancelSelection.bind(_this2), optional: true });
+					} else if (_this2.state.request === 2) {
+						return _react2['default'].createElement(
+							'div',
+							null,
+							(0, _translate2['default'])('capturando', 'Capturant'),
+							' ',
+							(0, _translate2['default'])('libro', 'llibre'),
+							'...'
+						);
+					} else if (_this2.state.request === 3) {
+						if (_this2.state.res[1].ok) {
+							return _react2['default'].createElement(
+								'div',
+								null,
+								(0, _translate2['default'])('libro-capturado', 'Llibre capturat')
+							);
+						}
+						return _react2['default'].createElement(
+							'div',
+							null,
+							(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
+						);
+					}
+				})()
+			);
 		}
 	}]);
 
@@ -31980,7 +32019,7 @@ var Capture = (function (_React$Component) {
 exports['default'] = Capture;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../../translate":250,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"immutable":19,"react":221,"superagent":222}],240:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":251,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"immutable":19,"react":221,"superagent":222}],240:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32124,24 +32163,29 @@ var Forum = (function (_React$Component) {
 			if (this.props.school.posts && this.props.school.categories && this.state.category !== undefined) {
 				return _react2['default'].createElement(
 					'div',
-					null,
+					{ className: 'school-forum' },
 					_react2['default'].createElement(
 						'h1',
 						null,
 						(0, _translate2['default'])('forum', 'Forum')
 					),
+					_react2['default'].createElement('hr', null),
 					_react2['default'].createElement(
-						'select',
-						{ onChange: this.changeHandler.bind(this) },
-						this.props.school.categories.map(function (category) {
-							return _react2['default'].createElement(
-								'option',
-								{ key: category.id, value: category.id },
-								category.name
-							);
-						})
+						'div',
+						{ className: 'forum__controls' },
+						_react2['default'].createElement(
+							'select',
+							{ onChange: this.changeHandler.bind(this), className: 'forum__category' },
+							this.props.school.categories.map(function (category) {
+								return _react2['default'].createElement(
+									'option',
+									{ key: category.id, value: category.id },
+									category.name
+								);
+							})
+						),
+						_react2['default'].createElement(_assetsAddpost2['default'], { parent: 0, schoolSlug: this.props.school.slug, writeMsg: this.writeMsg.bind(this), category: this.state.category })
 					),
-					_react2['default'].createElement(_assetsAddpost2['default'], { parent: 0, schoolSlug: this.props.school.slug, writeMsg: this.writeMsg.bind(this), category: this.state.category }),
 					this.props.school.posts.where('category_id', this.state.category, false).where('parent', 0, false).map(function (post) {
 						return _react2['default'].createElement(_assetsPost2['default'], _extends({ key: post.id }, post, { posts: _this2.props.school.posts, schoolSlug: _this2.props.school.slug, writeMsg: _this2.writeMsg.bind(_this2), category: _this2.state.category }));
 					})
@@ -32157,7 +32201,7 @@ var Forum = (function (_React$Component) {
 exports['default'] = Forum;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../../translate":250,"../../assets/addpost":227,"../../assets/post":233,"immutable":19,"react":221,"superagent":222}],241:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":251,"../../assets/addpost":227,"../../assets/post":233,"immutable":19,"react":221,"superagent":222}],241:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32194,7 +32238,7 @@ var SchoolHome = (function (_React$Component) {
     _createClass(SchoolHome, [{
         key: 'render',
         value: function render() {
-            return _react2['default'].createElement('div', { dangerouslySetInnerHTML: { __html: (0, _translate2['default'])('home', '<h1>Què és BookCrossing<span>?</span></h1>\n    <p>És la pràctica de deixar un llibre en un lloc públic perquè qualsevol persona el trobi, el llegeixi i el torni a deixar.</p>\n    <p>L\'Institut Jaume Huguet ha começat aquest projecte gràcies a la idea de la pàgina web de BookCrossing.</p>\n\n    <h2>Com funciona?</span></h2>\n\n    <ol>\n      <li>Tot el procés és anònim.</li>\n      <li>Registra el llibre a la web. En registrar un llibre se\'t donarà un número que hauràs d\'anotar a l\'adhesiu que et facilitarà el centre i col·locar-lo a l\'interior del llibre.</li>\n      <li>Allibera el llibre al lloc que tu prefereixis.</li>\n      <li>Captura un nou llibre que trobis. La persona que capturi el llibre hauria de notificar a la web que està capturat introduint el codi a la pestanya "Capturar llibre".</li>\n      <li>Un cop llegit, tornes a alliberar-lo on tu vulguis i ho notifiques novament a la pestanya "Alliberar llibre" introduint el codi.</li>\n    </ol>\n\n    <h2>Recomanacions</h2>\n\n    <ul>\n        <li>Sigues generós/a: Alliberar un llibre significa desprendre d\'ell amb l\'esperança que algú ho aprofiti.</li>\n        <li>Tingues il·lusió: De la mateixa manera tu tindràs accés a altres llibres que de no ser així mai hauries conegut.</li>\n        <li>No siguis codiciós: No captures llibres que no vagis a llegir immediatament.</li>\n        <li>Comparteix: Que els llibres circulin de forma lliure i gratuïta, compartir amb els altres sense ànim de possessió, no té preu.</li>\n        <li>Col·labora: Sempre que capturis un llibre faràs una entrada al seguiment de la web perquè els altres sàpiguen que aquest llibre està sent llegit.</li>\n        <li>Comunicació de la mateixa manera l\'alliberament del llibre quan l\'hagis acabat.</li>\n    </ul>\n\n    <h2>Pensa en els altres</h2>\n\n    <ul>\n        <li>El temps recomanable de possessió seria d\'un mes.</li>\n        <li>Cuida el llibre perquè molts més usuaris puguin beneficiar d\'ell:\n            <ul>\n                <li>Introdueix el llibre en una bossa de plàstic transparent i amb tancament si vas a alliberar a la intempèrie.</li>\n                <li>Si arriba a les teves mans en mal estat pots folrar.</li>\n            </ul>\n        </li>\n    </ul>\n\n\n    <h2>Que pretenem<span>?</span></h2>\n\n    <ul>\n        <li>Fomentar l\'hàbit lector facilitant la lliure circulació de llibres en el nostre institut.</li>\n        <li>Impulsar la curiositat afegint comentaris personals i anònims que incitin a llegir el llibre que alliberem.</li>\n        <li>Reutilitzar llibres desaprofitats en la lleixa de l\'oblit.</li>\n        <li>Dinamitzar a través del web del centre l\'intercanvi d\'opinions , experiències i recomanacions entre els lectors.</li>\n    </ul>') } });
+            return _react2['default'].createElement('div', { className: 'school-home', dangerouslySetInnerHTML: { __html: (0, _translate2['default'])('home', '<h1>Què és BookCrossing<span>?</span></h1>\n    <p>És la pràctica de deixar un llibre en un lloc públic perquè qualsevol persona el trobi, el llegeixi i el torni a deixar.</p>\n    <p>L\'Institut Jaume Huguet ha começat aquest projecte gràcies a la idea de la pàgina web de BookCrossing.</p>\n\n    <h2>Com funciona<span>?</span></h2>\n\n    <ol>\n      <li>Tot el procés és anònim.</li>\n      <li>Registra el llibre a la web. En registrar un llibre se\'t donarà un número que hauràs d\'anotar a l\'adhesiu que et facilitarà el centre i col·locar-lo a l\'interior del llibre.</li>\n      <li>Allibera el llibre al lloc que tu prefereixis.</li>\n      <li>Captura un nou llibre que trobis. La persona que capturi el llibre hauria de notificar a la web que està capturat introduint el codi a la pestanya "Capturar llibre".</li>\n      <li>Un cop llegit, tornes a alliberar-lo on tu vulguis i ho notifiques novament a la pestanya "Alliberar llibre" introduint el codi.</li>\n    </ol>\n\n    <h2>Recomanacions</h2>\n\n    <ul>\n        <li>Sigues generós/a: Alliberar un llibre significa desprendre d\'ell amb l\'esperança que algú ho aprofiti.</li>\n        <li>Tingues il·lusió: De la mateixa manera tu tindràs accés a altres llibres que de no ser així mai hauries conegut.</li>\n        <li>No siguis codiciós: No captures llibres que no vagis a llegir immediatament.</li>\n        <li>Comparteix: Que els llibres circulin de forma lliure i gratuïta, compartir amb els altres sense ànim de possessió, no té preu.</li>\n        <li>Col·labora: Sempre que capturis un llibre faràs una entrada al seguiment de la web perquè els altres sàpiguen que aquest llibre està sent llegit.</li>\n        <li>Comunicació de la mateixa manera l\'alliberament del llibre quan l\'hagis acabat.</li>\n    </ul>\n\n    <h2>Pensa en els altres</h2>\n\n    <ul>\n        <li>El temps recomanable de possessió seria d\'un mes.</li>\n        <li>Cuida el llibre perquè molts més usuaris puguin beneficiar d\'ell:\n            <ul>\n                <li>Introdueix el llibre en una bossa de plàstic transparent i amb tancament si vas a alliberar a la intempèrie.</li>\n                <li>Si arriba a les teves mans en mal estat pots folrar.</li>\n            </ul>\n        </li>\n    </ul>\n\n\n    <h2>Que pretenem<span>?</span></h2>\n\n    <ul>\n        <li>Fomentar l\'hàbit lector facilitant la lliure circulació de llibres en el nostre institut.</li>\n        <li>Impulsar la curiositat afegint comentaris personals i anònims que incitin a llegir el llibre que alliberem.</li>\n        <li>Reutilitzar llibres desaprofitats en la lleixa de l\'oblit.</li>\n        <li>Dinamitzar a través del web del centre l\'intercanvi d\'opinions , experiències i recomanacions entre els lectors.</li>\n    </ul>') } });
         }
     }]);
 
@@ -32204,7 +32248,7 @@ var SchoolHome = (function (_React$Component) {
 exports['default'] = SchoolHome;
 module.exports = exports['default'];
 
-},{"../../../translate":250,"react":221}],242:[function(require,module,exports){
+},{"../../../translate":251,"react":221}],242:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32289,37 +32333,52 @@ var Liberate = (function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
 
-			if (this.state.request === 0) {
-				if (this.props.school.books) {
-					return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: this.askBook.bind(this), by: 'name', books: this.props.school.books.whereLoose('catched', true), selectable: true });
-				}
-				return _react2['default'].createElement(_assetsLoading2['default'], null);
-			} else if (this.state.request === 1) {
-				return _react2['default'].createElement(_assetsQuestion2['default'], { msg: (0, _translate2['default'])('seguro-liberar', 'Segur que vols alliberar quest llibre?'), onAccept: this.selectBook.bind(this), onDecline: this.cancelSelection.bind(this), optional: true });
-			} else if (this.state.request === 2) {
-				return _react2['default'].createElement(
-					'div',
+			return _react2['default'].createElement(
+				'div',
+				{ className: 'school-liberate' },
+				_react2['default'].createElement(
+					'h1',
 					null,
-					(0, _translate2['default'])('liberando', 'Alliberant'),
+					(0, _translate2['default'])('liberar', 'Alliberar'),
 					' ',
-					(0, _translate2['default'])('libro', 'llibre'),
-					'...'
-				);
-			} else if (this.state.request === 3) {
-				if (this.state.res[1].ok) {
-					return _react2['default'].createElement(
-						'div',
-						null,
-						(0, _translate2['default'])('libro-liberado', 'Llibre alliberat')
-					);
-				}
-				return _react2['default'].createElement(
-					'div',
-					null,
-					(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
-				);
-			}
+					(0, _translate2['default'])('libro', 'Llibre')
+				),
+				_react2['default'].createElement('hr', null),
+				(function () {
+					if (_this2.state.request === 0) {
+						if (_this2.props.school.books) {
+							return _react2['default'].createElement(_assetsBooksearch2['default'], { onBookClick: _this2.askBook.bind(_this2), by: 'name', books: _this2.props.school.books.whereLoose('catched', true), selectable: true });
+						}
+						return _react2['default'].createElement(_assetsLoading2['default'], null);
+					} else if (_this2.state.request === 1) {
+						return _react2['default'].createElement(_assetsQuestion2['default'], { msg: (0, _translate2['default'])('seguro-liberar', 'Segur que vols alliberar quest llibre?'), onAccept: _this2.selectBook.bind(_this2), onDecline: _this2.cancelSelection.bind(_this2), optional: true });
+					} else if (_this2.state.request === 2) {
+						return _react2['default'].createElement(
+							'div',
+							null,
+							(0, _translate2['default'])('liberando', 'Alliberant'),
+							' ',
+							(0, _translate2['default'])('libro', 'llibre'),
+							'...'
+						);
+					} else if (_this2.state.request === 3) {
+						if (_this2.state.res[1].ok) {
+							return _react2['default'].createElement(
+								'div',
+								null,
+								(0, _translate2['default'])('libro-liberado', 'Llibre alliberat')
+							);
+						}
+						return _react2['default'].createElement(
+							'div',
+							null,
+							(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
+						);
+					}
+				})()
+			);
 		}
 	}]);
 
@@ -32329,7 +32388,7 @@ var Liberate = (function (_React$Component) {
 exports['default'] = Liberate;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../../translate":250,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"react":221,"superagent":222}],243:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":251,"../../assets/booksearch":229,"../../assets/loading":231,"../../assets/question":234,"react":221,"superagent":222}],243:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32390,7 +32449,7 @@ var List = (function (_React$Component) {
 	_createClass(List, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
-			if (this.props.school.books) {
+			if (!this.props.school.books) {
 				this.setBooks();
 			}
 		}
@@ -32428,30 +32487,38 @@ var List = (function (_React$Component) {
 					var catched = this.props.school.books.whereLoose('catched', 1);
 					return _react2['default'].createElement(
 						'div',
-						null,
+						{ className: 'school-list' },
 						_react2['default'].createElement(
 							'h1',
-							null,
+							{ className: 'school-list__title' },
 							title
 						),
-						_react2['default'].createElement('hr', null),
+						_react2['default'].createElement('hr', { className: 'school-list__break' }),
 						_react2['default'].createElement(
-							'h2',
-							null,
-							(0, _translate2['default'])('disponibles', 'Disponibles')
+							'section',
+							{ className: 'list-column' },
+							_react2['default'].createElement(
+								'h2',
+								null,
+								(0, _translate2['default'])('disponibles', 'Disponibles')
+							),
+							_react2['default'].createElement(_assetsBookshelf2['default'], { books: uncatched, controls: true })
 						),
-						_react2['default'].createElement(_assetsBookshelf2['default'], { books: uncatched, controls: true }),
 						_react2['default'].createElement(
-							'h2',
-							null,
-							(0, _translate2['default'])('capturados', 'Capturats')
-						),
-						_react2['default'].createElement(_assetsBookshelf2['default'], { books: catched, controls: true })
+							'section',
+							{ className: 'list-column' },
+							_react2['default'].createElement(
+								'h2',
+								null,
+								(0, _translate2['default'])('capturados', 'Capturats')
+							),
+							_react2['default'].createElement(_assetsBookshelf2['default'], { books: catched, controls: true })
+						)
 					);
 				}
 				return _react2['default'].createElement(
 					'div',
-					null,
+					{ className: 'school-list' },
 					_react2['default'].createElement(
 						'h1',
 						null,
@@ -32475,7 +32542,7 @@ var List = (function (_React$Component) {
 exports['default'] = List;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../../translate":250,"../../assets/booksearch":229,"../../assets/bookshelf":230,"../../assets/loading":231,"immutable":19,"react":221,"superagent":222}],244:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":251,"../../assets/booksearch":229,"../../assets/bookshelf":230,"../../assets/loading":231,"immutable":19,"react":221,"superagent":222}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32571,7 +32638,7 @@ var News = (function (_React$Component) {
 			if (this.props.school.news) {
 				return _react2['default'].createElement(
 					'div',
-					null,
+					{ className: 'school-news' },
 					_react2['default'].createElement(
 						'h1',
 						null,
@@ -32602,7 +32669,7 @@ var News = (function (_React$Component) {
 exports['default'] = News;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../../translate":250,"../../assets/loading":231,"../../assets/notice":232,"immutable":19,"react":221,"superagent":222}],245:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":251,"../../assets/loading":231,"../../assets/notice":232,"immutable":19,"react":221,"superagent":222}],245:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32655,7 +32722,7 @@ var Register = (function (_React$Component) {
 		}
 	}, {
 		key: 'createBook',
-		value: function createBook(ev, id) {
+		value: function createBook(id, ev) {
 			var _this = this;
 
 			this.setState({ request: 1 });
@@ -32666,46 +32733,62 @@ var Register = (function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			if (this.state.request === 0) {
-				var id = (0, _uid2['default'])();
-				return _react2['default'].createElement(
-					'div',
-					{ className: 'register' },
-					_react2['default'].createElement('input', { type: 'text', id: 'title-' + id, placeholder: (0, _translate2['default'])('titulo', 'Títol') }),
-					_react2['default'].createElement('input', { type: 'text', id: 'author-' + id, placeholder: (0, _translate2['default'])('autor', 'Autor') }),
-					_react2['default'].createElement(
-						'button',
-						{ onClick: this.createBook.bind(this, id) },
-						(0, _translate2['default'])('registrar', 'Registrar')
-					)
-				);
-			} else if (this.state.request === 1) {
-				return _react2['default'].createElement(
-					'div',
+			var _this2 = this;
+
+			return _react2['default'].createElement(
+				'div',
+				{ className: 'school-register' },
+				_react2['default'].createElement(
+					'h1',
 					null,
-					(0, _translate2['default'])('regstrando', 'Registrant'),
+					(0, _translate2['default'])('registrar', 'Registrar'),
 					' ',
-					(0, _translate2['default'])('libro', 'llibre'),
-					'...'
-				);
-			} else if (this.state.request === 2) {
-				if (this.state.res[1].ok) {
-					return _react2['default'].createElement(
-						'div',
-						null,
-						(0, _translate2['default'])('libro-registrado', 'Llibre registrat'),
-						', ',
-						(0, _translate2['default'])('codigo', 'Codi').toLowerCase(),
-						': ',
-						this.state.res[1].body.id
-					);
-				}
-				return _react2['default'].createElement(
-					'div',
-					null,
-					(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
-				);
-			}
+					(0, _translate2['default'])('libro', 'llibre')
+				),
+				_react2['default'].createElement('hr', null),
+				(function () {
+					if (_this2.state.request === 0) {
+						var id = (0, _uid2['default'])();
+						return _react2['default'].createElement(
+							'div',
+							{ className: 'register' },
+							_react2['default'].createElement('input', { type: 'text', id: 'title-' + id, placeholder: (0, _translate2['default'])('titulo', 'Títol') }),
+							_react2['default'].createElement('input', { type: 'text', id: 'author-' + id, placeholder: (0, _translate2['default'])('autor', 'Autor') }),
+							_react2['default'].createElement(
+								'button',
+								{ onClick: _this2.createBook.bind(_this2, id) },
+								(0, _translate2['default'])('registrar', 'Registrar')
+							)
+						);
+					} else if (_this2.state.request === 1) {
+						return _react2['default'].createElement(
+							'div',
+							null,
+							(0, _translate2['default'])('regstrando', 'Registrant'),
+							' ',
+							(0, _translate2['default'])('libro', 'llibre'),
+							'...'
+						);
+					} else if (_this2.state.request === 2) {
+						if (_this2.state.res[1].ok) {
+							return _react2['default'].createElement(
+								'div',
+								null,
+								(0, _translate2['default'])('libro-registrado', 'Llibre registrat'),
+								', ',
+								(0, _translate2['default'])('codigo', 'Codi').toLowerCase(),
+								': ',
+								_this2.state.res[1].body.id
+							);
+						}
+						return _react2['default'].createElement(
+							'div',
+							null,
+							(0, _translate2['default'])('un-error', 'Hi ha hagut un error')
+						);
+					}
+				})()
+			);
 		}
 	}]);
 
@@ -32715,7 +32798,7 @@ var Register = (function (_React$Component) {
 exports['default'] = Register;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../../translate":250,"react":221,"superagent":222,"uid":225}],246:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":251,"react":221,"superagent":222,"uid":225}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -32816,11 +32899,11 @@ var Tube = (function (_React$Component) {
 	}, {
 		key: 'nvc',
 		value: function nvc() {
-			this.setState({ nv: false });
+			this.setState({ nv: false, request: 0 });
 		}
 	}, {
 		key: 'addVideo',
-		value: function addVideo(ev, id) {
+		value: function addVideo(id, ev) {
 			var _this2 = this;
 
 			this.setState({ request: 1 });
@@ -32834,7 +32917,8 @@ var Tube = (function (_React$Component) {
 					}
 				}
 				_superagent2['default'].post(_config2['default'].api.baseUrl + '/school/' + this.props.params.school + '/video').send({ code: match, author: document.getElementById('name-' + id).value, trailer: this.state.trailer }).type('json').accept('json').set('X-Requested-With', 'XMLHttpRequest').end(function (err, req) {
-					_this2.setState({ request: 2, res: [err, res] });
+					_this2.setState({ request: 2, res: [err, req] });
+					_this2.props.updateSchool();
 				});
 			} else {
 				this.setState({ request: 2, res: [{ status: 406, text: "Code field hasn't correct format" }, { error: 4, status: 406, text: "Code field hasn't correct format", notAcceptable: 406 }] });
@@ -32847,13 +32931,13 @@ var Tube = (function (_React$Component) {
 
 			return _react2['default'].createElement(
 				'div',
-				null,
+				{ className: 'school-tube' },
 				_react2['default'].createElement(
 					'h1',
-					null,
+					{ className: 'school-tube__header' },
 					'Book' + this.state.type
 				),
-				_react2['default'].createElement('hr', null),
+				_react2['default'].createElement('hr', { className: 'school-tube__break' }),
 				(function () {
 					if (_this3.state.nv) {
 						if (_this3.state.request === 0) {
@@ -32863,14 +32947,14 @@ var Tube = (function (_React$Component) {
 								{ className: 'new-video' },
 								_react2['default'].createElement(
 									'button',
-									{ onClick: _this3.nvc.bind(_this3) },
-									(0, _translate2['default'])('cerrar', 'Tancar')
+									{ className: 'new-video__close', onClick: _this3.nvc.bind(_this3) },
+									'X'
 								),
-								_react2['default'].createElement('input', { type: 'text', id: 'code-' + id, placeholder: 'https://www.youtube.com/watch?v=xxxxxxxxxxx' }),
-								_react2['default'].createElement('input', { type: 'text', id: 'name-' + id, placeholder: 'Nom' }),
+								_react2['default'].createElement('input', { className: 'new-video__code', type: 'text', id: 'code-' + id, placeholder: 'https://www.youtube.com/watch?v=xxxxxxxxxxx' }),
+								_react2['default'].createElement('input', { className: 'new-video__author', type: 'text', id: 'name-' + id, placeholder: 'Nom' }),
 								_react2['default'].createElement(
 									'button',
-									{ onClick: _this3.addVideo.bind(_this3, id) },
+									{ className: 'new-video__send', onClick: _this3.addVideo.bind(_this3, id) },
 									(0, _translate2['default'])('sube-video', 'Puja el teu video')
 								)
 							);
@@ -32908,7 +32992,7 @@ var Tube = (function (_React$Component) {
 					}
 					return _react2['default'].createElement(
 						'button',
-						{ onClick: _this3.nv.bind(_this3) },
+						{ className: 'new-video--btn btn', onClick: _this3.nv.bind(_this3) },
 						(0, _translate2['default'])('sube-video', 'Puja el teu video')
 					);
 				})(),
@@ -32928,7 +33012,7 @@ var Tube = (function (_React$Component) {
 exports['default'] = Tube;
 module.exports = exports['default'];
 
-},{"../../../config":247,"../../../translate":250,"../../assets/loading":231,"../../assets/videoshelf":237,"react":221,"superagent":222,"uid":225}],247:[function(require,module,exports){
+},{"../../../config":247,"../../../translate":251,"../../assets/loading":231,"../../assets/videoshelf":237,"react":221,"superagent":222,"uid":225}],247:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -33792,6 +33876,34 @@ exports['default'] = _react2['default'].createElement(
 module.exports = exports['default'];
 
 },{"../components/assets/school-menu":235,"../components/routeMaped/home":238,"../components/routeMaped/school/capture":239,"../components/routeMaped/school/forum":240,"../components/routeMaped/school/home":241,"../components/routeMaped/school/liberate":242,"../components/routeMaped/school/list":243,"../components/routeMaped/school/news":244,"../components/routeMaped/school/register":245,"../components/routeMaped/school/tube":246,"react":221,"react-router":40}],250:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+exports['default'] = tinyInit;
+
+function tinyInit(lang) {
+    if (!tinymce) return;
+    if (!lang) lang = 'ca';
+    tinymce.init({
+        selector: '.tinymce',
+        content_css: db.content_css,
+        menubar: false,
+        statusbar: false,
+        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image ',
+        plugins: 'image imagetools link autolink autoresize',
+        link_assume_external_targets: true,
+        browser_spellcheck: true,
+        language: lang,
+        language_url: db.language_url,
+        width: '100%'
+    });
+}
+
+module.exports = exports['default'];
+
+},{}],251:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

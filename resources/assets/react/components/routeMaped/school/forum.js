@@ -86,21 +86,24 @@ export default class Forum extends React.Component {
 
 	render() {
 		if(this.props.school.posts && this.props.school.categories && this.state.category !== undefined){
-			return <div>
-			<h1>{translate('forum', 'Forum')}</h1>
-			<select onChange={this.changeHandler.bind(this)}>
+			return <div className="school-forum">
+				<h1>{translate('forum', 'Forum')}</h1>
+				<hr/>
+				<div className="forum__controls">
+				<select onChange={this.changeHandler.bind(this)} className="forum__category">
+					{
+						this.props.school.categories.map((category) => {
+							return <option key={category.id} value={category.id} >{category.name}</option>
+						})
+					}
+				</select>
+				<AddPost parent={0} schoolSlug={this.props.school.slug} writeMsg={this.writeMsg.bind(this)} category={this.state.category} />
+				</div>
 				{
-					this.props.school.categories.map((category) => {
-						return <option key={category.id} value={category.id} >{category.name}</option>
+					this.props.school.posts.where('category_id',this.state.category,false).where('parent', 0, false).map((post) => {
+						return	<Post key={post.id} {...post} posts={this.props.school.posts} schoolSlug={this.props.school.slug} writeMsg={this.writeMsg.bind(this)} category={this.state.category} />
 					})
 				}
-			</select>
-			<AddPost parent={0} schoolSlug={this.props.school.slug} writeMsg={this.writeMsg.bind(this)} category={this.state.category} />
-			{
-				this.props.school.posts.where('category_id',this.state.category,false).where('parent', 0, false).map((post) => {
-					return	<Post key={post.id} {...post} posts={this.props.school.posts} schoolSlug={this.props.school.slug} writeMsg={this.writeMsg.bind(this)} category={this.state.category} />
-				})
-			}
 			</div>
 		}
 		return <div></div>

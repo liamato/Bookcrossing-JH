@@ -52,11 +52,13 @@ export default class Video extends React.Component {
 		if (!this.props.edit) {
 			return (
 				<div className="video">
-					<iframe src={`//www.youtube.com/embed/${this.props.code}?autohide=1&rel=0`} frameborde="0" allowFullScreen></iframe>
+					<div className="video__media" data-aspect-ratio="16:9">
+						<iframe src={`//www.youtube.com/embed/${this.props.code}?autohide=1&rel=0&html5=1`} frameborde="0" allowFullScreen></iframe>
+					</div>
 					{
 						() => {
 							if (this.props.author) {
-								return <p>{this.props.author}</p>
+								return <p className="video__author">{this.props.author}</p>
 							}
 						}()
 					}

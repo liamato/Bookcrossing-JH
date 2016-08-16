@@ -42,10 +42,10 @@ export default class Tube extends React.Component {
 	}
 
 	nvc() {
-		this.setState({nv: false});
+		this.setState({nv: false, request: 0});
 	}
 
-	addVideo(ev, id) {
+	addVideo(id, ev) {
 		this.setState({request: 1});
 		if (document.getElementById(`code-${id}`).value.match(/\w*:\/\/[\w\.]*\/watch\?v\=([A-Za-z0-9\_\-]{11}).*|\w*:\/\/[\w\.]*\/([A-Za-z0-9\_\-]{11}).*|<iframe.*src\=.*\/\/[\w\.]*\/embed\/([A-Za-z0-9\_\-]{11}).*|([A-Za-z0-9\_\-]{11})/)) {
 			let match = document.getElementById(`code-${id}`).value.match(/\w*:\/\/[\w\.]*\/watch\?v\=([A-Za-z0-9\_\-]{11}).*|\w*:\/\/[\w\.]*\/([A-Za-z0-9\_\-]{11}).*|<iframe.*src\=.*\/\/[\w\.]*\/embed\/([A-Za-z0-9\_\-]{11}).*|([A-Za-z0-9\_\-]{11})/);
@@ -63,7 +63,8 @@ export default class Tube extends React.Component {
 			.accept('json')
 			.set('X-Requested-With', 'XMLHttpRequest')
 			.end((err, req) => {
-				this.setState({request: 2, res: [err, res]});
+				this.setState({request: 2, res: [err, req]});
+				this.props.updateSchool();
 			});
 		} else {
 			this.setState({request: 2, res: [{status: 406, text: "Code field hasn't correct format"},{error: 4, status: 406, text: "Code field hasn't correct format", notAcceptable: 406}]});
@@ -72,9 +73,9 @@ export default class Tube extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h1>{`Book${this.state.type}`}</h1>
-				<hr/>
+			<div className="school-tube">
+				<h1 className="school-tube__header">{`Book${this.state.type}`}</h1>
+				<hr className="school-tube__break"/>
 				{
 					() => {
 						if (this.state.nv) {
@@ -82,10 +83,10 @@ export default class Tube extends React.Component {
 								let id = uid();
 								return (
 									<div className="new-video">
-										<button onClick={this.nvc.bind(this)}>{translate('cerrar','Tancar')}</button>
-										<input type="text" id={`code-${id}`} placeholder="https://www.youtube.com/watch?v=xxxxxxxxxxx"/>
-										<input type="text" id={`name-${id}`} placeholder="Nom"/>
-										<button onClick={this.addVideo.bind(this, id)}>{translate('sube-video','Puja el teu video')}</button>
+										<button className="new-video__close" onClick={this.nvc.bind(this)}>X</button>
+										<input className="new-video__code" type="text" id={`code-${id}`} placeholder="https://www.youtube.com/watch?v=xxxxxxxxxxx"/>
+										<input className="new-video__author" type="text" id={`name-${id}`} placeholder="Nom"/>
+										<button className="new-video__send" onClick={this.addVideo.bind(this, id)}>{translate('sube-video','Puja el teu video')}</button>
 									</div>
 								)
 							} else if (this.state.request === 1) {
@@ -110,7 +111,7 @@ export default class Tube extends React.Component {
 								)
 							}
 						}
-						return <button onClick={this.nv.bind(this)}>{translate('sube-video','Puja el teu video')}</button>
+						return <button className="new-video--btn btn" onClick={this.nv.bind(this)}>{translate('sube-video','Puja el teu video')}</button>
 					}()
 				}
 				{

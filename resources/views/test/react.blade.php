@@ -13,7 +13,7 @@
 
 
 @section('js')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/tinymce.theme.min.css') }}">
 <script src="{{ asset('js/app.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/tinymce.theme.min.css') }}">
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
 @stop

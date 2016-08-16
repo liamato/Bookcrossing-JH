@@ -150,5 +150,6 @@ BookSearch.propTypes = {
 };
 
 BookSearch.defaultProps = {
-	controls: '*'
+	controls: '*',
+	active: []
 };
