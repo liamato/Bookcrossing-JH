@@ -47,7 +47,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function isSuper()
     {
-        return $this->super;
+        return (bool)$this->super;
     }
 
     public function inSchool(School $school = null)

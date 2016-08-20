@@ -25,6 +25,7 @@ class AuthController extends Controller
     use AuthenticatesUsers, ThrottlesLogins;
 
     //protected $redirectAfterLogout = '/admin';
+    protected $loginPath = '/admin/login';
 
     public function redirectPath()
     {
@@ -35,6 +36,14 @@ class AuthController extends Controller
         return $school->slug.'/admin';
     }
 
+    public function loginPath()
+    {
+        $school = \App::make(School::class);
+        if ($school->isEmpty()) {
+            return $self->loginPath;
+        }
+        return $school->slug.$this->loginPath;
+    }
 
     /**
      * Create a new authentication controller instance.

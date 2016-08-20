@@ -42,6 +42,9 @@ class Authenticate
             if ($request->ajax()) {
                 return response(['response' => 'Unautorized', 'responseCode' => 401], 401);
             } else {
+                if (!$school->isEmpty()) {
+                    return redirect()->guest(route('Admin.login', $school->slug));
+                }
                 return redirect()->guest(route('login'));
             }
         }
