@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\School;
+use Illuminate\Contracts\Auth\Guard;
 
 class AdminUser extends Controller
 {
@@ -15,9 +16,9 @@ class AdminUser extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(School $school)
+    public function index(School $school, Guard $auth)
     {
-        return view('admin.user.index', ['users' => User::bySchool($school->id)->get()]);
+        return view('admin.user.index', ['users' => User::bySchool($school->id)->get(), 'superUser' => ($auth->user()->isSuper() && $school->id == 1)]);
     }
 
     /**

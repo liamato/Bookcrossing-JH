@@ -2,7 +2,7 @@
 
 @section('preJS')
 <script>
-    var db = {users: {!! $users !!}, school: "{!! $school->slug !!}"}
+    var db = {users: {!! $users !!}, school: "{!! $school->slug !!}" {!! isset($superUser) && $superUser ? ', superuser: true' : '' !!}}
 </script>
 @stop
 

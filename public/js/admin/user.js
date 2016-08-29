@@ -20753,6 +20753,20 @@ var User = (function (_React$Component) {
 					'Password'
 				),
 				_react2['default'].createElement('input', { type: 'password', className: 'user__password--edit', onClick: this.noPropagation.bind(this) }),
+				(function () {
+					if (db.superuser) {
+						return _react2['default'].createElement(
+							'div',
+							{ className: 'user__super-controls' },
+							_react2['default'].createElement(
+								'label',
+								{ htmlFor: '' },
+								'SuperAdministrador'
+							),
+							_react2['default'].createElement('input', { type: 'checkbox', className: 'user_super--edit', onClick: _this.noPropagation.bind(_this) })
+						);
+					}
+				})(),
 				_react2['default'].createElement(
 					'button',
 					{ onClick: this.save.bind(this) },

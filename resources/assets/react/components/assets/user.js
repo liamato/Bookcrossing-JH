@@ -65,6 +65,16 @@ export default class User extends React.Component {
 				<input type="text" className="user__email--edit" defaultValue={this.props.email} onClick={this.noPropagation.bind(this)}/>
 				<label htmlFor="">Password</label>
 				<input type="password" className="user__password--edit" onClick={this.noPropagation.bind(this)}/>
+				{
+					() => {
+						if (db.superuser) {
+							return <div className="user__super-controls">
+							<label htmlFor="">SuperAdministrador</label>
+							<input type="checkbox" className="user_super--edit" onClick={this.noPropagation.bind(this)}/>
+							</div>
+						}
+					}()
+				}
 				<button onClick={this.save.bind(this)}>Guardar</button>
 			</div>
 		)
