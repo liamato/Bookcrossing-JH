@@ -23,7 +23,15 @@
 <body>
     <div class="gloval">
         <nav class="nabar">
-            <a href="{{route('Admin.index', $school->slug)}}">Home</a>
+            @if(\Auth::user()->isSuper())
+                <select id="school-nav">
+                    @foreach(\App\School::all() as $sc)
+                        <option value="{{$sc->slug}}" {{$sc->id === $school->id ? 'selected' : ''}}>{{$sc->name}}</option>
+                    @endforeach
+                </select>
+            @else
+                <a href="{{route('Admin.index', $school->slug)}}">Home</a>
+            @endif
         </nav>
         <aside class="menu">
             @include('assets.menuAdmin')
@@ -32,6 +40,16 @@
 @yield('main')
         </main>
     </div>
+    @if(\Auth::user()->isSuper())
+        <script>
+            (function(){
+                var sel = document.getElementById('school-nav')
+                sel.addEventListener('change',function(){
+                    window.location = "{!!route('Admin.index','#school#')!!}".replace('#school#',sel.value)
+                })
+            })()
+        </script>
+    @endif
     @yield('JS')
 </body>
 </html>
