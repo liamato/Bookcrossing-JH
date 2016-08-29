@@ -60,14 +60,34 @@
  *      loguin                          -> Loguin user
  *      logout                          -> Logout user
  */
+Route::get('admin', function(){
+    return redirect()->route('login');
+});
+Route::get('login', function(){
+    return redirect()->route('login');
+});
+
+Route::get('admin/login', [
+    'uses' => 'Auth\AuthController@getLogin',
+    'as' => 'login'
+]);
+Route::post('admin/login', [
+    'uses' => 'Auth\AuthController@postLogin',
+    'as' => 'login'
+]);
+Route::get('admin/logout', [
+    'uses' => 'Auth\AuthController@getLogout',
+    'as' => 'logout'
+]);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], function() {
 
     Route::group(['prefix' => '{school}/admin', 'as' => 'Admin.'], function() {
         Route::get('/', [
-            'uses' => 'Admin@index',
-            'as' => 'index'
-        ]);
+            'as' => 'index',
+            function(\App\School $school){
+                return redirect()->route('Admin.book.index', $school->slug);
+        }]);
 
         Route::group(['prefix' => 'book', 'as' => 'book.'], function() {
             Route::get('/', [
@@ -142,17 +162,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
     });
 
     Route::group(['prefix' => '/admin', 'as' => 'SuperAdmin.', 'namespace' => 'SuperAdmin'], function() {
-        Route::get('/', [
-            'uses' => 'SuperAdmin@index',
-            'as' => 'index'
-        ]);
 
-        Route::post('add', [
-            'uses' => 'SuperAdmin@add',
-            'as' => 'add'
-        ]);
-
-        Route::group(['prefix' => '{id}'], function() {
+        /*Route::group(['prefix' => '{id}'], function() {
             Route::get('edit', [
                 'uses' => 'SuperAdmin@edit',
                 'as' => 'edit'
@@ -167,12 +178,17 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                 'uses' => 'SuperAdmin@remove',
                 'as' => 'remove'
             ]);
-        });
+        });*/
 
         Route::group(['prefix' => 'school', 'as' => 'school.'], function() {
-            Route::get('/', [
+            /*Route::get('/', [
                 'uses' => 'SuperAdminSchool@index',
                 'as' => 'index'
+            ]);
+            */
+            Route::get('add', [
+                'uses' => 'SuperAdminSchool@add',
+                'as' => 'add'
             ]);
 
             Route::post('add', [
@@ -180,7 +196,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                 'as' => 'add'
             ]);
 
-            Route::group(['prefix' => '{school}'], function() {
+            /*Route::group(['prefix' => '{school}'], function() {
                 Route::get('edit', [
                     'uses' => 'SuperAdminSchool@edit',
                     'as' => 'edit'
@@ -195,38 +211,38 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
                     'uses' => 'SuperAdminSchool@remove',
                     'as' => 'remove'
                 ]);
-
-                Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
-
-                    Route::get('/', [
-                        'uses' => 'SuperAdminUser@index',
-                        'as' => 'index'
-                    ]);
-
-                    Route::post('add', [
-                        'uses' => 'SuperAdminUser@store',
-                        'as' => 'add'
-                    ]);
-
-                    Route::group(['prefix' => '{user}'], function() {
-                        Route::get('edit', [
-                            'uses' => 'SuperAdminUser@edit',
-                            'as' => 'edit'
-                        ]);
-
-                        Route::put('edit', [
-                            'uses' => 'SuperAdminUser@update',
-                            'as' => 'edit'
-                        ]);
-
-                        Route::delete('remove', [
-                            'uses' => 'SuperAdminUser@remove',
-                            'as' => 'remove'
-                        ]);
-                    });
-                });
-            });
+            });*/
         });
+
+        /*Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
+
+            Route::get('/', [
+                'uses' => 'SuperAdminUser@index',
+                'as' => 'index'
+            ]);
+
+            Route::post('add', [
+                'uses' => 'SuperAdminUser@store',
+                'as' => 'add'
+            ]);
+
+            Route::group(['prefix' => '{user}'], function() {
+                Route::get('edit', [
+                    'uses' => 'SuperAdminUser@edit',
+                    'as' => 'edit'
+                ]);
+
+                Route::put('edit', [
+                    'uses' => 'SuperAdminUser@update',
+                    'as' => 'edit'
+                ]);
+
+                Route::delete('remove', [
+                    'uses' => 'SuperAdminUser@remove',
+                    'as' => 'remove'
+                ]);
+            });
+        });*/
     });
 
 
@@ -318,31 +334,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
 
 
 
-});
 
+});
 
 Route::group(['prefix' => '{school}/admin', 'as' => 'Admin.', 'middleware' => ['school']], function() {
-    Route::get('login', [
-        'uses' => 'Auth\AuthController@getLogin',
-        'as' => 'login'
-    ]);
-    Route::post('login', [
-        'uses' => 'Auth\AuthController@postLogin',
-        'as' => 'login'
-    ]);
+    Route::get('login', function(){
+        return redirect()->route('login');
+    });
 });
-
-
-
-Route::get('admin/login', [
-    'uses' => 'Auth\AuthController@getLogin',
-    'as' => 'login'
-]);
-Route::post('admin/login', [
-    'uses' => 'Auth\AuthController@postLogin',
-    'as' => 'login'
-]);
-Route::get('admin/logout', [
-    'uses' => 'Auth\AuthController@getLogout',
-    'as' => 'logout'
-]);

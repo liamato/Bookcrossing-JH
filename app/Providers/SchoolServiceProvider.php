@@ -3,19 +3,23 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Auth\Guard;
 use App\School;
 use Route;
 
 class SchoolServiceProvider extends ServiceProvider
 {
+
+    protected $auth;
+
     /**
      * Bootstrap the application services.
      *
      * @return void
      */
-    public function boot()
+    public function boot(Guard $auth)
     {
-        //
+        $this->auth = $auth;
     }
 
     /**
@@ -33,6 +37,9 @@ class SchoolServiceProvider extends ServiceProvider
                         return School::find($school);
                     }
                     return School::bySlug($school);
+                }
+                if ($this->auth->check() && \Auth::user()->isSuper()) {
+                    return \Auth::user()->school;
                 }
             }
             return new School;

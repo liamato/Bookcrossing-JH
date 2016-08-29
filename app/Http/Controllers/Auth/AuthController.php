@@ -8,6 +8,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Contracts\Auth\Guard;
 
 class AuthController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthController extends Controller
     {
         $school = \App::make(School::class);
         if ($school->isEmpty()) {
-            return '/admin';
+            return $this->auth->user()->school->slug.'/admin';
         }
         return $school->slug.'/admin';
     }
@@ -40,7 +41,7 @@ class AuthController extends Controller
     {
         $school = \App::make(School::class);
         if ($school->isEmpty()) {
-            return $self->loginPath;
+            return $this->loginPath;
         }
         return $school->slug.$this->loginPath;
     }
@@ -50,9 +51,10 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct(School $school)
+    public function __construct(School $school, Guard $auth)
     {
         $this->middleware('guest', ['except' => 'getLogout']);
+        $this->auth = $auth;
     }
 
     /**
