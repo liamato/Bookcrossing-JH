@@ -338,7 +338,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
 });
 
 Route::group(['prefix' => '{school}/admin', 'as' => 'Admin.', 'middleware' => ['school']], function() {
-    Route::get('login', function(){
-        return redirect()->route('login');
-    });
+    Route::get('login', [function(){
+            return redirect()->route('login');
+        },
+        'as' => 'login'
+    ]);
 });
