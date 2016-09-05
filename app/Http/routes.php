@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/{school?}/{b?}/{c?}/{d?}/{e?}', function () {
-    return view('test.react', ['schools' => \App\School::all(), 'translations' => collect(['ca' => Lang::get('frontend', [], 'ca'), 'es' => Lang::get('frontend', [], 'es'), 'en' => Lang::get('frontend', [], 'en') ])]);
-});
+Route::get('/{school?}/{b?}/{c?}/{d?}/{e?}', [function () {
+        return view('test.react', ['schools' => \App\School::all(), 'translations' => collect(['ca' => Lang::get('frontend', [], 'ca'), 'es' => Lang::get('frontend', [], 'es'), 'en' => Lang::get('frontend', [], 'en') ])]);
+    },
+    'as' => 'School.home'
+]);
 
 Route::get('/', [
     'uses' => 'GuestViewsController@schools',

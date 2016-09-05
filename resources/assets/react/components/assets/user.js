@@ -60,9 +60,9 @@ export default class User extends React.Component {
 					return ret
 				}()}>
 				<label htmlFor="">Nom</label>
-				<input type="text" className="user__name--edit" defaultValue={this.props.name} onClick={this.noPropagation.bind(this)}/>
+				<input type="text" className="user__name--edit" defaultValue={this.props.name} onClick={this.noPropagation.bind(this)} required/>
 				<label htmlFor="">Email</label>
-				<input type="text" className="user__email--edit" defaultValue={this.props.email} onClick={this.noPropagation.bind(this)}/>
+				<input type="email" className="user__email--edit" defaultValue={this.props.email} onClick={this.noPropagation.bind(this)} required/>
 				<label htmlFor="">Password</label>
 				<input type="password" className="user__password--edit" onClick={this.noPropagation.bind(this)}/>
 				{
@@ -75,7 +75,7 @@ export default class User extends React.Component {
 						}
 					}()
 				}
-				<button onClick={this.save.bind(this)}>Guardar</button>
+				<button onClick={this.save.bind(this)}>{this.props.saveBtn||'Guardar'}</button>
 			</div>
 		)
 	}
@@ -90,7 +90,6 @@ User.propTypes = {
 	]).isRequired,
 	email: React.PropTypes.string.isRequired,
 
-
 	selectable: React.PropTypes.bool.isRequired,
 
 	active: React.PropTypes.bool.isRequired,
@@ -99,7 +98,9 @@ User.propTypes = {
 
 	onclick: React.PropTypes.func,
 
-	save: React.PropTypes.func
+	save: React.PropTypes.func,
+
+	saveBtn: React.PropTypes.string
 };
 
 User.defaultProps = {

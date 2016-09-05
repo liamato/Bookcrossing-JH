@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin\SuperAdmin;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminAddSchool;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
+use App\School;
+use App\Category;
 
 class SuperAdminSchool extends Controller
 {
@@ -25,7 +29,7 @@ class SuperAdminSchool extends Controller
      */
     public function add()
     {
-        //
+        return view('admin.school.add', ['users' => User::all('email')]);
     }
 
     /**
@@ -34,9 +38,13 @@ class SuperAdminSchool extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminAddSchool $request)
     {
-        //
+        $r = $request->json()->all();
+        $school = School::create(['name' => $r['name'], 'slug' => $r['slug']]);
+        $user = User::create(['name' => $r['uname'], 'email' => $r['umail'], 'password' => bcrypt($r['upassword']), 'school_id' => $school->id]);
+        $cat = Category::create(['name' => $r['cname'], 'slug' => $r['cslug'], 'school_id' => $school->id]);
+        return ['school' => $school, 'user' => $user, 'category' => $cat];
     }
 
     /**

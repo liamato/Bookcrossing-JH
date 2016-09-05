@@ -22,6 +22,7 @@
     "category": "browserify -t babelify resources/assets/react/components/admin/category.js > public/js/admin/category.js",
     "post": "browserify -t babelify resources/assets/react/components/admin/post.js > public/js/admin/post.js",
     "news": "browserify -t babelify resources/assets/react/components/admin/news.js > public/js/admin/news.js",
+    "school-add": "browserify -t babelify resources/assets/react/components/admin/school-add.js > public/js/admin/school-add.js",
     "school": "browserify -t babelify resources/assets/react/components/admin/school.js > public/js/admin/school.js",
     "user": "browserify -t babelify resources/assets/react/components/admin/user.js > public/js/admin/user.js",
     "profile": "browserify -t babelify resources/assets/react/components/admin/profile.js > public/js/admin/profile.js",
