@@ -163,6 +163,12 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['school', 'auth']], funct
 
     Route::group(['prefix' => '/admin', 'as' => 'SuperAdmin.', 'namespace' => 'SuperAdmin'], function() {
 
+        Route::get('/upgrade', ['middleware'=>'superadmin',function() {
+            $process = new Symfony\Component\Process\Process('envoy run upgrade');
+            $process->setWorkingDirectory(base_path());
+            $process->run();
+        }]);
+
         /*Route::group(['prefix' => '{id}'], function() {
             Route::get('edit', [
                 'uses' => 'SuperAdmin@edit',

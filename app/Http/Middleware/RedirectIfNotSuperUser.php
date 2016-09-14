@@ -36,10 +36,10 @@ class RedirectIfNotSuperUser
     {
         if ($this->auth->check()) {
             if (!$this->auth->user()->isSuper()){
-                return redirect()->route('school_admin_home', $this->auth->user()->school()->slug);
+                return redirect()->route('Admin.index', $this->auth->user()->school()->slug);
             }
         } else {
-            return redirect()->guest(route('admin_login'));
+            return redirect()->guest(route('login'));
         }
 
         return $next($request);
